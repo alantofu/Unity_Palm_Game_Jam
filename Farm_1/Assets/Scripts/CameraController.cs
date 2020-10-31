@@ -7,6 +7,8 @@ public class CameraController : MonoBehaviour
 {
     // https://www.youtube.com/watch?v=rnqF6S7PfFA&t=734s
 
+    public static CameraController instance;
+    public Transform followTransform;
     public Transform cameraTransform;
     public float normalSpeed;
     public float fastSpeed;
@@ -21,6 +23,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         newPosition = transform.position;
         newZoom = cameraTransform.localPosition;
     }
@@ -28,12 +31,27 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (followTransform != null)
+        {
+            transform.position = new Vector3(Mathf.RoundToInt(followTransform.position.x - 35),
+                                                0,
+                                                Mathf.RoundToInt(followTransform.position.z - 35));
+        }
         HandleMovementInput();
         HandleMouseInput();
     }
 
     void HandleMouseInput()
     {
+        // unfocus or unfollow
+        followTransform = null;
+
+        if (Input.mouseScrollDelta.y != 0)
+        {
+            newZoom += Input.mouseScrollDelta.y * zoomAmount;
+        }
+
+        // Returns true during the frame the user pressed the given mouse button.
         if (Input.GetMouseButtonDown(0))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
@@ -47,6 +65,7 @@ public class CameraController : MonoBehaviour
                 dragStartPosition = ray.GetPoint(entry);
             }
         }
+        // Returns whether the given mouse button is held down.
         if (Input.GetMouseButton(0))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
@@ -90,9 +109,18 @@ public class CameraController : MonoBehaviour
         {
             newPosition += (transform.right * -movementSpeed);
         }
+        if (Input.GetKey(KeyCode.R))
+        {
+            newZoom += zoomAmount;
+        }
+        if (Input.GetKey(KeyCode.F))
+        {
+            newZoom -= zoomAmount;
+        }
 
         // need to google how Vector3.Lerp works
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
 }
