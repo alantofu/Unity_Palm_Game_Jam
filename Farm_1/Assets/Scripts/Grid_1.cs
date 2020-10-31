@@ -4,26 +4,27 @@ using UnityEngine;
 
 // https://www.youtube.com/watch?v=VBZFYGWvm4A
 // https://www.youtube.com/watch?v=v7o7cjFqvrY
-// https://www.youtube.com/watch?v=rnqF6S7PfFA
 // https://www.youtube.com/watch?v=eUFwxK9Z9aw
 public class Grid_1 : MonoBehaviour
 {
     [SerializeField]
-    public float size = 1f; // distance
+    public float gridSize = 1f; // distance
     public float width = 20f;
-    public bool turnOn = true;
+    public float length = 20f;
+    public bool show = true;
+    public bool followParentScale = true;
     public Vector3 getPointOnGrid(Vector3 position)
     {
         // position -= transform.position;
 
-        int xCount = Mathf.RoundToInt(position.x / size);
-        int yCount = Mathf.RoundToInt(position.y / size);
-        int zCount = Mathf.RoundToInt(position.z / size);
+        int xCount = Mathf.RoundToInt(position.x / gridSize);
+        int yCount = Mathf.RoundToInt(position.y / gridSize);
+        int zCount = Mathf.RoundToInt(position.z / gridSize);
 
         Vector3 result = new Vector3(
-            (float)xCount * size,
-            (float)yCount * size,
-            (float)zCount * size
+            (float)xCount * gridSize,
+            (float)yCount * gridSize,
+            (float)zCount * gridSize
         );
 
         // result += transform.position;
@@ -34,19 +35,24 @@ public class Grid_1 : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        if (turnOn)
+        if (show)
         {
-            for (float x = 0; x < width; x += size)
+            if(followParentScale) {
+                width = transform.root.gameObject.transform.localScale.x * 10 + 1;
+                length = transform.root.gameObject.transform.localScale.z * 10 + 1;
+            }
+            for (float x = 0; x < width; x += gridSize)
             {
-                for (float z = 0; z < width; z += size)
+                for (float z = 0; z < length; z += gridSize)
                 {
                     var point = getPointOnGrid(new Vector3(x, 0f, z));
-                    point += transform.position;
+                    point += transform.position - new Vector3(Mathf.FloorToInt(width / 2), 0, Mathf.FloorToInt(length / 2));
                     // Debug.Log(point);
                     Gizmos.DrawSphere(point, 0.1f);
                 }
             }
         }
+
     }
 
     // Start is called before the first frame update
