@@ -23,6 +23,7 @@ public class GridSystem : MonoBehaviour
 
     private void Awake()
     {
+        // singleton condition
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -45,17 +46,14 @@ public class GridSystem : MonoBehaviour
 
     public Vector3 getPointOnGrid(Vector3 position)
     {
-        int xCount = Mathf.RoundToInt(position.x / gridSize);
-        int yCount = Mathf.RoundToInt(position.y / gridSize);
-        int zCount = Mathf.RoundToInt(position.z / gridSize);
+        Vector3 snapPos = Vector3.zero;
 
-        Vector3 result = new Vector3(
-            (float)xCount * gridSize,
-            (float)yCount * gridSize,
-            (float)zCount * gridSize
-        );
+        snapPos.x = Mathf.RoundToInt(position.x / gridSize) * gridSize;
+        // y always zero on grid
+        // result.y = Mathf.RoundToInt(position.y / gridSize) * gridSize;
+        snapPos.z = Mathf.RoundToInt(position.z / gridSize) * gridSize;
 
-        return result;
+        return snapPos;
     }
 
     private void OnDrawGizmos()
@@ -92,7 +90,7 @@ public class GridSystem : MonoBehaviour
         {
             GL.Color(baseColor);
             GL.Vertex3(x + gridWidth, 0.05f, gridLength);
-            GL.Vertex3(x + gridWidth, 0.05f, length +gridLength);
+            GL.Vertex3(x + gridWidth, 0.05f, length + gridLength);
         }
 
         GL.End();

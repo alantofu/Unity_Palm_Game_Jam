@@ -33,11 +33,6 @@ public class PlacementSystem : MonoBehaviour
         {
             selectedObject.transform.position = newPosition;
         }
-        // if (!Input.GetMouseButton(0))
-        // {
-        //     selectedObject = null;
-        //     transform.position = new Vector3(2, 0, 2);
-        // }
     }
 
     private void OnMouseUp()
