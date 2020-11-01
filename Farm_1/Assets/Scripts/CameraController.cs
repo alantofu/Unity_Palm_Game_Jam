@@ -123,4 +123,25 @@ public class CameraController : MonoBehaviour
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
+    public static Vector3 GetPlaneIntersectPos()
+    {
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+
+        //Create a ray from the Mouse click position
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //Initialise the enter variable
+        float enter = 0.0f;
+
+        Vector3 hitPoint = Vector3.zero;
+
+        if (plane.Raycast(ray, out enter))
+        {
+            //Get the point that is clicked
+            hitPoint = ray.GetPoint(enter);
+        }
+
+        return hitPoint;
+    }
+
 }
