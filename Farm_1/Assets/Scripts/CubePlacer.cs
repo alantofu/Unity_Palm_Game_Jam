@@ -5,11 +5,11 @@ using UnityEngine;
 public class CubePlacer : MonoBehaviour
 {
 
-    private Grid_1 grid;
+    private GridSystem grid;
 
     void Awake()
     {
-        grid = FindObjectOfType<Grid_1>();
+        grid = FindObjectOfType<GridSystem>();
     }
 
     // Start is called before the first frame update

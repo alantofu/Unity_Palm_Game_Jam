@@ -6,10 +6,10 @@ using UnityEngine;
 // https://www.youtube.com/watch?v=v7o7cjFqvrY
 // https://www.youtube.com/watch?v=eUFwxK9Z9aw
 // https://www.youtube.com/watch?v=s926MfazI50
-public class Grid_1 : MonoBehaviour
+public class GridSystem : MonoBehaviour
 {
-    private static Grid_1 _instance;
-    public static Grid_1 Instance { get { return _instance; } } // a singleton
+    private static GridSystem _instance;
+    public static GridSystem Instance { get { return _instance; } } // a singleton
 
     public Color baseColor;
 

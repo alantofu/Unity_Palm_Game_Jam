@@ -5,6 +5,6 @@ using UnityEngine;
 public class PostCameraProcess : MonoBehaviour
 {
     private void OnPostRender() {
-        Grid_1.Instance.DisplayGridLines();
+        GridSystem.Instance.DisplayGridLines();
     }
 }
