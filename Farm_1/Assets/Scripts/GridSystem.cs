@@ -18,7 +18,6 @@ public class GridSystem : MonoBehaviour
     public float gridSize = 1f; // distance
     public float width = 20f;
     public float length = 20f;
-    public bool showGizmos = true;
     public bool followParentScale = true;
 
     private void Awake()
@@ -47,10 +46,8 @@ public class GridSystem : MonoBehaviour
     public Vector3 getPointOnGrid(Vector3 position)
     {
         Vector3 snapPos = Vector3.zero;
-
         snapPos.x = Mathf.RoundToInt(position.x / gridSize) * gridSize;
         // y always zero on grid
-        // result.y = Mathf.RoundToInt(position.y / gridSize) * gridSize;
         snapPos.z = Mathf.RoundToInt(position.z / gridSize) * gridSize;
 
         return snapPos;
@@ -58,9 +55,10 @@ public class GridSystem : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (showGizmos)
+        if (followParentScale)
         {
-            DisplayGizmo();
+            width = transform.root.gameObject.transform.localScale.x * 10 + 1;
+            length = transform.root.gameObject.transform.localScale.z * 10 + 1;
         }
         DisplayGridLines();
     }
@@ -97,24 +95,5 @@ public class GridSystem : MonoBehaviour
         GL.PopMatrix();
     }
 
-    void DisplayGizmo()
-    {
-        Gizmos.color = baseColor;
-        if (followParentScale)
-        {
-            width = transform.root.gameObject.transform.localScale.x * 10 + 1;
-            length = transform.root.gameObject.transform.localScale.z * 10 + 1;
-        }
-        for (float x = 0; x < width; x += gridSize)
-        {
-            for (float z = 0; z < length; z += gridSize)
-            {
-                var point = getPointOnGrid(new Vector3(x, 0f, z));
-                point += transform.position - new Vector3(Mathf.FloorToInt(width / 2), 0, Mathf.FloorToInt(length / 2));
 
-                Gizmos.DrawSphere(point, 0.1f);
-            }
-        }
-
-    }
 }
