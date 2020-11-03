@@ -37,3 +37,5 @@
 5. [Unity Button Click Events C# Script Tutorial](https://www.youtube.com/watch?v=kdkrjCF0KCo)
 6. [Unity Tutorial: Open Panel on Button Click](https://www.youtube.com/watch?v=LziIlLB2Kt4)
 7. [Show and hide a canvas on a button click.](https://answers.unity.com/questions/1120426/show-and-hide-a-canvas-on-a-button-click.html)
+8. [Unity UI - Blocking clicks](https://www.youtube.com/watch?v=EVZiv7DLU6E&app=desktop)
+9. [Unity3D - Avoid / Detect Clicks Through your UI | How to know if your player clicked on UI](https://www.youtube.com/watch?v=rATAnkClkWU)
