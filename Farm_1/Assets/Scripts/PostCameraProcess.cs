@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class PostCameraProcess : MonoBehaviour
 {
-    private void OnPostRender() {
-        GridSystem.Instance.DisplayGridLines();
+
+    public bool toggle;
+
+    private void OnPostRender()
+    {
+        if (toggle)
+        {
+            GridSystem.Instance.DisplayGridLines();
+        }
     }
 }

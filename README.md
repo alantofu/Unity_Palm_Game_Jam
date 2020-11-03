@@ -30,9 +30,10 @@
   - [ ] parallel processing
 
 ### UI
-1. [How to make UI in UNITY - EASY TUTORIAL](https://www.youtube.com/watch?v=_RIsfVOqTaE)
-2. [Video 2](https://www.youtube.com/watch?v=VHFJgQraVUs)
-3. [Video 3](https://www.youtube.com/watch?v=Ad-Q9hYCnCg)
-4. [Unity Button Click Events C# Script Tutorial](https://www.youtube.com/watch?v=kdkrjCF0KCo)
-5. [Unity Tutorial: Open Panel on Button Click](https://www.youtube.com/watch?v=LziIlLB2Kt4)
-6. [Show and hide a canvas on a button click.](https://answers.unity.com/questions/1120426/show-and-hide-a-canvas-on-a-button-click.html)
+1. [New Unity UI Package](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html)
+2. [How to make UI in UNITY - EASY TUTORIAL](https://www.youtube.com/watch?v=_RIsfVOqTaE)
+3. [Video 2](https://www.youtube.com/watch?v=VHFJgQraVUs)
+4. [Video 3](https://www.youtube.com/watch?v=Ad-Q9hYCnCg)
+5. [Unity Button Click Events C# Script Tutorial](https://www.youtube.com/watch?v=kdkrjCF0KCo)
+6. [Unity Tutorial: Open Panel on Button Click](https://www.youtube.com/watch?v=LziIlLB2Kt4)
+7. [Show and hide a canvas on a button click.](https://answers.unity.com/questions/1120426/show-and-hide-a-canvas-on-a-button-click.html)
