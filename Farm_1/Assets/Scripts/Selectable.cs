@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class Selectable : MonoBehaviour
 {
-    private void OnMouseDown() {
-        PlacementSystem.Instance.selectedObject = this.gameObject;
-        PlacementSystem.Instance.gameObject.transform.position = transform.position;
+    private PlacementSystem placementSystem;
+
+    private void Awake()
+    {
+        placementSystem = PlacementSystem.Instance;
     }
 
-    private void OnMouseUpAsButton() {
-        PlacementSystem.Instance.selectedObject = null;
+    private void OnMouseDown()
+    {
+        // placementSystem.selectedObject = this.gameObject;
+        // placementSystem.gameObject.transform.position = transform.position;
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        // placementSystem.selectedObject = null;
     }
 }

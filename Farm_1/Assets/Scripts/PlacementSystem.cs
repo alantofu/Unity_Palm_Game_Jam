@@ -9,9 +9,8 @@ public class PlacementSystem : MonoBehaviour
     private static PlacementSystem _instance;
     public static PlacementSystem Instance { get { return _instance; } } // a singleton
 
-    [SerializeField]
     public GameObject selectedObject;
-
+    public GameObject promptPlane;
     private Vector3 tempPosition;
     private Vector3 newPosition;
 
@@ -29,15 +28,39 @@ public class PlacementSystem : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (selectedObject != null)
+        // if (selectedObject != null)
+        // {
+        //     selectedObject.transform.position = newPosition;
+        // }
+        if (Input.GetMouseButtonDown(0))
         {
-            selectedObject.transform.position = newPosition;
+
         }
+    }
+
+    private void OnEnable()
+    {
+        selectedObject = null;
+    }
+
+    private void OnDisable()
+    {
+        selectedObject = null;
     }
 
     private void OnMouseUp()
     {
         selectedObject = null;
+    }
+
+    public void createPromptPlane()
+    {
+        GameObject oldPromptPlane = GameObject.Find("Prompt Plane");
+        if (oldPromptPlane != null)
+        {
+            Destroy(oldPromptPlane);
+        }
+        // Instantiate(promptPlane, new Transform());
     }
 
     private void Update()
