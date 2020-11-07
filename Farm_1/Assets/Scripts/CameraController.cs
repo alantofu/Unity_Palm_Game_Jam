@@ -37,7 +37,6 @@ public class CameraController : MonoBehaviour
                                                 0,
                                                 Mathf.RoundToInt(followTransform.position.z - 35));
         }
-        HandleMovementInput();
         HandleMouseInput();
     }
 
@@ -54,33 +53,19 @@ public class CameraController : MonoBehaviour
         // Returns true during the frame the user pressed the given mouse button.
         if (Input.GetMouseButtonDown(0))
         {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            float entry;
-
-            if (plane.Raycast(ray, out entry))
-            {
-                dragStartPosition = ray.GetPoint(entry);
-            }
+            dragStartPosition = GetPlaneIntersectPos();
+            dragStartPosition.y = 0;
         }
         // Returns whether the given mouse button is held down.
         if (Input.GetMouseButton(0))
         {
-            Plane plane = new Plane(Vector3.up, Vector3.zero);
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            float entry;
-
-            if (plane.Raycast(ray, out entry))
-            {
-                dragCurrentPosition = ray.GetPoint(entry);
-
-                newPosition = transform.position + dragStartPosition - dragCurrentPosition;
-            }
+            dragCurrentPosition = GetPlaneIntersectPos();
+            dragCurrentPosition.y = 0;
+            newPosition = transform.position + dragStartPosition - dragCurrentPosition;
         }
+        // need to google how Vector3.Lerp works
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
     void HandleMovementInput()
@@ -118,9 +103,7 @@ public class CameraController : MonoBehaviour
             newZoom -= zoomAmount;
         }
 
-        // need to google how Vector3.Lerp works
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
+
     }
 
     public static Vector3 GetPlaneIntersectPos()

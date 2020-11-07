@@ -6,7 +6,7 @@ public class Selectable : MonoBehaviour
 {
     private PlacementSystem placementSystem;
 
-    private void Awake()
+    private void Start()
     {
         placementSystem = PlacementSystem.Instance;
     }
@@ -15,6 +15,8 @@ public class Selectable : MonoBehaviour
     {
         // placementSystem.selectedObject = this.gameObject;
         // placementSystem.gameObject.transform.position = transform.position;
+        // Debug.Log("Seleted " + this.name);
+        Destroy(this.gameObject);
     }
 
     private void OnMouseUpAsButton()
