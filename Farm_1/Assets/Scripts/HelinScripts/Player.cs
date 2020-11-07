@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
   public static Player Instance { get { return _instance; } } // a singleton
   // private static Player instance = null;
   private int money = 100;
-  private int rep = 100;
-  private int oil = 100;
+  private int rep = 110;
+  private int oil = 120;
 
   public int Money
   {
@@ -29,8 +29,7 @@ public class Player : MonoBehaviour
   private void Awake()
   {
     // singleton condition
-    if (_instance != null && _instance != this)
-    {
+    if (_instance != null && _instance != this){
       Destroy(this.gameObject);
     }
     else

@@ -275,12 +275,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506991557}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1039579928568794cabc28179bdc4f0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 31abdaeb22e5e2d43944f4c10635a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinText: {fileID: 506991560}
+  text: {fileID: 506991560}
   player: {fileID: 400225428}
 --- !u!114 &506991560
 MonoBehaviour:
@@ -543,10 +543,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 803705184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1039579928568794cabc28179bdc4f0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 31abdaeb22e5e2d43944f4c10635a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinText: {fileID: 506991560}
+  text: {fileID: 506991560}
   player: {fileID: 400225428}
 --- !u!1 &872690369
 GameObject:
@@ -764,12 +764,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150328400}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1039579928568794cabc28179bdc4f0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 77f09cf23e426f14bb8ecbb579063802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinText: {fileID: 1150328403}
+  text: {fileID: 1150328403}
   player: {fileID: 400225428}
 --- !u!114 &1150328403
 MonoBehaviour:
@@ -952,10 +952,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1210280840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1039579928568794cabc28179bdc4f0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 77f09cf23e426f14bb8ecbb579063802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinText: {fileID: 1150328403}
+  text: {fileID: 1150328403}
   player: {fileID: 400225428}
 --- !u!1 &1304720802
 GameObject:
