@@ -2,32 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class Player
+public class Player : MonoBehaviour
 {
-  private static Player instance = null;
-  private static readonly object padlock = new object();
+  private static Player _instance;
+  public static Player Instance { get { return _instance; } } // a singleton
+  // private static Player instance = null;
   private int money = 100;
   private int rep = 100;
   private int oil = 100;
-
-  Player()
-  {
-  }
-
-  public static Player Instance
-  {
-    get
-    {
-      lock (padlock)
-      {
-        if (instance == null)
-        {
-          instance = new Player();
-        }
-        return instance;
-      }
-    }
-  }
 
   public int Money
   {
@@ -44,46 +26,60 @@ public sealed class Player
     get { return oil; }
     set { oil = value; }
   }
-  public int reduceMoney(int amount)
+  private void Awake()
+  {
+    // singleton condition
+    if (_instance != null && _instance != this)
+    {
+      Destroy(this.gameObject);
+    }
+    else
+    {
+      _instance = this;
+    }
+  }
+
+
+  public void reduceMoney(int amount)
   {
     int currAmount = Money;
     currAmount -= amount;
     Money = currAmount;
-    return currAmount;
+    // return currAmount;
   }
-  public int addMoney(int amount)
+  public void addMoney(int amount)
   {
     int currAmount = Money;
     currAmount += amount;
     Money = currAmount;
-    return currAmount;
+    // return currAmount;
   }
-  public int reduceRep(int amount)
+  public void reduceRep(int amount)
   {
     int currAmount = Rep;
     currAmount -= amount;
     Rep = currAmount;
-    return currAmount;
+    // return currAmount;
   }
-  public int addRep(int amount)
+  public void addRep(int amount)
   {
     int currAmount = Rep;
     currAmount += amount;
     Rep = currAmount;
-    return currAmount;
+    // return currAmount;
   }
-  public int reduceOil(int amount)
+  public void reduceOil(int amount)
   {
     int currAmount = Oil;
     currAmount -= amount;
     Oil = currAmount;
-    return currAmount;
+    // return currAmount;
   }
-  public int addOil(int amount)
+  public void addOil(int amount)
   {
     int currAmount = Oil;
     currAmount += amount;
     Oil = currAmount;
-    return currAmount;
+    // return currAmount;
   }
 }
