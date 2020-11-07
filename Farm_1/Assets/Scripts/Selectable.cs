@@ -16,7 +16,7 @@ public class Selectable : MonoBehaviour
         // placementSystem.selectedObject = this.gameObject;
         // placementSystem.gameObject.transform.position = transform.position;
         // Debug.Log("Seleted " + this.name);
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
     }
 
     private void OnMouseUpAsButton()

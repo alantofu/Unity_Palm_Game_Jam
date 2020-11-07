@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ForestSpawner : MonoBehaviour
+public class ObjectSpawner : MonoBehaviour
 {
-    public GameObject forestObject;
-    public Transform parentTransform;
+    public GameObject forestPrefab;
+    public GameObject palmPrefab;
+    public GameObject factoryPrefab;
+    public Transform forestParent;
+    public Transform palmParent;
+    public Transform factoryParent;
 
     private GridSystem gridSystem;
 
@@ -21,12 +25,12 @@ public class ForestSpawner : MonoBehaviour
         {
             for (int z = 0; z <= gridSystem.objectOnGrid.GetUpperBound(1); z++)
             {
-                if (CheckSpawnPermit(x, z))
+                if (CheckForestSpawnPermit(x, z))
                 {
-                    GameObject tempObj = Instantiate(forestObject,
+                    GameObject tempObj = Instantiate(forestPrefab,
                                                         gridSystem.getPositionByGridPoint(x, z),
                                                         Quaternion.identity,
-                                                        parentTransform);
+                                                        forestParent);
                     tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
                     // Color tempColor = tempObj.transform.GetChild(0).GetComponent<Renderer>().material.color;
                     // Color tempColor = tempObj.GetComponentInChildren<Renderer>().material.color;
@@ -40,12 +44,16 @@ public class ForestSpawner : MonoBehaviour
     }
 
     // true if forest tree can generate at that point
-    private bool CheckSpawnPermit(int x, int z)
+    private bool CheckForestSpawnPermit(int x, int z)
     {
         if ((x >= 40 && x <= 60) && (z >= 40 && z <= 60))
         {
             return false;
         }
+        return true;
+    }
+
+    private bool CheckPalmSpawnPermit() {
         return true;
     }
 

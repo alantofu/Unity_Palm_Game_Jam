@@ -21,6 +21,7 @@ public class GridSystem : MonoBehaviour
     public float gridSize = 1f; // distance
     public int width = 20; // x
     public int length = 20; // z
+    public float gridLineHeight = 1; // y
     public bool followParentScale = true;
 
     private void Awake()
@@ -85,6 +86,13 @@ public class GridSystem : MonoBehaviour
         return tempPosition;
     }
 
+    public Vector3 getRoundedPosition(Vector3 worldPosition)
+    {
+        return new Vector3(Mathf.RoundToInt(worldPosition.x),
+                            0,
+                            Mathf.RoundToInt(worldPosition.z));
+    }
+
     private void OnDrawGizmos()
     {
         DisplayGridLines();
@@ -108,14 +116,14 @@ public class GridSystem : MonoBehaviour
         for (float z = 0; z < length; z += gridSize)
         {
             GL.Color(baseColor);
-            GL.Vertex3(gridWidth, 0.05f, z + gridLength);
-            GL.Vertex3(width + gridWidth, 0.05f, z + gridLength);
+            GL.Vertex3(gridWidth, gridLineHeight, z + gridLength);
+            GL.Vertex3(width + gridWidth, gridLineHeight, z + gridLength);
         }
         for (float x = 0; x < width; x += gridSize)
         {
             GL.Color(baseColor);
-            GL.Vertex3(x + gridWidth, 0.05f, gridLength);
-            GL.Vertex3(x + gridWidth, 0.05f, length + gridLength);
+            GL.Vertex3(x + gridWidth, gridLineHeight, gridLength);
+            GL.Vertex3(x + gridWidth, gridLineHeight, length + gridLength);
         }
 
         GL.End();
