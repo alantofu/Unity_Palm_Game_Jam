@@ -11562,11 +11562,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD
---- !u!224 &1841661458
-=======
 --- !u!224 &1975292816
->>>>>>> 2cd26c4fd15fec90d082a6a089341448e62918f4
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
