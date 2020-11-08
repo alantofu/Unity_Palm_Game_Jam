@@ -15,12 +15,13 @@ public class ObjectSpawner : MonoBehaviour
 
     void Start()
     {
+        gridSystem = GridSystem.Instance;
         SpawnForest();
+        SpawnPalmOil();
     }
 
     private void SpawnForest()
     {
-        gridSystem = GridSystem.Instance;
         for (int x = 0; x <= gridSystem.objectOnGrid.GetUpperBound(0); x++)
         {
             for (int z = 0; z <= gridSystem.objectOnGrid.GetUpperBound(1); z++)
@@ -43,17 +44,34 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    private void SpawnPalmOil()
+    {
+        for (int x = 49; x <= 50; x++)
+        {
+            for (int z = 49; z <= 50; z++)
+            {
+                    GameObject tempObj = Instantiate(palmPrefab,
+                                                        gridSystem.getPositionByGridPoint(x, z),
+                                                        Quaternion.identity,
+                                                        palmParent);
+                    tempObj.name = "Palm Tree (" + x.ToString() + ", " + z.ToString() + ")";
+                    gridSystem.objectOnGrid[x, z] = tempObj;
+            }
+        }
+    }
+
     // true if forest tree can generate at that point
     private bool CheckForestSpawnPermit(int x, int z)
     {
-        if ((x >= 40 && x <= 60) && (z >= 40 && z <= 60))
+        if ((x >= 49 && x <= 50) && (z >= 49 && z <= 50))
         {
             return false;
         }
         return true;
     }
 
-    private bool CheckPalmSpawnPermit() {
+    private bool CheckPalmSpawnPermit()
+    {
         return true;
     }
 

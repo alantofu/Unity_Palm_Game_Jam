@@ -4,35 +4,44 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private PlacementSystem placementSystem;
     private BuildSystem buildSystem;
+    private PlantSystem plantSystem;
     private Camera mainCam;
-
-    private void Awake()
-    {
-
-    }
 
     private void Start()
     {
         mainCam = Camera.main;
-        placementSystem = PlacementSystem.Instance;
         buildSystem = BuildSystem.Instance;
+        plantSystem = PlantSystem.Instance;
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
-        placementSystem.gameObject.SetActive(false);
         buildSystem.gameObject.SetActive(false);
+        plantSystem.gameObject.SetActive(true);
     }
 
     public void triggerPlacementSystem(bool trigger)
     {
         mainCam.GetComponent<PostCameraProcess>().toggle = trigger;
-        placementSystem.gameObject.SetActive(trigger);
     }
 
     public void triggerBuildSystem(bool trigger)
     {
+        mainCam.GetComponent<PostCameraProcess>().toggle = trigger;
         buildSystem.gameObject.SetActive(trigger);
-        buildSystem.CreateFactory();
+        if(trigger) {
+            buildSystem.InstantiateFactoryObj();
+        }
+        else{
+            buildSystem.PlaceFactoryObj();
+        }
+    }
+
+    public void triggerPlantSystem(bool trigger)
+    {
+        plantSystem.gameObject.SetActive(trigger);
+    }
+
+    public void plantPalmOilTree() {
+        plantSystem.PlacePalmObj();
     }
 
 }

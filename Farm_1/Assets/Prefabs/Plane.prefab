@@ -142,5 +142,5 @@ MonoBehaviour:
   gridSize: 1
   width: 101
   length: 101
-  showGizmos: 0
-  followParentScale: 1
+  gridLineHeight: 0.2
+  followParentScale: 0

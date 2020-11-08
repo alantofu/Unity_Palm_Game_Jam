@@ -1,22 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Selectable : MonoBehaviour
 {
-    private PlacementSystem placementSystem;
+    private BuildSystem buildSystem;
+    private PlantSystem plantSystem;
 
     private void Start()
     {
-        placementSystem = PlacementSystem.Instance;
+        buildSystem = BuildSystem.Instance;
+        plantSystem = PlantSystem.Instance;
     }
 
     private void OnMouseDown()
     {
-        // placementSystem.selectedObject = this.gameObject;
-        // placementSystem.gameObject.transform.position = transform.position;
-        // Debug.Log("Seleted " + this.name);
-        // Destroy(this.gameObject);
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+
+        if (this.gameObject.CompareTag("Forest Tree"))
+        {
+            plantSystem.UnhighlightForestObject();
+            buildSystem.selectedForestObject = this.gameObject;
+            plantSystem.selectedForestObject = this.gameObject;
+        }
     }
 
     private void OnMouseUpAsButton()
