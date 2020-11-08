@@ -39,3 +39,5 @@
 7. [Show and hide a canvas on a button click.](https://answers.unity.com/questions/1120426/show-and-hide-a-canvas-on-a-button-click.html)
 8. [Unity UI - Blocking clicks](https://www.youtube.com/watch?v=EVZiv7DLU6E&app=desktop)
 9. [Unity3D - Avoid / Detect Clicks Through your UI | How to know if your player clicked on UI](https://www.youtube.com/watch?v=rATAnkClkWU)
+10. [Object Outline Github](https://github.com/Shrimpey/UltimateOutline)
+11. [Object Outline](https://www.youtube.com/watch?v=00qMZlacZQo)

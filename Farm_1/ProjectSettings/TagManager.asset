@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Selectable
+  - Forest Tree
   layers:
   - Default
   - TransparentFX
