@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af428858caf4b644bdf2582888e8f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factoryPrefab: {fileID: 7843490813971796792, guid: 632ebbe795b4fd44b93121bc3db4d7a7,
+  factoryPrefab: {fileID: 7843490813971796792, guid: a3e18c1c426b839469cff67c3c559182,
     type: 3}
   factoryParent: {fileID: 1479144673}
   freshObject: {fileID: 0}
@@ -1388,11 +1388,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 241337476035468807, guid: 632ebbe795b4fd44b93121bc3db4d7a7,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1001878452004522652, guid: 632ebbe795b4fd44b93121bc3db4d7a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1775,6 +1770,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f3f7559d01b6046b20bb0de4c24721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &3101045514230835316
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1001878452004522652, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843490813971796792, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_Name
+      value: Chocolate Factory
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843490813971796792, guid: a3e18c1c426b839469cff67c3c559182,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a3e18c1c426b839469cff67c3c559182, type: 3}
 --- !u!1001 &4215282778792592197
 PrefabInstance:
   m_ObjectHideFlags: 0

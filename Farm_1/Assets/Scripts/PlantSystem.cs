@@ -59,6 +59,7 @@ public class PlantSystem : MonoBehaviour
                 }
                 else
                 {
+                    UnhighlightForestObject();
                     selectedForestObject = null;
                 }
             }
