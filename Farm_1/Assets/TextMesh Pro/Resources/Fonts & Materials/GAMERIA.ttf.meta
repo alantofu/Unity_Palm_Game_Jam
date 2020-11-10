@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f3e0ca4b7ee53cd44b08ddbb8dac37b3
+guid: 5c5a36da2177d2b4fa0defa0afd7edc8
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Junegull
+  fontName: GAMERIA
   fontNames:
-  - Junegull
+  - GAMERIA
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
