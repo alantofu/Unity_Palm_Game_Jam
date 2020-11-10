@@ -32,12 +32,10 @@ public class ObjectSpawner : MonoBehaviour
                                                         gridSystem.getPositionByGridPoint(x, z),
                                                         Quaternion.identity,
                                                         forestParent);
-                    tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
-                    // Color tempColor = tempObj.transform.GetChild(0).GetComponent<Renderer>().material.color;
-                    // Color tempColor = tempObj.GetComponentInChildren<Renderer>().material.color;
-                    // tempColor.a = 0.2f;
-                    // tempObj.transform.GetChild(0).GetComponent<Renderer>().material.color = tempColor;
-                    // tempObj.GetComponentInChildren<Renderer>().material.color = tempColor;
+                    Vector3 randomPosition = new Vector3(Random.Range(0.0f, 0.5f), 0.545f, Random.Range(0.0f, 0.5f));
+                    tempObj.transform.GetChild(0).transform.position = tempObj.transform.position + randomPosition;
+                    tempObj.transform.GetChild(1).transform.position = tempObj.transform.position + randomPosition;
+                    // Debug.Log(tempObj + " - " + tempObj.transform.GetChild(0).transform.position);
                     gridSystem.objectOnGrid[x, z] = tempObj;
                 }
             }
@@ -50,12 +48,12 @@ public class ObjectSpawner : MonoBehaviour
         {
             for (int z = 49; z <= 50; z++)
             {
-                    GameObject tempObj = Instantiate(palmPrefab,
-                                                        gridSystem.getPositionByGridPoint(x, z),
-                                                        Quaternion.identity,
-                                                        palmParent);
-                    tempObj.name = "Palm Tree (" + x.ToString() + ", " + z.ToString() + ")";
-                    gridSystem.objectOnGrid[x, z] = tempObj;
+                GameObject tempObj = Instantiate(palmPrefab,
+                                                    gridSystem.getPositionByGridPoint(x, z),
+                                                    Quaternion.identity,
+                                                    palmParent);
+                tempObj.name = "Palm Tree (" + x.ToString() + ", " + z.ToString() + ")";
+                gridSystem.objectOnGrid[x, z] = tempObj;
             }
         }
     }

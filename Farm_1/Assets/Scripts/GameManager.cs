@@ -23,14 +23,22 @@ public class GameManager : MonoBehaviour
         mainCam.GetComponent<PostCameraProcess>().toggle = trigger;
     }
 
-    public void triggerBuildSystem(bool trigger)
+    public void buildChocolateFactory(bool trigger)
+    {
+        triggerBuildSystem(trigger, 0);
+    }
+
+
+    private void triggerBuildSystem(bool trigger, int index)
     {
         mainCam.GetComponent<PostCameraProcess>().toggle = trigger;
         buildSystem.gameObject.SetActive(trigger);
-        if(trigger) {
-            buildSystem.InstantiateFactoryObj();
+        if (trigger)
+        {
+            buildSystem.InstantiateFactoryObj(index);
         }
-        else{
+        else
+        {
             buildSystem.PlaceFactoryObj();
         }
     }
@@ -40,8 +48,11 @@ public class GameManager : MonoBehaviour
         plantSystem.gameObject.SetActive(trigger);
     }
 
-    public void plantPalmOilTree() {
+    public void plantPalmOilTree()
+    {
         plantSystem.PlacePalmObj();
     }
+
+
 
 }

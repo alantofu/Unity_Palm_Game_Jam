@@ -7,7 +7,7 @@ public class BuildSystem : MonoBehaviour
     private static BuildSystem _instance;
     public static BuildSystem Instance { get { return _instance; } } // a singleton
     private GridSystem gridSystem;
-    public GameObject factoryPrefab;
+    public GameObject[] factoryPrefab;
     public GameObject factoryParent;
     public GameObject freshObject;
     public GameObject selectedForestObject;
@@ -94,9 +94,9 @@ public class BuildSystem : MonoBehaviour
         }
     }
 
-    public void InstantiateFactoryObj()
+    public void InstantiateFactoryObj(int index)
     {
-        freshObject = Instantiate(factoryPrefab,
+        freshObject = Instantiate(factoryPrefab[index],
                                     Vector3.zero,
                                     Quaternion.identity,
                                     factoryParent.transform);
