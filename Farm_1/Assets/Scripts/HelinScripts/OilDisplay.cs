@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 public class OilDisplay : MonoBehaviour
 {
-  public Text text;
+
+  public TMP_Text text;
   public Player player;
   void Start()
   {

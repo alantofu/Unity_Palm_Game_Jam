@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
   private static Player _instance;
   public static Player Instance { get { return _instance; } } // a singleton
   // private static Player instance = null;
-  private int money = 100;
-  private int rep = 110;
-  private int oil = 120;
+  private int money = 10000;
+  private int rep = 15;
+  private int oil = 12000;
 
   public int Money
   {
@@ -29,7 +29,8 @@ public class Player : MonoBehaviour
   private void Awake()
   {
     // singleton condition
-    if (_instance != null && _instance != this){
+    if (_instance != null && _instance != this)
+    {
       Destroy(this.gameObject);
     }
     else
@@ -43,7 +44,10 @@ public class Player : MonoBehaviour
   {
     int currAmount = Money;
     currAmount -= amount;
-    Money = currAmount;
+    if (currAmount >= 0)
+    {
+      Money = currAmount;
+    }
     // return currAmount;
   }
   public void addMoney(int amount)
