@@ -49,8 +49,8 @@ public class MousePointDebug : MonoBehaviour
             // Debug.Log("Intersect point: " + hitPoint);
             Debug.DrawRay(ray.origin, ray.direction * enter, Color.blue);
             Vector2Int tempVector2 = gridSystem.getGridPointByPosition(hitPoint);
-            Debug.Log("GridPoint: " + tempVector2);
-            Debug.Log("Converted Position: " + gridSystem.getPositionByGridPoint(tempVector2.x, tempVector2.y));
+            // Debug.Log("GridPoint: " + tempVector2);
+            // Debug.Log("Converted Position: " + gridSystem.getPositionByGridPoint(tempVector2.x, tempVector2.y));
         }
         else
         {

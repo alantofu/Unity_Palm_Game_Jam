@@ -6,17 +6,21 @@ using TMPro;
 public class LipstickNumDisplay : MonoBehaviour
 {
   public TMP_Text text;
-  public LipstickFactory lipstickFactory;
+  public LipstickFactory lf;
   void Start()
   {
-    lipstickFactory = LipstickFactory.Instance;
-    Debug.Log(lipstickFactory);
-    Debug.Log(lipstickFactory.ProductAmount);
-    text.text = lipstickFactory.ProductAmount.ToString();
+    lf = LipstickFactory.Instance;
+    Debug.Log(lf);
+    Debug.Log(lf.ProductAmount);
+    text.text = lf.ProductAmount.ToString();
+    int oil = lf.ProductAmount*lf.OilPerProduct;
+    int profit = lf.ProductAmount*lf.ProfitReturnPerProduct;
+    Debug.Log(oil.ToString());
+    Debug.Log(profit.ToString());
   }
   // Update is called once per frame
   void Update()
   {
-    text.text = lipstickFactory.ProductAmount.ToString();
+    text.text = lf.ProductAmount.ToString();
   }
 }
