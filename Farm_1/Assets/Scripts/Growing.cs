@@ -13,6 +13,7 @@ public class Growing : MonoBehaviour
     public float growingTime = 20;
     private float timeRemaining;
     bool mediumAlready = false;
+    bool grew = false; // true if successfully grew
 
     private void Start()
     {
@@ -26,18 +27,25 @@ public class Growing : MonoBehaviour
 
     private void Update()
     {
-        timerObject.transform.LookAt(Camera.main.transform);
-        timerObject.transform.LookAt(2 * transform.position - Camera.main.transform.position);
-        if (timeRemaining > 0)
+        if (!grew)
         {
-            timeRemaining -= Time.deltaTime;
-            timerText.text = Mathf.FloorToInt(timeRemaining).ToString();
-            if ((timeRemaining < growingTime/2) && !mediumAlready)
+            timerObject.transform.LookAt(Camera.main.transform);
+            timerObject.transform.LookAt(2 * transform.position - Camera.main.transform.position);
+            if (timeRemaining > 0)
             {
-                smallTree.gameObject.SetActive(false);
-                mediumTree.gameObject.SetActive(true);
-                grownTree.gameObject.SetActive(false);
-                mediumAlready = true;
+                timeRemaining -= Time.deltaTime;
+                timerText.text = Mathf.FloorToInt(timeRemaining).ToString();
+                if ((timeRemaining < growingTime / 2) && !mediumAlready)
+                {
+                    smallTree.gameObject.SetActive(false);
+                    mediumTree.gameObject.SetActive(true);
+                    grownTree.gameObject.SetActive(false);
+                    mediumAlready = true;
+                }
+            }
+            else
+            {
+                grew = true;
             }
         }
         else
@@ -46,6 +54,7 @@ public class Growing : MonoBehaviour
             mediumTree.gameObject.SetActive(false);
             grownTree.gameObject.SetActive(true);
             timerText.text = "";
+            this.enabled = false;
         }
     }
 

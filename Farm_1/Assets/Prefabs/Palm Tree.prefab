@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 3368642748324844429}
   - component: {fileID: 9188198961281946952}
   - component: {fileID: 7235044211632682048}
+  - component: {fileID: 401618045773285874}
   m_Layer: 0
   m_Name: Palm Tree
   m_TagString: Palm Oil Tree
@@ -266,6 +267,18 @@ MonoBehaviour:
   grownTree: {fileID: 6307154471135802940}
   timerObject: {fileID: 597933985668871581}
   growingTime: 20
+--- !u!114 &401618045773285874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3777230063939655837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc4693a655602e438031662a7273ab6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6307154471135802940
 GameObject:
   m_ObjectHideFlags: 0
