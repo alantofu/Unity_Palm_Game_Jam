@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Growing : MonoBehaviour
 {
+    // https://www.youtube.com/watch?v=CA2snUe7ARM
+
     public GameObject smallTree;
     public GameObject mediumTree;
     public GameObject grownTree;
@@ -13,7 +15,12 @@ public class Growing : MonoBehaviour
     public float growingTime = 20;
     private float timeRemaining;
     bool mediumAlready = false;
-    bool grew = false; // true if successfully grew
+    public bool grew = false; // true if successfully grew
+
+    private void Awake()
+    {
+        GetComponent<Farming>().enabled = false;
+    }
 
     private void Start()
     {
@@ -54,6 +61,7 @@ public class Growing : MonoBehaviour
             mediumTree.gameObject.SetActive(false);
             grownTree.gameObject.SetActive(true);
             timerText.text = "";
+            GetComponent<Farming>().enabled = true;
             this.enabled = false;
         }
     }

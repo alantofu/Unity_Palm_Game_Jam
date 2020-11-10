@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class Farming : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public bool collectable = false;
+
     void Start()
     {
-        
+        collectable = false;
+        StopAllCoroutines();
+        StartCoroutine(FarmingFruit());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator FarmingFruit()
     {
-        
+        Debug.Log(this.name + " starts farming fruit");
+        yield return new WaitForSeconds(3);
+        Debug.Log(this.name + " ready to be harvested");
+        collectable = true;
     }
+
+    private void OnMouseDown()
+    {
+        if (collectable)
+        {
+            collectable = false;
+            Debug.Log(this.name + " fruit is collected");
+            StartCoroutine(FarmingFruit());
+        }
+    }
+
 }

@@ -55,6 +55,7 @@ public class ObjectSpawner : MonoBehaviour
                                                     palmParent);
                 tempObj.name = "Palm Tree (" + x.ToString() + ", " + z.ToString() + ")";
                 gridSystem.objectOnGrid[x, z] = tempObj;
+                tempObj.GetComponent<Growing>().grew = true;
             }
         }
     }
