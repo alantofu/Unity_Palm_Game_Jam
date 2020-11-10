@@ -18,16 +18,25 @@ public class GameManager : MonoBehaviour
         plantSystem.gameObject.SetActive(true);
     }
 
-    public void triggerPlacementSystem(bool trigger)
+    public void showGridline()
     {
-        mainCam.GetComponent<PostCameraProcess>().toggle = trigger;
+        mainCam.GetComponent<PostCameraProcess>().toggle = true;
     }
 
-    public void buildChocolateFactory(bool trigger)
+    public void hideGridline()
     {
-        triggerBuildSystem(trigger, 0);
+        mainCam.GetComponent<PostCameraProcess>().toggle = false;
     }
 
+    public void planChocolateFactory()
+    {
+        triggerBuildSystem(true, 0);
+    }
+
+    public void buildChocolateFactory()
+    {
+        triggerBuildSystem(false, 0);
+    }
 
     private void triggerBuildSystem(bool trigger, int index)
     {
@@ -43,7 +52,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void triggerPlantSystem(bool trigger)
+    public void onPlantSystem()
+    {
+        triggerPlantSystem(true);
+    }
+
+    public void offPlantSystem()
+    {
+        triggerPlantSystem(false);
+    }
+
+    private void triggerPlantSystem(bool trigger)
     {
         plantSystem.gameObject.SetActive(trigger);
     }

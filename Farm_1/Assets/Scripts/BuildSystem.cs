@@ -130,6 +130,7 @@ public class BuildSystem : MonoBehaviour
         {
             for (int j = 0; j < 2; j++)
             {
+                Destroy(gridSystem.objectOnGrid[newFreshPoint.x + i, newFreshPoint.y + j]);
                 gridSystem.objectOnGrid[newFreshPoint.x + i, newFreshPoint.y + j] = freshObject;
             }
         }

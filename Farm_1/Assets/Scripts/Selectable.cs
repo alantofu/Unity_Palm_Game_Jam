@@ -28,6 +28,9 @@ public class Selectable : MonoBehaviour
             buildSystem.selectedForestObject = this.gameObject;
             plantSystem.selectedForestObject = this.gameObject;
         }
+        else if(this.gameObject.CompareTag("Palm Oil Tree")) {
+
+        }
     }
 
     private void OnMouseUpAsButton()

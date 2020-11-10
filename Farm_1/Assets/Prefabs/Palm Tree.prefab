@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 7235044211632682048}
   m_Layer: 0
   m_Name: Palm Tree
-  m_TagString: Selectable
+  m_TagString: Palm Oil Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
