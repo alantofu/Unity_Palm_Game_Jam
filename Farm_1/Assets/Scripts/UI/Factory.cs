@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LipstickFactory : MonoBehaviour
+public class Factory : MonoBehaviour
 {
-  private static LipstickFactory _instance;
-  public static LipstickFactory Instance { get { return _instance; } } // a singleton
+  private static Factory _instance;
+  public static Factory Instance { get { return _instance; } } // a singleton
   private int productAmount = 0;
   public int oilPerProduct;
+  public int totalOil = 0;
   public int profitReturnPerProduct;
+  public int totalProfit = 0;
   public int timeRequiredPerProduct;
+  public int totalTime = 0;
 
   public int ProductAmount
   {
@@ -26,6 +29,22 @@ public class LipstickFactory : MonoBehaviour
     get { return oilPerProduct; }
     set { oilPerProduct = value; }
   }
+  public int TotalOil
+  {
+    get { return totalOil; }
+    set { totalOil = value; }
+  }
+  public int TotalProfit
+  {
+    get { return totalProfit; }
+    set { totalProfit = value; }
+  }
+  public int TotalTime
+  {
+    get { return totalTime; }
+    set { totalTime = value; }
+  }
+
   public int TimeRequiredPerProduct
   {
     get { return timeRequiredPerProduct; }
@@ -55,6 +74,9 @@ public class LipstickFactory : MonoBehaviour
     {
       Debug.Log("amount reduced.");
       ProductAmount = currAmount;
+      TotalOil = ProductAmount * OilPerProduct;
+      TotalProfit = ProductAmount * ProfitReturnPerProduct;
+      TotalTime = ProductAmount * TimeRequiredPerProduct;
     }
     // return currAmount;
   }
@@ -67,6 +89,9 @@ public class LipstickFactory : MonoBehaviour
     {
       Debug.Log("amount added.");
       ProductAmount = currAmount;
+      TotalOil = ProductAmount * OilPerProduct;
+      TotalProfit = ProductAmount * ProfitReturnPerProduct;
+      TotalTime = ProductAmount * TimeRequiredPerProduct;
     }
     // return currAmount;
   }
