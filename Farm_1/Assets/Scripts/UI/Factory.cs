@@ -53,16 +53,16 @@ public class Factory : MonoBehaviour
   private void Awake()
   {
     // singleton condition
-    if (_instance != null && _instance != this)
-    {
-      Destroy(this.gameObject);
-      Debug.Log("THIS GAME OBJECT DESTROYED");
-    }
-    else
-    {
+    // if (_instance != null && _instance != this)
+    // {
+    //   Destroy(this.gameObject);
+    //   Debug.Log("THIS GAME OBJECT DESTROYED");
+    // }
+    // else
+    // {
       _instance = this;
       Debug.Log("_instance = this;");
-    }
+    // }
   }
 
   public void reduceProductAmount()
