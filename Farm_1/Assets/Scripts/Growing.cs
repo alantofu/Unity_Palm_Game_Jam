@@ -11,7 +11,6 @@ public class Growing : MonoBehaviour
     public GameObject smallTree;
     public GameObject mediumTree;
     public GameObject grownTree;
-    public GameObject timerObject;
     public Image timerBar;
 
     public float growingTime = 20;
@@ -61,38 +60,6 @@ public class Growing : MonoBehaviour
         GetComponent<Farming>().enabled = true;
         timerBar.transform.parent.gameObject.SetActive(false); // disable timer bar
         this.enabled = false;
-    }
-
-
-    private void Update()
-    {
-        // if (!grew)
-        // {
-        //     if (remainingTime > 0)
-        //     {
-        //         ReduceTime(Time.deltaTime);
-        //         if ((remainingTime < growingTime / 2) && !mediumAlready)
-        //         {
-        //             smallTree.gameObject.SetActive(false);
-        //             mediumTree.gameObject.SetActive(true);
-        //             grownTree.gameObject.SetActive(false);
-        //             mediumAlready = true;
-        //         }
-        //     }
-        //     else
-        //     {
-        //         grew = true;
-        //     }
-        // }
-        // else
-        // {
-        //     smallTree.gameObject.SetActive(false);
-        //     mediumTree.gameObject.SetActive(false);
-        //     grownTree.gameObject.SetActive(true);
-        //     GetComponent<Farming>().enabled = true;
-        //     timerBar.transform.parent.gameObject.SetActive(false); // disable timer bar
-        //     this.enabled = false;
-        // }
     }
 
     private void ReduceTime(float amount)
