@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Growing : MonoBehaviour
 {
@@ -10,16 +12,20 @@ public class Growing : MonoBehaviour
     public GameObject mediumTree;
     public GameObject grownTree;
     public GameObject timerObject;
+    public Image timerBar;
 
-    private TextMesh timerText;
     public float growingTime = 20;
-    private float timeRemaining;
+    public float remainingTime;
+
+    public event Action<float> OnTimeDecrease = delegate { };
+
     bool mediumAlready = false;
     public bool grew = false; // true if successfully grew
 
     private void Awake()
     {
         GetComponent<Farming>().enabled = false;
+        OnTimeDecrease += HandleTimeChange; // += operator calls the add method on the event
     }
 
     private void Start()
@@ -27,43 +33,77 @@ public class Growing : MonoBehaviour
         smallTree.gameObject.SetActive(true);
         mediumTree.gameObject.SetActive(false);
         grownTree.gameObject.SetActive(false);
-        timerText = timerObject.GetComponent<TextMesh>();
-        timeRemaining = growingTime;
+        remainingTime = growingTime;
+        StartCoroutine(GrowingProcess());
     }
 
-
-    private void Update()
+    IEnumerator GrowingProcess()
     {
         if (!grew)
         {
-            timerObject.transform.LookAt(Camera.main.transform);
-            timerObject.transform.LookAt(2 * transform.position - Camera.main.transform.position);
-            if (timeRemaining > 0)
+            while (remainingTime > 0)
             {
-                timeRemaining -= Time.deltaTime;
-                timerText.text = Mathf.FloorToInt(timeRemaining).ToString();
-                if ((timeRemaining < growingTime / 2) && !mediumAlready)
+                ReduceTime(Time.deltaTime);
+                if ((remainingTime < growingTime / 2) && !mediumAlready)
                 {
                     smallTree.gameObject.SetActive(false);
                     mediumTree.gameObject.SetActive(true);
                     grownTree.gameObject.SetActive(false);
                     mediumAlready = true;
                 }
+                yield return null;
             }
-            else
-            {
-                grew = true;
-            }
+            grew = true;
         }
-        else
-        {
-            smallTree.gameObject.SetActive(false);
-            mediumTree.gameObject.SetActive(false);
-            grownTree.gameObject.SetActive(true);
-            timerText.text = "";
-            GetComponent<Farming>().enabled = true;
-            this.enabled = false;
-        }
+        smallTree.gameObject.SetActive(false);
+        mediumTree.gameObject.SetActive(false);
+        grownTree.gameObject.SetActive(true);
+        GetComponent<Farming>().enabled = true;
+        timerBar.transform.parent.gameObject.SetActive(false); // disable timer bar
+        this.enabled = false;
+    }
+
+
+    private void Update()
+    {
+        // if (!grew)
+        // {
+        //     if (remainingTime > 0)
+        //     {
+        //         ReduceTime(Time.deltaTime);
+        //         if ((remainingTime < growingTime / 2) && !mediumAlready)
+        //         {
+        //             smallTree.gameObject.SetActive(false);
+        //             mediumTree.gameObject.SetActive(true);
+        //             grownTree.gameObject.SetActive(false);
+        //             mediumAlready = true;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         grew = true;
+        //     }
+        // }
+        // else
+        // {
+        //     smallTree.gameObject.SetActive(false);
+        //     mediumTree.gameObject.SetActive(false);
+        //     grownTree.gameObject.SetActive(true);
+        //     GetComponent<Farming>().enabled = true;
+        //     timerBar.transform.parent.gameObject.SetActive(false); // disable timer bar
+        //     this.enabled = false;
+        // }
+    }
+
+    private void ReduceTime(float amount)
+    {
+        remainingTime -= amount;
+        OnTimeDecrease(remainingTime / growingTime); // Action<float>
+    }
+
+    private void HandleTimeChange(float newPercent)
+    {
+        timerBar.fillAmount = 1 - newPercent;
     }
 
 }

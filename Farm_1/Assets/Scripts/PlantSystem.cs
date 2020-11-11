@@ -72,6 +72,7 @@ public class PlantSystem : MonoBehaviour
         {
             selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
             selectedChildObj.SetActive(true);
+            selectedForestObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
@@ -81,6 +82,7 @@ public class PlantSystem : MonoBehaviour
         {
             selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
             selectedChildObj.SetActive(false);
+            selectedForestObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 

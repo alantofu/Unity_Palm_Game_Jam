@@ -33,7 +33,7 @@ public class ObjectSpawner : MonoBehaviour
                                                         Quaternion.identity,
                                                         forestParent);
                     tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
-                    Vector3 randomPosition = new Vector3(Random.Range(0.0f, 0.5f), 0.545f, Random.Range(0.0f, 0.5f));
+                    Vector3 randomPosition = new Vector3(Random.Range(0.0f, 0.4f), 0f, Random.Range(0.0f, 0.4f));
                     tempObj.transform.GetChild(0).transform.position = tempObj.transform.position + randomPosition;
                     tempObj.transform.GetChild(1).transform.position = tempObj.transform.position + randomPosition;
                     // Debug.Log(tempObj + " - " + tempObj.transform.GetChild(0).transform.position);
