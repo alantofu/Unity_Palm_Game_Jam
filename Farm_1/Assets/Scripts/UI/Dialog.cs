@@ -16,7 +16,6 @@ public class Dialog : MonoBehaviour
     }
 
     IEnumerator Type(){
-
         foreach(char letter in sentences[index].ToCharArray()){
             textDisplay.text+=letter;
             yield return new WaitForSeconds(typingSpeed);
@@ -24,7 +23,6 @@ public class Dialog : MonoBehaviour
     }
 
     public void NextSentence(){
-
         if(index < sentences.Length - 1){
             index++;
             textDisplay.text = "";
