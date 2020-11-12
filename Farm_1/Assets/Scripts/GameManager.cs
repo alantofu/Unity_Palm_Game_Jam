@@ -37,19 +37,16 @@ public class GameManager : MonoBehaviour
         triggerBuildSystem(true, 1);
     }
 
-    public void buildLipstickFactory()
+    public void buildFactory()
     {
-        triggerBuildSystem(false, 1);
+        buildSystem.PlaceFactoryObj();
+        mainCam.GetComponent<PostCameraProcess>().toggle = false;
+        buildSystem.gameObject.SetActive(false);
     }
 
     public void planChocolateFactory()
     {
         triggerBuildSystem(true, 0);
-    }
-
-    public void buildChocolateFactory()
-    {
-        triggerBuildSystem(false, 0);
     }
 
     private void triggerBuildSystem(bool trigger, int index)
@@ -66,7 +63,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void cancelBuildSystem() {
+    public void cancelBuildSystem()
+    {
         buildSystem.CancelFactoryPlanning();
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         buildSystem.gameObject.SetActive(false);

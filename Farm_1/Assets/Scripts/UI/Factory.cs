@@ -61,7 +61,6 @@ public class Factory : MonoBehaviour
     // else
     // {
       _instance = this;
-      Debug.Log("_instance = this;");
     // }
   }
 

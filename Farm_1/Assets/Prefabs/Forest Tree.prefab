@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a0f054e56703046b3ac0164bfcae3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buySeedPanel: {fileID: 0}
 --- !u!1 &6144171361477460679
 GameObject:
   m_ObjectHideFlags: 0

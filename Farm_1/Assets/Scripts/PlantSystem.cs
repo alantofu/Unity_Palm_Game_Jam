@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlantSystem : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class PlantSystem : MonoBehaviour
 
     public GameObject selectedForestObject;
     public GameObject selectedChildObj;
+
+    public GameObject buySeedPanel;
 
     public Vector3 dragStartPosition;
     public Vector3 dragFinalPosition;
@@ -37,6 +40,12 @@ public class PlantSystem : MonoBehaviour
 
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            dragStartPosition = Input.mousePosition;
+            dragFinalPosition = Input.mousePosition;
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (selectedForestObject)
@@ -55,11 +64,15 @@ public class PlantSystem : MonoBehaviour
 
                 if (dragDistance < 10)
                 {
-                    HighlightForestObject();
+                    // HighlightForestObject();
+                    if (!buySeedPanel.activeSelf)
+                    {
+                        buySeedPanel.SetActive(true);
+                    }
                 }
                 else
                 {
-                    UnhighlightForestObject();
+                    // UnhighlightForestObject();
                     selectedForestObject = null;
                 }
             }
@@ -86,8 +99,10 @@ public class PlantSystem : MonoBehaviour
         }
     }
 
-    public void StopAllHighlight() { // fix bug where need to unhighlight but without other condition
-        if(selectedForestObject) {
+    public void StopAllHighlight()
+    { // fix bug where need to unhighlight but without other condition
+        if (selectedForestObject)
+        {
             selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
             selectedChildObj.SetActive(false);
             selectedForestObject.transform.GetChild(0).gameObject.SetActive(true);

@@ -32,9 +32,4 @@ public class Selectable : MonoBehaviour
 
         }
     }
-
-    private void OnMouseUpAsButton()
-    {
-        // placementSystem.selectedObject = null;
-    }
 }

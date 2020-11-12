@@ -102,10 +102,11 @@ public class BuildSystem : MonoBehaviour
     public void InstantiateFactoryObj(int index)
     {
         freshObject = Instantiate(factoryPrefab[index],
-                                    Vector3.zero,
+                                    gridSystem.getPositionByGridPoint(45,49),
                                     Quaternion.identity,
                                     factoryParent.transform);
         freshObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        
     }
 
     private void DeactivateForestMeshObj(int x, int z)
@@ -145,8 +146,14 @@ public class BuildSystem : MonoBehaviour
 
     public void CancelFactoryPlanning()
     {
-        if (freshObject == null)
+        if (freshObject != null)
         {
+            Vector2Int freshObjPoint = gridSystem.getGridPointByPosition(freshObject.transform.position);
+            ActivateForestMeshObj(freshObjPoint.x, freshObjPoint.y);
+            ActivateForestMeshObj(freshObjPoint.x + 1, freshObjPoint.y);
+            ActivateForestMeshObj(freshObjPoint.x, freshObjPoint.y + 1);
+            ActivateForestMeshObj(freshObjPoint.x + 1, freshObjPoint.y + 1);
+
             Destroy(freshObject);
             freshObject = null;
             selectedForestObject = null;

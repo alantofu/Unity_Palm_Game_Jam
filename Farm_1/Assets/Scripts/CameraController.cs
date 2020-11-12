@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // 
 public class CameraController : MonoBehaviour
@@ -42,6 +43,14 @@ public class CameraController : MonoBehaviour
 
     void HandleMouseInput()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            newZoom = cameraTransform.localPosition;
+            dragStartPosition = Vector3.zero;
+            dragCurrentPosition = Vector3.zero;
+            newPosition = transform.position;
+            return;
+        }
         // unfocus or unfollow
         followTransform = null;
 

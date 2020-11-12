@@ -12,6 +12,8 @@ public class Farming : MonoBehaviour
 
     private float oilIconLocalY = 1.5f;
 
+    public int getOilAmount = 1000;
+
     void Start()
     {
         collectable = false;
@@ -66,6 +68,7 @@ public class Farming : MonoBehaviour
         if (collectable)
         {
             StartCoroutine(FadeOutIcon());
+            Player.Instance.addOil(getOilAmount);
             collectable = false;
             StartCoroutine(FarmingFruit());
         }
