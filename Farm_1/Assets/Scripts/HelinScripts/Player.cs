@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
   private static Player _instance;
   public static Player Instance { get { return _instance; } } // a singleton
   // private static Player instance = null;
-  private int money = 10000;
-  private int rep = 15;
-  private int oil = 12000;
+  public int money = 10000;
+  public int rep = 15;
+  public int oil = 12000;
   // https://gist.github.com/mathiassoeholm/6744344
   // Or you can search for a gameobject and assign it to a variable
   public GameObject factory;

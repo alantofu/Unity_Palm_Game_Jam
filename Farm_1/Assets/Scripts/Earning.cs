@@ -1,39 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Profiling;
 
-public class Farming : MonoBehaviour
+public class Earning : MonoBehaviour
 {
-    public GameObject oilIcon;
+    public GameObject coinIcon;
     public bool collectable = false;
-    public int waitSecond = 3;
+    public int waitSecond = 5;
     public float fadeDuration = 0.5f;
 
-    public float oilIconLocalY = 1.5f;
+    public float coinIconLocalY = 1.5f;
     public float animationDistance = 1.5f;
 
-    public int getOilAmount = 1000;
+    public int getCoinAmount = 500;
 
     void Start()
     {
         collectable = false;
         StopAllCoroutines();
-        StartCoroutine(FarmingFruit());
-        oilIconLocalY = oilIcon.transform.localPosition.y;
+        StartCoroutine(EarningMoney());
+        coinIconLocalY = coinIcon.transform.localPosition.y;
     }
 
-    IEnumerator FarmingFruit()
+    IEnumerator EarningMoney()
     {
         yield return new WaitForSeconds(waitSecond);
-        oilIcon.SetActive(true);
+        coinIcon.SetActive(true);
         collectable = true;
         StartCoroutine(FadeInIcon());
     }
 
     IEnumerator FadeInIcon()
     {
-        SpriteRenderer renderer = oilIcon.GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer = coinIcon.GetComponent<SpriteRenderer>();
         Color color = renderer.material.color;
 
         float elapsed = 0f;
@@ -42,14 +41,14 @@ public class Farming : MonoBehaviour
             elapsed += Time.deltaTime;
             color.a = Mathf.Lerp(0, 1, elapsed / fadeDuration);
             renderer.material.color = color;
-            oilIcon.transform.localPosition = new Vector3(0, Mathf.Lerp(oilIconLocalY - animationDistance, oilIconLocalY, elapsed / fadeDuration), 0);
+            coinIcon.transform.localPosition = new Vector3(coinIcon.transform.localPosition.x, Mathf.Lerp(coinIconLocalY - animationDistance, coinIconLocalY, elapsed / fadeDuration), coinIcon.transform.localPosition.z);
             yield return new WaitForSeconds(0.0167f);
         }
     }
 
     IEnumerator FadeOutIcon()
     {
-        SpriteRenderer renderer = oilIcon.GetComponent<SpriteRenderer>();
+        SpriteRenderer renderer = coinIcon.GetComponent<SpriteRenderer>();
         Color color = renderer.material.color;
 
         float elapsed = 0f;
@@ -58,10 +57,10 @@ public class Farming : MonoBehaviour
             elapsed += Time.deltaTime;
             color.a = Mathf.Lerp(1, 0, elapsed / fadeDuration);
             renderer.material.color = color;
-            oilIcon.transform.localPosition = new Vector3(0, Mathf.Lerp(oilIconLocalY, oilIconLocalY + animationDistance, elapsed / fadeDuration), 0);
+            coinIcon.transform.localPosition = new Vector3(coinIcon.transform.localPosition.x, Mathf.Lerp(coinIconLocalY, coinIconLocalY + animationDistance, elapsed / fadeDuration), coinIcon.transform.localPosition.z);
             yield return new WaitForSeconds(0.0167f);
         }
-        oilIcon.SetActive(false);
+        coinIcon.SetActive(false);
     }
 
     private void OnMouseDown()
@@ -69,9 +68,9 @@ public class Farming : MonoBehaviour
         if (collectable)
         {
             StartCoroutine(FadeOutIcon());
-            Player.Instance.addOil(getOilAmount);
+            Player.Instance.addMoney(getCoinAmount);
             collectable = false;
-            StartCoroutine(FarmingFruit());
+            StartCoroutine(EarningMoney());
         }
     }
 

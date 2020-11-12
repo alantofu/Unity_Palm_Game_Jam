@@ -140,6 +140,7 @@ public class BuildSystem : MonoBehaviour
                 gridSystem.objectOnGrid[newFreshPoint.x + i, newFreshPoint.y + j] = freshObject;
             }
         }
+        freshObject.GetComponent<Earning>().enabled = true;
         freshObject = null;
         selectedForestObject = null;
     }
