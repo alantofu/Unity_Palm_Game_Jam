@@ -339,6 +339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oilIcon: {fileID: 5298575479682808162}
   collectable: 0
+  waitSecond: 3
+  fadeDuration: 0.2
 --- !u!1 &5181043573248060943
 GameObject:
   m_ObjectHideFlags: 0

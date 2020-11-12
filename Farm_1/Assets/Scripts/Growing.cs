@@ -50,7 +50,7 @@ public class Growing : MonoBehaviour
                     grownTree.gameObject.SetActive(false);
                     mediumAlready = true;
                 }
-                yield return null;
+                yield return new WaitForSeconds(0.0167f);
             }
             grew = true;
         }
