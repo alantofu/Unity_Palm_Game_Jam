@@ -68,7 +68,7 @@ public class PlantSystem : MonoBehaviour
 
     public void HighlightForestObject()
     {
-        if (selectedForestObject)
+        if (selectedForestObject && !BuildSystem.Instance.gameObject.activeSelf)
         {
             selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
             selectedChildObj.SetActive(true);
@@ -78,8 +78,16 @@ public class PlantSystem : MonoBehaviour
 
     public void UnhighlightForestObject()
     {
-        if (selectedForestObject)
+        if (selectedForestObject && !BuildSystem.Instance.gameObject.activeSelf)
         {
+            selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
+            selectedChildObj.SetActive(false);
+            selectedForestObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    public void StopAllHighlight() { // fix bug where need to unhighlight but without other condition
+        if(selectedForestObject) {
             selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
             selectedChildObj.SetActive(false);
             selectedForestObject.transform.GetChild(0).gameObject.SetActive(true);

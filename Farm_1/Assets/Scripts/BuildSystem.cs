@@ -94,6 +94,11 @@ public class BuildSystem : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        PlantSystem.Instance.StopAllHighlight(); // fix unhighlight bug
+    }
+
     public void InstantiateFactoryObj(int index)
     {
         freshObject = Instantiate(factoryPrefab[index],
@@ -136,6 +141,16 @@ public class BuildSystem : MonoBehaviour
         }
         freshObject = null;
         selectedForestObject = null;
+    }
+
+    public void CancelFactoryPlanning()
+    {
+        if (freshObject == null)
+        {
+            Destroy(freshObject);
+            freshObject = null;
+            selectedForestObject = null;
+        }
     }
 
     private bool CheckFactoryBuildPoint(Vector2Int gridPoint)

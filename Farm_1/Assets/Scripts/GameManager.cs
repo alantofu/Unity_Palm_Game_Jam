@@ -8,9 +8,13 @@ public class GameManager : MonoBehaviour
     private PlantSystem plantSystem;
     private Camera mainCam;
 
-    private void Start()
+    private void Awake()
     {
         mainCam = Camera.main;
+    }
+
+    private void Start()
+    {
         buildSystem = BuildSystem.Instance;
         plantSystem = PlantSystem.Instance;
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
@@ -26,6 +30,16 @@ public class GameManager : MonoBehaviour
     public void hideGridline()
     {
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
+    }
+
+    public void planLipstickFactory()
+    {
+        triggerBuildSystem(true, 1);
+    }
+
+    public void buildLipstickFactory()
+    {
+        triggerBuildSystem(false, 1);
     }
 
     public void planChocolateFactory()
@@ -50,6 +64,12 @@ public class GameManager : MonoBehaviour
         {
             buildSystem.PlaceFactoryObj();
         }
+    }
+
+    public void cancelBuildSystem() {
+        buildSystem.CancelFactoryPlanning();
+        mainCam.GetComponent<PostCameraProcess>().toggle = false;
+        buildSystem.gameObject.SetActive(false);
     }
 
     public void onPlantSystem()
