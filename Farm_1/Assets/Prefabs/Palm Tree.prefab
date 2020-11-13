@@ -322,7 +322,7 @@ MonoBehaviour:
   mediumTree: {fileID: 6760406702116999797}
   grownTree: {fileID: 6307154471135802940}
   timerBar: {fileID: 4602314583157914295}
-  growingTime: 20
+  growingTime: 2
   remainingTime: 0
   grew: 0
 --- !u!114 &401618045773285874
@@ -341,6 +341,9 @@ MonoBehaviour:
   collectable: 0
   waitSecond: 3
   fadeDuration: 0.2
+  oilIconLocalY: 1.5
+  animationDistance: 1.5
+  getOilAmount: 1000
 --- !u!1 &5181043573248060943
 GameObject:
   m_ObjectHideFlags: 0
