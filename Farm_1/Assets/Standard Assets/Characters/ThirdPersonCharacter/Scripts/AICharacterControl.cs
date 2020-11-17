@@ -13,7 +13,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public ThirdPersonCharacter character { get; private set; } // the character we are controlling
         public Transform target;// target to aim for
         public Rigidbody rb;
-        private bool waited = false;
 
         private void Start()
         {
