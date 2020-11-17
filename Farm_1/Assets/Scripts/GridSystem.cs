@@ -42,6 +42,9 @@ public class GridSystem : MonoBehaviour
         if (!lineMaterial)
         {
             lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
+            lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+            lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+
         }
         lineMaterial.hideFlags = HideFlags.HideAndDontSave;
         lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
