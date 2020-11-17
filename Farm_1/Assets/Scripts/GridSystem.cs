@@ -39,15 +39,15 @@ public class GridSystem : MonoBehaviour
         // https://answers.unity.com/questions/672007/how-do-i-change-gl-lines-color.html
         // https://answers.unity.com/questions/987078/materialstring-is-obsolote.html
         // https://stackoverflow.com/questions/39709867/trying-to-create-a-material-from-string-this-is-no-longer-supported
-        if (!lineMaterial)
-        {
-            lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
-            lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-            lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+        // if (!lineMaterial)
+        // {
+        //     lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
+        //     lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+        //     lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
 
-        }
-        lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-        lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+        // }
+        // lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+        // lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
 
         // initialize objectOnGrid 2D array
         objectOnGrid = new GameObject[width - 2, length - 2];
@@ -96,42 +96,42 @@ public class GridSystem : MonoBehaviour
                             Mathf.RoundToInt(worldPosition.z));
     }
 
-    private void OnDrawGizmos()
-    {
-        DisplayGridLines();
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     DisplayGridLines();
+    // }
 
-    public void DisplayGridLines()
-    {
-        if (!lineMaterial)
-        {
-            lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
-            lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-            lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
-        }
-        GL.PushMatrix();
-        lineMaterial.SetPass(0);
-        GL.Begin(GL.LINES);
+    // public void DisplayGridLines()
+    // {
+    //     if (!lineMaterial)
+    //     {
+    //         lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
+    //         lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+    //         lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+    //     }
+    //     GL.PushMatrix();
+    //     lineMaterial.SetPass(0);
+    //     GL.Begin(GL.LINES);
 
-        float gridWidth = -Mathf.FloorToInt(width / 2) - 0.5f;
-        float gridLength = -Mathf.FloorToInt(length / 2) - 0.5f;
-        // draw grid
-        for (float z = 0; z < length; z += gridSize)
-        {
-            GL.Color(baseColor);
-            GL.Vertex3(gridWidth, gridLineHeight, z + gridLength);
-            GL.Vertex3(width + gridWidth, gridLineHeight, z + gridLength);
-        }
-        for (float x = 0; x < width; x += gridSize)
-        {
-            GL.Color(baseColor);
-            GL.Vertex3(x + gridWidth, gridLineHeight, gridLength);
-            GL.Vertex3(x + gridWidth, gridLineHeight, length + gridLength);
-        }
+    //     float gridWidth = -Mathf.FloorToInt(width / 2) - 0.5f;
+    //     float gridLength = -Mathf.FloorToInt(length / 2) - 0.5f;
+    //     // draw grid
+    //     for (float z = 0; z < length; z += gridSize)
+    //     {
+    //         GL.Color(baseColor);
+    //         GL.Vertex3(gridWidth, gridLineHeight, z + gridLength);
+    //         GL.Vertex3(width + gridWidth, gridLineHeight, z + gridLength);
+    //     }
+    //     for (float x = 0; x < width; x += gridSize)
+    //     {
+    //         GL.Color(baseColor);
+    //         GL.Vertex3(x + gridWidth, gridLineHeight, gridLength);
+    //         GL.Vertex3(x + gridWidth, gridLineHeight, length + gridLength);
+    //     }
 
-        GL.End();
-        GL.PopMatrix();
-    }
+    //     GL.End();
+    //     GL.PopMatrix();
+    // }
 
 
 }

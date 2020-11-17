@@ -14,13 +14,13 @@ public class Selectable : MonoBehaviour
         plantSystem = PlantSystem.Instance;
     }
 
+
     private void OnMouseDown()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject(0))
         {
             return;
         }
-
 
         if (this.gameObject.CompareTag("Forest Tree"))
         {
@@ -28,7 +28,8 @@ public class Selectable : MonoBehaviour
             buildSystem.selectedForestObject = this.gameObject;
             plantSystem.selectedForestObject = this.gameObject;
         }
-        else if(this.gameObject.CompareTag("Palm Oil Tree")) {
+        else if (this.gameObject.CompareTag("Palm Oil Tree"))
+        {
 
         }
     }

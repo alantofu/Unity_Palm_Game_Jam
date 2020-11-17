@@ -40,6 +40,7 @@ public class PlantSystem : MonoBehaviour
 
     void Update()
     {
+        // #if UNITY_EDITOR
         if (EventSystem.current.IsPointerOverGameObject())
         {
             dragStartPosition = Input.mousePosition;
@@ -77,6 +78,9 @@ public class PlantSystem : MonoBehaviour
                 }
             }
         }
+        // #elif UNITY_ANDROID
+
+        // #endif
     }
 
     public void HighlightForestObject()

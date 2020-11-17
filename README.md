@@ -1,33 +1,4 @@
 # Unity_Palm_Game_Jam
-## Things to be implemented
-### Scripts
-- [ ] Camera Controller
-  - [ ] restrict transform.y of Camera Stand
-  - [ ] singleton for raycasting
-- [ ] Grid System
-  - [ ] trigger gridline function
-  - [ ] 2D array/dictionary to store object location
-- [ ] Game object spawner
-  - [ ] spawn object on grid point based on point and object type
-  - [ ] export spawner data to file
-  - [ ] read and parse file into data
-- [ ] Forest remove system
-  - [ ] selectable forest object
-  - [ ] enable function
-  - [ ] forest remove condition - only can remove outer forest
-  - [ ] forest removing timer + [timer bar](https://www.programmersought.com/article/98263894475/)
-  - [ ] highlight forest object outline
-  - [ ] multiple selection
-- [ ] Palm tree planting system
-  - [ ] prompt plane
-  - [ ] planting condition + turn prompt plane color to red if cannot plant
-  - [ ] planting timer + timer bar
-- [ ] Palm tree characteristic
-  - [ ] camera focus
-  - [ ] harvest timer + prompt object
-  - [ ] drain timer
-  - [ ] remove tree option if drained
-  - [ ] parallel processing
 
 ### UI
 1. [New Unity UI Package](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html)
@@ -41,3 +12,12 @@
 9. [Unity3D - Avoid / Detect Clicks Through your UI | How to know if your player clicked on UI](https://www.youtube.com/watch?v=rATAnkClkWU)
 10. [Object Outline Github](https://github.com/Shrimpey/UltimateOutline)
 11. [Object Outline](https://www.youtube.com/watch?v=00qMZlacZQo)
+
+### Android Touch
+1. [Platform dependent compilation](https://docs.unity3d.com/Manual/PlatformDependentCompilation.html)
+2. [OnMouseDown](http://wiki.unity3d.com/index.php/OnMouseDown)
+3. [EnhancedOnMouseDown](https://stackoverflow.com/questions/33301344/in-unity3d-how-detect-touch-on-ui-or-not)
+4. [3D Mobile Touch Guide](https://stackoverflow.com/questions/41391708/how-to-detect-click-touch-events-on-ui-and-gameobjects)
+5. [Using Resources Folder](https://stackoverflow.com/questions/41326248/using-resources-folder-in-unity/41326276#41326276)
+6. [Pinch and Scroll to Move and Zoom in Unity for Mobile Games](https://www.youtube.com/watch?v=KkYco_7-ULA)
+7. [Waypoint Marker](https://www.youtube.com/watch?v=oBkfujKPZw8)

@@ -22,9 +22,6 @@ public class ObjectSpawner : MonoBehaviour
         if(palmPrefab == null) {
             palmPrefab = Resources.Load("Prefabs/Palm Tree", typeof(GameObject)) as GameObject;
         }
-        Debug.Log(forestPrefab);
-        Debug.Log(forestParent);
-        Debug.Log(gridSystem);
         SpawnForest();
         SpawnPalmOil();
     }
@@ -41,12 +38,10 @@ public class ObjectSpawner : MonoBehaviour
                                                         gridSystem.getPositionByGridPoint(x, z),
                                                         Quaternion.identity,
                                                         forestParent);
-                                                        Debug.Log(tempObj);
                     tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
                     Vector3 randomPosition = new Vector3(Random.Range(0.0f, 0.4f), 0f, Random.Range(0.0f, 0.4f));
                     tempObj.transform.GetChild(0).transform.position = tempObj.transform.position + randomPosition;
                     tempObj.transform.GetChild(1).transform.position = tempObj.transform.position + randomPosition;
-                    // Debug.Log(tempObj + " - " + tempObj.transform.GetChild(0).transform.position);
                     gridSystem.objectOnGrid[x, z] = tempObj;
                 }
             }

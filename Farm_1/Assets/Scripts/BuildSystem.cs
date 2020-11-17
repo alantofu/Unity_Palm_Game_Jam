@@ -41,7 +41,7 @@ public class BuildSystem : MonoBehaviour
                 dragStartPosition = Input.mousePosition;
 
                 // if mouse clicked object is not a forest object or empty
-                Vector2Int clickedPoint = gridSystem.getGridPointByPosition(CameraController.GetPlaneIntersectPos());
+                Vector2Int clickedPoint = gridSystem.getGridPointByPosition(CameraController.GetPlaneIntersectPos(Input.mousePosition));
                 if (gridSystem.objectOnGrid[clickedPoint.x, clickedPoint.y] == null
                     || !gridSystem.objectOnGrid[clickedPoint.x, clickedPoint.y].CompareTag("Forest Tree"))
                 {
@@ -67,7 +67,7 @@ public class BuildSystem : MonoBehaviour
                     }
                     else
                     {
-                        newWorldMousePos = gridSystem.getRoundedPosition(CameraController.GetPlaneIntersectPos());
+                        newWorldMousePos = gridSystem.getRoundedPosition(CameraController.GetPlaneIntersectPos(Input.mousePosition));
                     }
                     Vector2Int newFreshPoint = gridSystem.getGridPointByPosition(newWorldMousePos);
                     Vector2Int prevFreshPoint = gridSystem.getGridPointByPosition(freshObject.transform.position);

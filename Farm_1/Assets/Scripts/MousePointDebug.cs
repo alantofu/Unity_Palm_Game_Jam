@@ -6,7 +6,7 @@ public class MousePointDebug : MonoBehaviour
 {
     private GridSystem gridSystem;
 
-    private void Awake()
+    private void Start()
     {
         gridSystem = GridSystem.Instance;
 
