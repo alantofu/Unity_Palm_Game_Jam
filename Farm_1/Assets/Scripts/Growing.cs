@@ -12,7 +12,6 @@ public class Growing : MonoBehaviour
     public GameObject mediumTree;
     public GameObject grownTree;
     public Image timerBar;
-    public AudioSource PlantingSound;
 
     public float growingTime = 20;
     public float remainingTime;
@@ -33,7 +32,6 @@ public class Growing : MonoBehaviour
         smallTree.gameObject.SetActive(true);
         mediumTree.gameObject.SetActive(false);
         grownTree.gameObject.SetActive(false);
-        PlantingSound.Play();
         remainingTime = growingTime;
         StartCoroutine(GrowingProcess());
     }

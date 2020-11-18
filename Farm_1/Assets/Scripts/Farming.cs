@@ -9,8 +9,6 @@ public class Farming : MonoBehaviour
     public bool collectable = false;
     public int waitSecond = 3;
     public float fadeDuration = 0.5f;
-    public AudioSource oilcollection;
-    public AudioSource oilready;
 
     public float oilIconLocalY = 1.5f;
     public float animationDistance = 1.5f;
@@ -30,7 +28,6 @@ public class Farming : MonoBehaviour
         yield return new WaitForSeconds(waitSecond);
         oilIcon.SetActive(true);
         collectable = true;
-        oilready.Play();
         StartCoroutine(FadeInIcon());
     }
 
@@ -38,6 +35,7 @@ public class Farming : MonoBehaviour
     {
         SpriteRenderer renderer = oilIcon.GetComponent<SpriteRenderer>();
         Color color = renderer.material.color;
+
         float elapsed = 0f;
         while (elapsed <= fadeDuration)
         {
@@ -53,7 +51,7 @@ public class Farming : MonoBehaviour
     {
         SpriteRenderer renderer = oilIcon.GetComponent<SpriteRenderer>();
         Color color = renderer.material.color;
-        collectable = false;
+
         float elapsed = 0f;
         while (elapsed <= fadeDuration)
         {
@@ -70,9 +68,9 @@ public class Farming : MonoBehaviour
     {
         if (collectable)
         {
-            oilcollection.Play();
             StartCoroutine(FadeOutIcon());
             Player.Instance.addOil(getOilAmount);
+            collectable = false;
             StartCoroutine(FarmingFruit());
         }
     }

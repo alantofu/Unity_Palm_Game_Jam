@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class MousePointDebug : MonoBehaviour
 {
+    private GridSystem gridSystem;
+
+    private void Awake()
+    {
+        gridSystem = GridSystem.Instance;
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -35,11 +43,14 @@ public class MousePointDebug : MonoBehaviour
 
         if (plane.Raycast(ray, out enter))
         {
-            Debug.Log("Plane Raycast hit at distance: " + enter);
+            // Debug.Log("Plane Raycast hit at distance: " + enter);
             //Get the point that is clicked
             Vector3 hitPoint = ray.GetPoint(enter);
-            Debug.Log("Intersect point: " + hitPoint);
+            // Debug.Log("Intersect point: " + hitPoint);
             Debug.DrawRay(ray.origin, ray.direction * enter, Color.blue);
+            Vector2Int tempVector2 = gridSystem.getGridPointByPosition(hitPoint);
+            // Debug.Log("GridPoint: " + tempVector2);
+            // Debug.Log("Converted Position: " + gridSystem.getPositionByGridPoint(tempVector2.x, tempVector2.y));
         }
         else
         {
