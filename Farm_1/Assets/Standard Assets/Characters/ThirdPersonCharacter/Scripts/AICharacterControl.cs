@@ -32,13 +32,13 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             while (Vector3.Distance(target.position, character.transform.position) > agent.stoppingDistance)
             {
                 if (target != null)
-                    agent.SetDestination(RandomNavmeshLocation(Random.Range(4f,10f)));
+                    agent.SetDestination(RandomNavmeshLocation(Random.Range(1f,20f)));
 
                 if (agent.remainingDistance > agent.stoppingDistance)
                     character.Move(agent.desiredVelocity, false, false);
                 else
                     character.Move(Vector3.forward, false, false);
-                yield return new WaitForSeconds(100f);
+                yield return new WaitForSeconds(Random.Range(2f, 10f));
             }
         }
 

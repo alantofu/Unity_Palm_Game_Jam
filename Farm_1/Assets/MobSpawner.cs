@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MobSpawner : MonoBehaviour
 {
-    public GameObject WorkerPrefab;
-    public Transform WorkerParent;
+    public GameObject[] Prefab;
+    public Transform Parent;
     private GridSystem gridSystem;
     public int WorkerAmount;
 
@@ -17,16 +17,23 @@ public class MobSpawner : MonoBehaviour
 
     private void SpawnWorkers()
     {
-        for (int i = 0; i < WorkerAmount; i++)
+        if (Prefab.Length>0)
         {
-            int RanX = Random.Range(0, gridSystem.objectOnGrid.GetUpperBound(0));
-            int RanZ = Random.Range(0, gridSystem.objectOnGrid.GetUpperBound(1));
-            GameObject tempObj = Instantiate(WorkerPrefab,
-                                                gridSystem.getPositionByGridPoint(RanX, RanZ),
-                                                Quaternion.identity,
-                                                WorkerParent);
-            tempObj.name = "Worker (" + RanX.ToString() + ", " + RanZ.ToString() + ")";
-            gridSystem.objectOnGrid[RanX, RanZ] = tempObj;
-        }
+            for (int j = 0; j< Prefab.Length; j++)
+            {
+                for (int i = 0; i < WorkerAmount; i++)
+                {
+                    int RanX = Random.Range(0, gridSystem.objectOnGrid.GetUpperBound(0));
+                    int RanZ = Random.Range(0, gridSystem.objectOnGrid.GetUpperBound(1));
+                    GameObject tempObj = Instantiate(Prefab[j],
+                                                        gridSystem.getPositionByGridPoint(RanX, RanZ),
+                                                        Quaternion.identity,
+                                                        Parent);
+                    tempObj.name = "Mob (" + RanX.ToString() + ", " + RanZ.ToString() + ")";
+                    tempObj.SetActive(true);
+                    gridSystem.objectOnGrid[RanX, RanZ] = tempObj;
+                }
+            }
+        }     
     }
 }
