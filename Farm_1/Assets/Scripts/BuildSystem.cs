@@ -291,7 +291,6 @@ public class BuildSystem : MonoBehaviour
                     ActivateDeactivateForestMesh(newPoint.x + i, newPoint.y + j, false);
                 }
             }
-            Debug.Log("New Point: " + gridSystem.GetPositionByGridPoint(newPoint.x, newPoint.y));
             freshObject.transform.position = gridSystem.GetPositionByGridPoint(newPoint.x, newPoint.y);
         }
     }

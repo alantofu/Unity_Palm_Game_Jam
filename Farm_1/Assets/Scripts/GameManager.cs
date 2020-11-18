@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     private SelectSystem selectSystem;
     private Camera mainCam;
 
+    public GameObject buySeedPanel;
+
     void Awake()
     {
         mainCam = Camera.main;
@@ -23,6 +25,10 @@ public class GameManager : MonoBehaviour
         buildSystem.gameObject.SetActive(false);
         plantSystem.gameObject.SetActive(false);
         selectSystem.gameObject.SetActive(true);
+        if (buySeedPanel == null)
+        {
+            buySeedPanel = GameObject.Find("Canvas/Panel (BUY SEED)");
+        }
     }
 
     public void OnBuyingLipstickFac()
@@ -39,9 +45,14 @@ public class GameManager : MonoBehaviour
         triggerBuildSystem(true, 1);
     }
 
-    public void OnPlantingPalmOilTree()
+    public void OnRemovingForestTree()
     {
         plantSystem.gameObject.SetActive(true);
+    }
+
+    public void OnPlantingPalmOilTree()
+    {
+        plantSystem.PlacePalmObj();
     }
 
     public void ConfirmationPanelOnAccept()
@@ -53,8 +64,10 @@ public class GameManager : MonoBehaviour
         }
         else if (plantSystem.gameObject.activeSelf)
         {
-            plantSystem.PlacePalmObj();
-            plantSystem.gameObject.SetActive(false);
+            if (plantSystem.selectedForestObjList.Count > 0)
+            {
+                buySeedPanel.SetActive(true);
+            }
         }
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         selectSystem.gameObject.SetActive(true);

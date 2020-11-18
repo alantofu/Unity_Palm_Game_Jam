@@ -31,7 +31,11 @@ public class PlantSystem : MonoBehaviour
         }
     }
 
-    private void Start()
+    void OnEnable() {        
+        selectedForestObjList = new List<GameObject>();
+    }
+
+    void Start()
     {
         gridSystem = GridSystem.Instance;
         selectedForestObjList = new List<GameObject>();
@@ -43,15 +47,20 @@ public class PlantSystem : MonoBehaviour
         {
             if (selectedObj.transform.GetChild(0).gameObject.activeSelf)  // if forest tree obj is not highlighted then highlight it
             {
+                if(selectedForestObjList.Count > 0) { // allow one tree only
+                    StopAllHighlight();
+                }
                 selectedChildObj = selectedObj.transform.GetChild(1).gameObject;
                 selectedChildObj.SetActive(true);
                 selectedObj.transform.GetChild(0).gameObject.SetActive(false);
+                selectedForestObjList.Add(selectedObj);
             }
             else // unhighlight it
             {
                 selectedChildObj = selectedObj.transform.GetChild(0).gameObject;
                 selectedChildObj.SetActive(true);
                 selectedObj.transform.GetChild(1).gameObject.SetActive(false);
+                selectedForestObjList.Remove(selectedObj);
             }
 
         }
