@@ -73,7 +73,7 @@ public class GridSystem : MonoBehaviour
         }
     }
 
-    public Vector3 getPositionByGridPoint(int x, int z)
+    public Vector3 GetPositionByGridPoint(int x, int z)
     {
         x -= (width - 1) / 2 - 1;
         z -= (length - 1) / 2 - 1;
@@ -81,7 +81,7 @@ public class GridSystem : MonoBehaviour
         return tempPosition;
     }
 
-    public Vector2Int getGridPointByPosition(Vector3 worldPosition)
+    public Vector2Int GetGridPointByPosition(Vector3 worldPosition)
     {
         Vector2Int tempPosition = new Vector2Int(Mathf.RoundToInt(worldPosition.x),
                                                     Mathf.RoundToInt(worldPosition.z));
@@ -90,7 +90,7 @@ public class GridSystem : MonoBehaviour
         return tempPosition;
     }
 
-    public Vector3 getRoundedPosition(Vector3 worldPosition)
+    public Vector3 GetRoundedPosition(Vector3 worldPosition)
     {
         return new Vector3(Mathf.RoundToInt(worldPosition.x),
                             0,

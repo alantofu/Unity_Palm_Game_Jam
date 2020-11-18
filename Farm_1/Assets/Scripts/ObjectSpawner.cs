@@ -9,7 +9,31 @@ public class ObjectSpawner : MonoBehaviour
     public Transform forestParent;
     public Transform palmParent;
 
+    public List<Vector2Int> palmOilTreePointList;
+    public List<Vector2Int> emptyPointList;
+
     private GridSystem gridSystem;
+
+    void Awake()
+    {
+        palmOilTreePointList = new List<Vector2Int>()
+        {
+            new Vector2Int(53, 49),
+            new Vector2Int(53, 50),
+            new Vector2Int(54, 49),
+            new Vector2Int(54, 50),
+        };
+        emptyPointList = new List<Vector2Int>()
+        {
+        };
+        for (int x = 43; x <= 48; x++)
+        {
+            for (int y = 47; y <= 52; y++)
+            {
+                emptyPointList.Add(new Vector2Int(x, y));
+            }
+        }
+    }
 
     void Start()
     {
@@ -32,10 +56,10 @@ public class ObjectSpawner : MonoBehaviour
         {
             for (int z = 0; z <= gridSystem.objectOnGrid.GetUpperBound(1); z++)
             {
-                if (CheckForestSpawnPermit(x, z))
+                if (!CheckPalmSpawnPoint(x, z) && !CheckEmptyPoint(x, z))
                 {
                     GameObject tempObj = Instantiate(forestPrefab,
-                                                        gridSystem.getPositionByGridPoint(x, z),
+                                                        gridSystem.GetPositionByGridPoint(x, z),
                                                         Quaternion.identity,
                                                         forestParent);
                     tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
@@ -50,18 +74,15 @@ public class ObjectSpawner : MonoBehaviour
 
     private void SpawnPalmOil()
     {
-        for (int x = 49; x <= 50; x++)
+        foreach (Vector2Int spawnPoint in palmOilTreePointList)
         {
-            for (int z = 49; z <= 50; z++)
-            {
-                GameObject tempObj = Instantiate(palmPrefab,
-                                                    gridSystem.getPositionByGridPoint(x, z),
-                                                    Quaternion.identity,
-                                                    palmParent);
-                tempObj.name = "Palm Tree (" + x.ToString() + ", " + z.ToString() + ")";
-                gridSystem.objectOnGrid[x, z] = tempObj;
-                tempObj.GetComponent<Growing>().grew = true;
-            }
+            GameObject tempObj = Instantiate(palmPrefab,
+                                                gridSystem.GetPositionByGridPoint(spawnPoint.x, spawnPoint.y),
+                                                Quaternion.identity,
+                                                palmParent);
+            tempObj.name = "Palm Tree (" + spawnPoint.x.ToString() + ", " + spawnPoint.y.ToString() + ")";
+            gridSystem.objectOnGrid[spawnPoint.x, spawnPoint.y] = tempObj;
+            tempObj.GetComponent<Growing>().grew = true;
         }
     }
 
@@ -75,9 +96,30 @@ public class ObjectSpawner : MonoBehaviour
         return true;
     }
 
-    private bool CheckPalmSpawnPermit()
+    // true if palm tree should spawn at that point
+    private bool CheckPalmSpawnPoint(int x, int z)
     {
-        return true;
+        foreach (Vector2Int checkPoint in palmOilTreePointList)
+        {
+            if (checkPoint.x == x && checkPoint.y == z)
+            {
+                Debug.Log("Palm");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool CheckEmptyPoint(int x, int z)
+    {
+        foreach (Vector2Int checkPoint in emptyPointList)
+        {
+            if (checkPoint.x == x && checkPoint.y == z)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

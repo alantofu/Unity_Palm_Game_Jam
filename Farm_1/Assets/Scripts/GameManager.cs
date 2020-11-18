@@ -6,32 +6,37 @@ public class GameManager : MonoBehaviour
 {
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
+    private SelectSystem selectSystem;
     private Camera mainCam;
 
-    private void Awake()
+    void Awake()
     {
         mainCam = Camera.main;
     }
 
-    private void Start()
+    void Start()
     {
         buildSystem = BuildSystem.Instance;
         plantSystem = PlantSystem.Instance;
+        selectSystem = SelectSystem.Instance;
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         buildSystem.gameObject.SetActive(false);
         plantSystem.gameObject.SetActive(false);
+        selectSystem.gameObject.SetActive(true);
     }
 
     public void OnBuyingLipstickFac()
     {
         plantSystem.gameObject.SetActive(false);
-        triggerBuildSystem(true, 1);
+        selectSystem.gameObject.SetActive(false);
+        triggerBuildSystem(true, 0);
     }
 
-    public void OnBuyingChocolatekFac()
+    public void OnBuyingChocolateFac()
     {
         plantSystem.gameObject.SetActive(false);
-        triggerBuildSystem(true, 0);
+        selectSystem.gameObject.SetActive(false);
+        triggerBuildSystem(true, 1);
     }
 
     public void OnPlantingPalmOilTree()
@@ -52,6 +57,7 @@ public class GameManager : MonoBehaviour
             plantSystem.gameObject.SetActive(false);
         }
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
+        selectSystem.gameObject.SetActive(true);
     }
 
     public void ConfirmationPanelOnReject()
@@ -67,6 +73,7 @@ public class GameManager : MonoBehaviour
             plantSystem.gameObject.SetActive(false);
         }
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
+        selectSystem.gameObject.SetActive(true);
     }
 
     void triggerBuildSystem(bool trigger, int index)

@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54531800}
   m_LocalRotation: {x: 0.38268346, y: -0, z: -0, w: 0.9238796}
-  m_LocalPosition: {x: 0, y: 25, z: 25}
+  m_LocalPosition: {x: 0, y: 40, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1631185181}
@@ -267,6 +267,7 @@ MonoBehaviour:
   selectedSystemObject: {fileID: 0}
   dragStartPosition: {x: 0, y: 0, z: 0}
   dragFinalPosition: {x: 0, y: 0, z: 0}
+  dragDistance: 0
 --- !u!4 &132837016
 Transform:
   m_ObjectHideFlags: 0
@@ -674,14 +675,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af428858caf4b644bdf2582888e8f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factoryPrefab:
-  - {fileID: 7843490813971796792, guid: a3e18c1c426b839469cff67c3c559182, type: 3}
+  factoryPrefabList:
   - {fileID: 7843490813971796792, guid: 632ebbe795b4fd44b93121bc3db4d7a7, type: 3}
+  - {fileID: 7843490813971796792, guid: a3e18c1c426b839469cff67c3c559182, type: 3}
   factoryParent: {fileID: 1479144673}
   freshObject: {fileID: 0}
   selectedForestObject: {fileID: 0}
   dragStartPosition: {x: 0, y: 0, z: 0}
   dragFinalPosition: {x: 0, y: 0, z: 0}
+  dragDistance: 0
+  canBuild: 0
 --- !u!4 &1087811905
 Transform:
   m_ObjectHideFlags: 0
@@ -778,7 +781,7 @@ MonoBehaviour:
   movementTime: 5
   newPosition: {x: 0, y: 0, z: 0}
   zoomAmount: {x: 0, y: -5, z: 5}
-  newZoom: {x: 0, y: 25, z: 25}
+  newZoom: {x: 0, y: 50, z: 0}
   dragStartPosition: {x: 0, y: 0, z: 0}
   dragCurrentPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1648353672
@@ -830,6 +833,8 @@ MonoBehaviour:
     type: 3}
   forestParent: {fileID: 1029135219}
   palmParent: {fileID: 987331456}
+  palmOilTreePointList: []
+  emptyPointList: []
 --- !u!1 &1964520485
 GameObject:
   m_ObjectHideFlags: 0
@@ -14203,7 +14208,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1322224570174750766}
-        m_MethodName: OnBuyingChocolatekFac
+        m_MethodName: OnBuyingChocolateFac
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -17,6 +17,7 @@ public class SelectSystem : MonoBehaviour
 
     public Vector3 dragStartPosition;
     public Vector3 dragFinalPosition;
+    public float dragDistance;
 
     void Awake()
     {
@@ -73,7 +74,7 @@ public class SelectSystem : MonoBehaviour
                 dragFinalPosition = Input.GetTouch(0).position;
 
                 // calculate drag distance on screen point
-                float dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
+                dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
                 + (dragFinalPosition.y - dragStartPosition.y) * (dragFinalPosition.y - dragStartPosition.y)));
 
                 if (dragDistance < 10 && selectedObject)
@@ -84,7 +85,6 @@ public class SelectSystem : MonoBehaviour
 
             }
         }
-
     }
 
     void ClickHandler()
@@ -112,7 +112,7 @@ public class SelectSystem : MonoBehaviour
             dragFinalPosition = Input.mousePosition;
 
             // calculate drag distance on screen point
-            float dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
+            dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
             + (dragFinalPosition.y - dragStartPosition.y) * (dragFinalPosition.y - dragStartPosition.y)));
 
             if (dragDistance < 10 && selectedObject)

@@ -89,12 +89,12 @@ public class PlantSystem : MonoBehaviour
         {
             if (selectedObj)
             {
-                Vector2Int selectedPoint = gridSystem.getGridPointByPosition(selectedObj.transform.position);
+                Vector2Int selectedPoint = gridSystem.GetGridPointByPosition(selectedObj.transform.position);
 
                 if (gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y].CompareTag("Forest Tree"))
                 {
                     GameObject newObj = Instantiate(palmPrefab,
-                                                gridSystem.getPositionByGridPoint(selectedPoint.x, selectedPoint.y),
+                                                gridSystem.GetPositionByGridPoint(selectedPoint.x, selectedPoint.y),
                                                 Quaternion.identity,
                                                 palmParent);
                     newObj.name = "Palm Tree (" + selectedPoint.x.ToString() + ", " + selectedPoint.y.ToString() + ")";
