@@ -15,6 +15,9 @@ public class Farming : MonoBehaviour
 
     public int getOilAmount = 1000;
 
+    public AudioSource oilcollection;
+    public AudioSource oilready;
+
     void Start()
     {
         collectable = false;
@@ -28,6 +31,7 @@ public class Farming : MonoBehaviour
         yield return new WaitForSeconds(waitSecond);
         oilIcon.SetActive(true);
         collectable = true;
+        oilready.Play();
         StartCoroutine(FadeInIcon());
     }
 
@@ -71,6 +75,7 @@ public class Farming : MonoBehaviour
             StartCoroutine(FadeOutIcon());
             Player.Instance.addOil(getOilAmount);
             collectable = false;
+            oilcollection.Play();
             StartCoroutine(FarmingFruit());
         }
     }
