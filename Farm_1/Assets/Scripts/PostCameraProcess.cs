@@ -11,7 +11,7 @@ public class PostCameraProcess : MonoBehaviour
     {
         if (toggle)
         {
-            // GridSystem.Instance.DisplayGridLines();
+            GridSystem.Instance.DisplayGridLines();
         }
     }
 }
