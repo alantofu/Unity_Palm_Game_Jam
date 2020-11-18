@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void plantPalmOilTree()
     {
-        plantSystem.PlacePalmObj();
+            plantSystem.PlacePalmObj();
     }
 
 

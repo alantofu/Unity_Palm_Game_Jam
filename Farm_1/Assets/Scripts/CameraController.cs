@@ -40,12 +40,12 @@ public class CameraController : MonoBehaviour
                                                 0,
                                                 Mathf.RoundToInt(followTransform.position.z - 35));
         }
+#if UNITY_EDITOR
+        HandleMouseInput();
 
-        // HandleMouseInput();
-
-        #if UNITY_ANDROID
-                HandleTouchInput();
-        #endif
+#elif UNITY_ANDROID
+        HandleTouchInput();
+#endif
 
     }
 
