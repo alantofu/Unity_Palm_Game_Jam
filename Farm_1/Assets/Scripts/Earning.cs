@@ -63,7 +63,7 @@ public class Earning : MonoBehaviour
         coinIcon.SetActive(false);
     }
 
-    private void OnMouseDown()
+    public void OnClickResponse()
     {
         if (collectable)
         {

@@ -64,7 +64,7 @@ public class Farming : MonoBehaviour
         oilIcon.SetActive(false);
     }
 
-    private void OnMouseDown()
+    public void OnClickResponse()
     {
         if (collectable)
         {

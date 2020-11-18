@@ -44,7 +44,7 @@ public class MousePointDebug : MonoBehaviour
         if (plane.Raycast(ray, out enter))
         {
             // Debug.Log("Plane Raycast hit at distance: " + enter);
-            //Get the point that is clicked
+            // Get the point that is clicked
             Vector3 hitPoint = ray.GetPoint(enter);
             // Debug.Log("Intersect point: " + hitPoint);
             Debug.DrawRay(ray.origin, ray.direction * enter, Color.blue);

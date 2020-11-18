@@ -6,20 +6,20 @@ public class ObjectSpawner : MonoBehaviour
 {
     public GameObject forestPrefab;
     public GameObject palmPrefab;
-    public GameObject factoryPrefab;
     public Transform forestParent;
     public Transform palmParent;
-    public Transform factoryParent;
 
     private GridSystem gridSystem;
 
     void Start()
     {
         gridSystem = GridSystem.Instance;
-        if(forestPrefab == null) {
+        if (forestPrefab == null)
+        {
             forestPrefab = Resources.Load("Prefabs/Forest Tree", typeof(GameObject)) as GameObject;
         }
-        if(palmPrefab == null) {
+        if (palmPrefab == null)
+        {
             palmPrefab = Resources.Load("Prefabs/Palm Tree", typeof(GameObject)) as GameObject;
         }
         SpawnForest();

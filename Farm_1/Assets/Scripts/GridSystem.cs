@@ -19,7 +19,7 @@ public class GridSystem : MonoBehaviour
     public Material lineMaterial;
 
     public float gridSize = 1f; // distance
-    public float thickness = 1f;
+    public float lineThickness = 0.05f;
     public int width = 20; // x
     public int length = 20; // z
     public float gridLineHeight = 1; // y
@@ -128,18 +128,18 @@ public class GridSystem : MonoBehaviour
         {
             GL.Color(baseColor);
             GL.Vertex3(startX, gridLineHeight, z + startZ);
+            GL.Vertex3(startX, gridLineHeight, z + startZ + lineThickness);
+            GL.Vertex3(width + startX, gridLineHeight, z + startZ + lineThickness);
             GL.Vertex3(width + startX, gridLineHeight, z + startZ);
-            GL.Vertex3(startX, gridLineHeight, z + startZ + thickness);
-            GL.Vertex3(width + startX, gridLineHeight, z + startZ + thickness);
         }
         // vertical line
         for (float x = 0; x < width; x += gridSize)
         {
             GL.Color(baseColor);
             GL.Vertex3(x + startX, gridLineHeight, startZ);
+            GL.Vertex3(x + startX + lineThickness, gridLineHeight, startZ);
+            GL.Vertex3(x + startX + lineThickness, gridLineHeight, length + startZ);
             GL.Vertex3(x + startX, gridLineHeight, length + startZ);
-            GL.Vertex3(x + startX + thickness, gridLineHeight, startZ);
-            GL.Vertex3(x + startX + thickness, gridLineHeight, length + startZ);
         }
 
 

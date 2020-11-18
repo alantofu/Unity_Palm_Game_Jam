@@ -19,37 +19,57 @@ public class GameManager : MonoBehaviour
         plantSystem = PlantSystem.Instance;
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         buildSystem.gameObject.SetActive(false);
-        plantSystem.gameObject.SetActive(true);
+        plantSystem.gameObject.SetActive(false);
     }
 
-    public void showGridline()
+    public void OnBuyingLipstickFac()
     {
-        mainCam.GetComponent<PostCameraProcess>().toggle = true;
-    }
-
-    public void hideGridline()
-    {
-        mainCam.GetComponent<PostCameraProcess>().toggle = false;
-    }
-
-    public void planLipstickFactory()
-    {
+        plantSystem.gameObject.SetActive(false);
         triggerBuildSystem(true, 1);
     }
 
-    public void buildFactory()
+    public void OnBuyingChocolatekFac()
     {
-        buildSystem.PlaceFactoryObj();
-        mainCam.GetComponent<PostCameraProcess>().toggle = false;
-        buildSystem.gameObject.SetActive(false);
-    }
-
-    public void planChocolateFactory()
-    {
+        plantSystem.gameObject.SetActive(false);
         triggerBuildSystem(true, 0);
     }
 
-    private void triggerBuildSystem(bool trigger, int index)
+    public void OnPlantingPalmOilTree()
+    {
+        plantSystem.gameObject.SetActive(true);
+    }
+
+    public void ConfirmationPanelOnAccept()
+    {
+        if (buildSystem.gameObject.activeSelf)
+        {
+            buildSystem.PlaceFactoryObj();
+            buildSystem.gameObject.SetActive(false);
+        }
+        else if (plantSystem.gameObject.activeSelf)
+        {
+            plantSystem.PlacePalmObj();
+            plantSystem.gameObject.SetActive(false);
+        }
+        mainCam.GetComponent<PostCameraProcess>().toggle = false;
+    }
+
+    public void ConfirmationPanelOnReject()
+    {
+        if (buildSystem.gameObject.activeSelf)
+        {
+            buildSystem.CancelFactoryPlanning();
+            buildSystem.gameObject.SetActive(false);
+        }
+        else if (plantSystem.gameObject.activeSelf)
+        {
+            plantSystem.StopAllHighlight();
+            plantSystem.gameObject.SetActive(false);
+        }
+        mainCam.GetComponent<PostCameraProcess>().toggle = false;
+    }
+
+    void triggerBuildSystem(bool trigger, int index)
     {
         mainCam.GetComponent<PostCameraProcess>().toggle = trigger;
         buildSystem.gameObject.SetActive(trigger);
@@ -62,34 +82,4 @@ public class GameManager : MonoBehaviour
             buildSystem.PlaceFactoryObj();
         }
     }
-
-    public void cancelBuildSystem()
-    {
-        buildSystem.CancelFactoryPlanning();
-        mainCam.GetComponent<PostCameraProcess>().toggle = false;
-        buildSystem.gameObject.SetActive(false);
-    }
-
-    public void onPlantSystem()
-    {
-        triggerPlantSystem(true);
-    }
-
-    public void offPlantSystem()
-    {
-        triggerPlantSystem(false);
-    }
-
-    private void triggerPlantSystem(bool trigger)
-    {
-        plantSystem.gameObject.SetActive(trigger);
-    }
-
-    public void plantPalmOilTree()
-    {
-            plantSystem.PlacePalmObj();
-    }
-
-
-
 }

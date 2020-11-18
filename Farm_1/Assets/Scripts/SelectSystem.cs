@@ -1,0 +1,157 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class SelectSystem : MonoBehaviour
+{
+    private static SelectSystem _instance;
+    public static SelectSystem Instance { get { return _instance; } } // a singleton
+
+    private BuildSystem buildSystem;
+    private PlantSystem plantSystem;
+
+    public LayerMask layerMask;
+    public GameObject selectedObject;
+    public GameObject selectedSystemObject;
+
+    public Vector3 dragStartPosition;
+    public Vector3 dragFinalPosition;
+
+    void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
+    void Start()
+    {
+        buildSystem = BuildSystem.Instance;
+        plantSystem = PlantSystem.Instance;
+    }
+
+    void Update()
+    {
+        selectedSystemObject = EventSystem.current.currentSelectedGameObject;
+        // #if UNITY_EDITOR
+        // clickHandler();
+        // #elif UNITY_ANDROID || UNITY_IOS
+        TouchHandler();
+        // #endif
+    }
+
+    void TouchHandler()
+    {
+        if (EventSystem.current.IsPointerOverGameObject(0))
+        {
+            return;
+        }
+        RaycastHit hit = new RaycastHit();
+        if (Input.touchCount > 0)
+        {
+
+            if (Input.GetTouch(0).phase.Equals(TouchPhase.Began))
+            {
+                dragStartPosition = Input.GetTouch(0).position;
+
+                // Construct a ray from the current touch coordinates.
+                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+                {
+                    selectedObject = hit.transform.gameObject;
+                }
+            }
+            if (Input.GetTouch(0).phase.Equals(TouchPhase.Ended))
+            {
+                dragFinalPosition = Input.GetTouch(0).position;
+
+                // calculate drag distance on screen point
+                float dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
+                + (dragFinalPosition.y - dragStartPosition.y) * (dragFinalPosition.y - dragStartPosition.y)));
+
+                if (dragDistance < 10 && selectedObject)
+                {
+                    SendOnClickResponse(selectedObject);
+                }
+                selectedObject = null;
+
+            }
+        }
+
+    }
+
+    void ClickHandler()
+    {
+        if (EventSystem.current.IsPointerOverGameObject(0))
+        {
+            return;
+        }
+        RaycastHit hit = new RaycastHit();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            dragStartPosition = Input.mousePosition;
+
+            // Construct a ray from the current touch coordinates.
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
+            {
+                selectedObject = hit.transform.gameObject;
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            dragFinalPosition = Input.mousePosition;
+
+            // calculate drag distance on screen point
+            float dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
+            + (dragFinalPosition.y - dragStartPosition.y) * (dragFinalPosition.y - dragStartPosition.y)));
+
+            if (dragDistance < 10 && selectedObject)
+            {
+                SendOnClickResponse(selectedObject);
+            }
+            selectedObject = null;
+        }
+    }
+
+    public void SendOnClickResponse(GameObject selectedGameObj)
+    {
+        Debug.Log("Send click to " + selectedGameObj);
+        switch (selectedGameObj.tag)
+        {
+            case "Forest Tree":
+                if (plantSystem.gameObject.activeSelf)
+                {
+                    plantSystem.SelectDeselectForestObj(selectedGameObj);
+                }
+                break;
+
+            case "Palm Oil Tree":
+                if (!plantSystem.gameObject.activeSelf)
+                {
+                    selectedGameObj.GetComponent<Farming>().OnClickResponse();
+                }
+                break;
+
+            case "Factory":
+                if (!plantSystem.gameObject.activeSelf)
+                {
+                    selectedGameObj.GetComponent<Earning>().OnClickResponse();
+                }
+                break;
+
+            default:
+                return;
+        }
+    }
+
+}

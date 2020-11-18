@@ -22,3 +22,6 @@
 6. [Pinch and Scroll to Move and Zoom in Unity for Mobile Games](https://www.youtube.com/watch?v=KkYco_7-ULA)
 7. [Waypoint Marker](https://www.youtube.com/watch?v=oBkfujKPZw8)
 8. [Drawing Lines with Unity](http://rengelbert.com/blog/2015/11/21/drawing-lines-with-unity/)
+9. [How can I prevent my raycast from passing through UI?](https://answers.unity.com/questions/1079066/how-can-i-prevent-my-raycast-from-passing-through.html)
+10. [Graphics Raycaster of Unity; How does it work?](https://gamedev.stackexchange.com/questions/93592/graphics-raycaster-of-unity-how-does-it-work)
+11. [Tango/Unity - UI not blocking touches on screen](https://stackoverflow.com/questions/43151553/tango-unity-ui-not-blocking-touches-on-screen)

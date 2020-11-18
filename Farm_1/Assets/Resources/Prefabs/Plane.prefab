@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseColor: {r: 1, g: 1, b: 1, a: 0.40784314}
+  lineMaterial: {fileID: 2100000, guid: 563198cce5f3f0144ba96f59fe5cc985, type: 2}
   gridSize: 1
+  lineThickness: 0.05
   width: 101
   length: 101
   gridLineHeight: 0.2
