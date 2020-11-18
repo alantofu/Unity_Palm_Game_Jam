@@ -103,7 +103,6 @@ public class ObjectSpawner : MonoBehaviour
         {
             if (checkPoint.x == x && checkPoint.y == z)
             {
-                Debug.Log("Palm");
                 return true;
             }
         }
