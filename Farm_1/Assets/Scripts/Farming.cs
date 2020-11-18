@@ -14,6 +14,9 @@ public class Farming : MonoBehaviour
     public float animationDistance = 1.5f;
 
     public int getOilAmount = 1000;
+    public int maxFarmCount = 10;
+    public int farmCount = 0;
+    public bool isDead = false; // true if the palm oil tree is dead
 
     void Start()
     {
