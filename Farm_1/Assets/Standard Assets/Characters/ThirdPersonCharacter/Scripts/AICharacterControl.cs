@@ -12,13 +12,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public UnityEngine.AI.NavMeshAgent agent { get; private set; } // the navmesh agent required for the path finding
         public ThirdPersonCharacter character { get; private set; } // the character we are controlling
         public Transform target;// target to aim for
-        public Rigidbody rb;
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody>();
-            rb.detectCollisions = false;
-            rb.constraints = RigidbodyConstraints.FreezePositionY;
             // get the components on the object we need ( should not be null due to require component so no need to check )
             agent = GetComponentInChildren<UnityEngine.AI.NavMeshAgent>();
             character = GetComponent<ThirdPersonCharacter>();
@@ -52,6 +48,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 finalPosition = hit.position;
             }
+            var delta = target.position - transform.position;
+            float angle = (float)(System.Math.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
+            //transform.rotation = Quaternion.Euler(0, angle, 0);
+            transform.Rotate(0, angle, 0);
             return finalPosition;
         }
 
