@@ -14,6 +14,8 @@ public class Earning : MonoBehaviour
 
     public int getCoinAmount = 500;
 
+    public bool isManufacturing = false; // true if it is producing money
+
     void Start()
     {
         isCollectable = false;

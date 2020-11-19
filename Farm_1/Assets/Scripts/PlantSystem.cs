@@ -13,8 +13,9 @@ public class PlantSystem : MonoBehaviour
     public GameObject palmPrefab;
     public Transform palmParent;
 
-    public List<GameObject> selectedForestObjList;
+    public List<GameObject> selectedRemovableObjList;
     public GameObject selectedChildObj;
+    public GameObject selectedRemovableObj;
     public GameObject selectedDeadTreeObj;
 
     public Vector3 dragStartPosition;
@@ -34,36 +35,37 @@ public class PlantSystem : MonoBehaviour
 
     void OnEnable()
     {
-        selectedForestObjList = new List<GameObject>();
+        selectedRemovableObjList = new List<GameObject>();
     }
 
     void Start()
     {
         gridSystem = GridSystem.Instance;
-        selectedForestObjList = new List<GameObject>();
+        selectedRemovableObjList = new List<GameObject>();
     }
 
-    public void SelectDeselectForestObj(GameObject selectedObj)
+    public void SelectDeselectRemovableObj(GameObject selectedObj)
     {
         if (selectedObj)
         {
             if (selectedObj.transform.GetChild(0).gameObject.activeSelf)  // if forest tree obj is not highlighted then highlight it
             {
-                if (selectedForestObjList.Count > 0)
+                if (selectedRemovableObjList.Count > 0)
                 { // allow one tree only
                     StopAllHighlight();
                 }
+                selectedRemovableObj = selectedObj; // select the object
                 selectedChildObj = selectedObj.transform.GetChild(1).gameObject;
                 selectedChildObj.SetActive(true);
                 selectedObj.transform.GetChild(0).gameObject.SetActive(false);
-                selectedForestObjList.Add(selectedObj);
+                selectedRemovableObjList.Add(selectedObj);
             }
             else // unhighlight it
             {
                 selectedChildObj = selectedObj.transform.GetChild(0).gameObject;
                 selectedChildObj.SetActive(true);
                 selectedObj.transform.GetChild(1).gameObject.SetActive(false);
-                selectedForestObjList.Remove(selectedObj);
+                selectedRemovableObjList.Remove(selectedObj);
             }
 
         }
@@ -78,12 +80,12 @@ public class PlantSystem : MonoBehaviour
             selectedChildObj.SetActive(true);
             selectedObj.transform.GetChild(1).gameObject.SetActive(false);
         }
-        selectedForestObjList.Remove(selectedObj);
+        selectedRemovableObjList.Remove(selectedObj);
     }
 
     public void StopAllHighlight()
     { // fix bug where need to unhighlight but without other condition
-        foreach (GameObject selectedObj in selectedForestObjList)
+        foreach (GameObject selectedObj in selectedRemovableObjList)
         {
             if (selectedObj)
             {
@@ -92,18 +94,19 @@ public class PlantSystem : MonoBehaviour
                 selectedObj.transform.GetChild(1).gameObject.SetActive(false);
             }
         }
-        selectedForestObjList.Clear();
+        selectedRemovableObjList.Clear();
     }
 
     public void PlacePalmObj()
     {
-        foreach (GameObject selectedObj in selectedForestObjList)
+        foreach (GameObject selectedObj in selectedRemovableObjList)
         {
             if (selectedObj)
             {
                 Vector2Int selectedPoint = gridSystem.GetGridPointByPosition(selectedObj.transform.position);
 
-                if (gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y].CompareTag("Forest Tree"))
+                if (gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y].CompareTag("Forest Tree") 
+                || gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y].CompareTag("Grass"))
                 {
                     GameObject newObj = Instantiate(palmPrefab,
                                                 gridSystem.GetPositionByGridPoint(selectedPoint.x, selectedPoint.y),
@@ -139,7 +142,7 @@ public class PlantSystem : MonoBehaviour
     private void OnDisable()
     {
         StopAllHighlight();
-        selectedForestObjList = null;
+        selectedRemovableObjList = null;
         selectedChildObj = null;
     }
 

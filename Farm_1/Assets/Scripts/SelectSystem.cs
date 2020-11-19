@@ -40,10 +40,10 @@ public class SelectSystem : MonoBehaviour
     void Update()
     {
         selectedSystemObject = EventSystem.current.currentSelectedGameObject;
-        // #if UNITY_EDITOR
-        // clickHandler();
-        // #elif UNITY_ANDROID || UNITY_IOS
-        TouchHandler();
+        // #if UNITY_ANDROID || UNITY_IOS
+        //         TouchHandler();
+        // #elif UNITY_EDITOR
+        ClickHandler();
         // #endif
     }
 
@@ -89,7 +89,7 @@ public class SelectSystem : MonoBehaviour
 
     void ClickHandler()
     {
-        if (EventSystem.current.IsPointerOverGameObject(0))
+        if (EventSystem.current.IsPointerOverGameObject(0) || EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
@@ -128,10 +128,17 @@ public class SelectSystem : MonoBehaviour
         Debug.Log("Send click to " + selectedGameObj);
         switch (selectedGameObj.tag)
         {
+            case "Grass":
+                if (plantSystem.gameObject.activeSelf)
+                {
+                    plantSystem.SelectDeselectRemovableObj(selectedGameObj);
+                }
+                break;
+
             case "Forest Tree":
                 if (plantSystem.gameObject.activeSelf)
                 {
-                    plantSystem.SelectDeselectForestObj(selectedGameObj);
+                    plantSystem.SelectDeselectRemovableObj(selectedGameObj);
                 }
                 break;
 
@@ -146,6 +153,13 @@ public class SelectSystem : MonoBehaviour
                 if (!plantSystem.gameObject.activeSelf)
                 {
                     selectedGameObj.GetComponent<Earning>().OnClickResponse();
+                    if(!selectedGameObj.GetComponent<Earning>().isManufacturing) { // if it is not producing money
+                        if(selectedGameObj.name.StartsWith("Lipstick")) {
+
+                        }else if(selectedGameObj.name.StartsWith("Chocolate")) {
+
+                        }
+                    }
                 }
                 break;
 

@@ -11,7 +11,7 @@ public class Building : MonoBehaviour
     public GameObject promptCube;
     public Image timerBar;
 
-    public float constructingTime = 20;
+    public float constructingTime = 6;
     public float remainingTime;
 
     public event Action<float> OnTimeDecrease = delegate { };
@@ -46,7 +46,6 @@ public class Building : MonoBehaviour
         }
         builtFactory.gameObject.SetActive(true);
         constructingFactory.gameObject.SetActive(false);
-        GetComponent<Earning>().enabled = true;
         timerBar.transform.parent.gameObject.SetActive(false); // disable timer bar
         this.enabled = false;
     }

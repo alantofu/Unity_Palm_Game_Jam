@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject sidePanel;
     public GameObject confirmationPanel;
     public GameObject buySeedPanel;
+    public GameObject forestHCSPanel;
     public GameObject replantTreePanel;
 
     void Awake()
@@ -71,7 +72,8 @@ public class GameManager : MonoBehaviour
         plantSystem.PlacePalmObj();
     }
 
-    public void OnBiomassMethod() {
+    public void OnBiomassMethod()
+    {
         plantSystem.gameObject.SetActive(true);
         plantSystem.ReplantPalmObj();
         plantSystem.gameObject.SetActive(false);
@@ -97,9 +99,16 @@ public class GameManager : MonoBehaviour
         }
         else if (plantSystem.gameObject.activeSelf)
         {
-            if (plantSystem.selectedForestObjList.Count > 0)
+            if (plantSystem.selectedRemovableObjList.Count > 0)
             {
-                buySeedPanel.SetActive(true);
+                if (plantSystem.selectedRemovableObj.CompareTag("Forest Tree"))
+                {
+                    forestHCSPanel.SetActive(true);
+                }
+                else
+                {
+                    buySeedPanel.SetActive(true);
+                }
             }
         }
         mainCam.GetComponent<PostCameraProcess>().toggle = false;

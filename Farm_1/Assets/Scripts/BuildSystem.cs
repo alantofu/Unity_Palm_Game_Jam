@@ -50,10 +50,10 @@ public class BuildSystem : MonoBehaviour
 
     void Update()
     {
-        // #if UNITY_EDITOR
-        // clickHandler();
-        // #elif UNITY_ANDROID || UNITY_IOS
-        TouchHandler();
+        // #if UNITY_ANDROID || UNITY_IOS
+        //         TouchHandler();
+        // #elif UNITY_EDITOR
+        ClickHandler();
         // #endif
     }
 
@@ -180,6 +180,7 @@ public class BuildSystem : MonoBehaviour
                                     Quaternion.identity,
                                     factoryParent.transform);
         freshObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        freshObject.name = factoryPrefabList[index].name;
         canBuild = CheckFactoryBuildPoint(newPoint, Mathf.RoundToInt(freshObject.GetComponent<BoxCollider>().size.x));
     }
 
@@ -189,7 +190,7 @@ public class BuildSystem : MonoBehaviour
         {
             Vector2Int newFreshPoint = gridSystem.GetGridPointByPosition(freshObject.transform.position);
             freshObject.layer = LayerMask.NameToLayer("Default");
-            freshObject.name = "Factory (" + newFreshPoint.x.ToString() + ", " + newFreshPoint.y.ToString() + ")";
+            freshObject.name = freshObject.name + " (" + newFreshPoint.x.ToString() + ", " + newFreshPoint.y.ToString() + ")";
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < 2; j++)
@@ -217,7 +218,7 @@ public class BuildSystem : MonoBehaviour
             {
                 for (int j = 0; j < size; j++)
                 {
-                    ActivateDeactivateForestMesh(freshObjPoint.x + i, freshObjPoint.y + j, true);
+                    ActivateDeactivateObjMesh(freshObjPoint.x + i, freshObjPoint.y + j, true);
                 }
             }
             Destroy(freshObject);
@@ -229,23 +230,27 @@ public class BuildSystem : MonoBehaviour
     private void MovePlanningFactory(Vector2Int prevPoint, Vector2Int newPoint, GameObject freshObject)
     {
         int size = Mathf.RoundToInt(freshObject.GetComponent<BoxCollider>().size.x);
+        if(CheckIsOnPalmTree(newPoint, size)) {
+            return;
+        }
         canBuild = CheckFactoryBuildPoint(newPoint, size);
         for (int i = 0; i < size; i++)
         {
             for (int j = 0; j < size; j++)
             {
-                ActivateDeactivateForestMesh(prevPoint.x + i, prevPoint.y + j, true);
-                ActivateDeactivateForestMesh(newPoint.x + i, newPoint.y + j, false);
+                ActivateDeactivateObjMesh(prevPoint.x + i, prevPoint.y + j, true);
+                ActivateDeactivateObjMesh(newPoint.x + i, newPoint.y + j, false);
             }
         }
         freshObject.transform.position = gridSystem.GetPositionByGridPoint(newPoint.x, newPoint.y);
 
     }
 
-    private void ActivateDeactivateForestMesh(int x, int z, bool toggle)
+    private void ActivateDeactivateObjMesh(int x, int z, bool toggle)
     {
         GameObject tempObj = gridSystem.objectOnGrid[x, z];
-        if (tempObj != null && tempObj.CompareTag("Forest Tree"))
+        if (tempObj != null && (tempObj.CompareTag("Forest Tree") || tempObj.CompareTag("Grass")))
+        // if (tempObj != null)
         {
             tempObj.transform.GetChild(0).gameObject.SetActive(toggle);
         }
@@ -271,5 +276,21 @@ public class BuildSystem : MonoBehaviour
         return canBuild;
     }
 
+    // return false if it is not on palm tree
+    private bool CheckIsOnPalmTree(Vector2Int gridPoint, int size)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
+            {
+                // if it is not (empty or forest object)
+                if (gridSystem.objectOnGrid[gridPoint.x + i, gridPoint.y + j] != null && gridSystem.objectOnGrid[gridPoint.x + i, gridPoint.y + j].CompareTag("Palm Oil Tree"))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 }

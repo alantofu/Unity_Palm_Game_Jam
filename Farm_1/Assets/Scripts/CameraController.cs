@@ -62,16 +62,16 @@ public class CameraController : MonoBehaviour
             isZoomToDefault = false;
             isPanToDefault = false;
         }
-#if UNITY_ANDROID || UNITY_IOS
-        HandleTouchInput();
-#elif UNITY_EDITOR
-        // HandleMouseInput();
-#endif
+// #if UNITY_ANDROID || UNITY_IOS
+        // HandleTouchInput();
+// #elif UNITY_EDITOR
+        HandleMouseInput();
+// #endif
     }
 
     void HandleMouseInput()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject() || EventSystem.current.IsPointerOverGameObject(0))
         {
             newZoom = cameraTransform.localPosition;
             dragStartPosition = Vector3.zero;
@@ -142,39 +142,38 @@ public class CameraController : MonoBehaviour
                 newPosition.x = Mathf.Clamp(newPosition.x, -70f, -5f);
                 newPosition.z = Mathf.Clamp(newPosition.z, -70f, -5f);
             }
+        }
+        else if (Input.touchCount == 2)
+        {
+            Touch touch_0 = Input.GetTouch(0);
+            Touch touch_1 = Input.GetTouch(1);
 
-            else if (Input.touchCount == 2)
+            Vector2 touchPrePos_0 = touch_0.position - touch_0.deltaPosition;
+            Vector2 touchPrePos_1 = touch_1.position - touch_1.deltaPosition;
+
+            float prevMagnitude = (touchPrePos_0 - touchPrePos_1).magnitude;
+            float currentMagnitude = (touch_0.position - touch_1.position).magnitude;
+
+            float diff = currentMagnitude - prevMagnitude;
+
+            newZoom += diff * zoomAmount * 0.01f;
+            if (newZoom.y < 15 || newZoom.z > 35)
             {
-                Touch touch_0 = Input.GetTouch(0);
-                Touch touch_1 = Input.GetTouch(1);
-
-                Vector2 touchPrePos_0 = touch_0.position - touch_0.deltaPosition;
-                Vector2 touchPrePos_1 = touch_1.position - touch_1.deltaPosition;
-
-                float prevMagnitude = (touchPrePos_0 - touchPrePos_1).magnitude;
-                float currentMagnitude = (touch_0.position - touch_1.position).magnitude;
-
-                float diff = currentMagnitude - prevMagnitude;
-
-                newZoom += diff * zoomAmount * 0.01f;
-                if (newZoom.y < 15 || newZoom.z > 35)
                 {
-                    {
-                        newZoom.y = 15;
-                        newZoom.z = 35;
-                    }
+                    newZoom.y = 15;
+                    newZoom.z = 35;
                 }
-                else if (newZoom.y > 50 || newZoom.z < 0)
-                {
-                    newZoom.y = 50;
-                    newZoom.z = 0;
-                }
-
-                panning = false;
-                dragStartPosition = transform.position;
-                dragCurrentPosition = transform.position;
-                newPosition = transform.position;
             }
+            else if (newZoom.y > 50 || newZoom.z < 0)
+            {
+                newZoom.y = 50;
+                newZoom.z = 0;
+            }
+
+            panning = false;
+            dragStartPosition = transform.position;
+            dragCurrentPosition = transform.position;
+            newPosition = transform.position;
         }
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
