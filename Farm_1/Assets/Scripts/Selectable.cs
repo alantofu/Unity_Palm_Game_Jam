@@ -16,13 +16,12 @@ public class Selectable : MonoBehaviour
 
     private void OnMouseDown()
     {
-        selectionsound.Play();
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
         }
 
-
+        selectionsound.Play(); 
         if (this.gameObject.CompareTag("Forest Tree"))
         {
             plantSystem.UnhighlightForestObject();
