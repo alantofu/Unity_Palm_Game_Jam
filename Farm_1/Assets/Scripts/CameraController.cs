@@ -62,10 +62,10 @@ public class CameraController : MonoBehaviour
             isZoomToDefault = false;
             isPanToDefault = false;
         }
-#if UNITY_EDITOR
-        HandleMouseInput();
-#elif UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
         HandleTouchInput();
+#elif UNITY_EDITOR
+        // HandleMouseInput();
 #endif
     }
 
@@ -118,6 +118,14 @@ public class CameraController : MonoBehaviour
 
     void HandleTouchInput()
     {
+        if (EventSystem.current.IsPointerOverGameObject(0))
+        {
+            newZoom = cameraTransform.localPosition;
+            dragStartPosition = Vector3.zero;
+            dragCurrentPosition = Vector3.zero;
+            newPosition = transform.position;
+            return;
+        }
         if (Input.touchCount == 1)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -167,9 +175,10 @@ public class CameraController : MonoBehaviour
                 dragCurrentPosition = transform.position;
                 newPosition = transform.position;
             }
-            transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
-            cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
         }
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
+
     }
 
     public void PanningToDefault()
