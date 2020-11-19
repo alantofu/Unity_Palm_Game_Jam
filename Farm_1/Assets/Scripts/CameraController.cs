@@ -62,15 +62,11 @@ public class CameraController : MonoBehaviour
             isZoomToDefault = false;
             isPanToDefault = false;
         }
-
-
 #if UNITY_EDITOR
         HandleMouseInput();
 #elif UNITY_ANDROID
         HandleTouchInput();
 #endif
-
-
     }
 
     void HandleMouseInput()
@@ -174,6 +170,19 @@ public class CameraController : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
             cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
         }
+    }
+
+    public void PanningToDefault()
+    {
+        isPanToDefault = true;
+        transform.position = Vector3.Lerp(transform.position, defaultPosition, Time.deltaTime * movementTime);
+        newPosition = transform.position;
+    }
+    public void ZoomingToDefault()
+    {
+        isZoomToDefault = true;
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, defaultZoom, Time.deltaTime * movementTime);
+        newZoom = cameraTransform.localPosition;
     }
 
     public static Vector3 GetPlaneIntersectPos(Vector3 inputPosition)
