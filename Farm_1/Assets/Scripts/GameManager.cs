@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager _instance;
+    public static GameManager Instance { get { return _instance; } } // a singleton
+
     private CameraController cameraController;
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
@@ -13,9 +16,18 @@ public class GameManager : MonoBehaviour
     public GameObject sidePanel;
     public GameObject confirmationPanel;
     public GameObject buySeedPanel;
+    public GameObject replantTreePanel;
 
     void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
         mainCam = Camera.main;
     }
 
@@ -51,13 +63,18 @@ public class GameManager : MonoBehaviour
 
     public void OnRemovingForestTree()
     {
-        cameraController.PanningToDefault();
         plantSystem.gameObject.SetActive(true);
     }
 
     public void OnPlantingPalmOilTree()
     {
         plantSystem.PlacePalmObj();
+    }
+
+    public void OnBiomassMethod() {
+        plantSystem.gameObject.SetActive(true);
+        plantSystem.ReplantPalmObj();
+        plantSystem.gameObject.SetActive(false);
     }
 
     public void ConfirmationPanelOnAccept()
@@ -73,7 +90,8 @@ public class GameManager : MonoBehaviour
                 sidePanel.gameObject.SetActive(true);
                 confirmationPanel.gameObject.SetActive(false);
             }
-            else {
+            else
+            {
                 return;
             }
         }
@@ -104,7 +122,8 @@ public class GameManager : MonoBehaviour
         selectSystem.gameObject.SetActive(true);
     }
 
-    public void OnFocusingBackToCenter() {
+    public void OnFocusingBackToCenter()
+    {
         cameraController.PanningToDefault();
         cameraController.ZoomingToDefault();
     }

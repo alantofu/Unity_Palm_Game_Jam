@@ -175,13 +175,15 @@ public class CameraController : MonoBehaviour
     public void PanningToDefault()
     {
         isPanToDefault = true;
-        transform.position = Vector3.Lerp(transform.position, defaultPosition, Time.deltaTime * movementTime);
+        // transform.position = Vector3.Lerp(transform.position, defaultPosition, Time.deltaTime * movementTime * 5);
+        transform.position = defaultPosition;
         newPosition = transform.position;
     }
     public void ZoomingToDefault()
     {
         isZoomToDefault = true;
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, defaultZoom, Time.deltaTime * movementTime);
+        // cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, defaultZoom, Time.deltaTime * movementTime * 5);
+        cameraTransform.localPosition = defaultZoom;
         newZoom = cameraTransform.localPosition;
     }
 

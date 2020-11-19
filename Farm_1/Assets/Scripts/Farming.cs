@@ -5,8 +5,12 @@ using UnityEngine.Profiling;
 
 public class Farming : MonoBehaviour
 {
+    public GameObject grownTree;
     public GameObject deadTree;
     public GameObject oilIcon;
+    private GameManager gameManager;
+    private PlantSystem plantSystem;
+
     public bool collectable = false;
     public int waitSecond = 3;
     public float fadeDuration = 0.5f;
@@ -21,6 +25,8 @@ public class Farming : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameManager.Instance;
+        plantSystem = PlantSystem.Instance;
         collectable = false;
         StopAllCoroutines();
         StartCoroutine(FarmingFruit());
@@ -84,11 +90,13 @@ public class Farming : MonoBehaviour
             {
                 isDead = true;
                 deadTree.SetActive(true);
-                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                grownTree.SetActive(false);
             }
         }
-        else if(isDead) {
-
+        else if (isDead)
+        {
+            gameManager.replantTreePanel.SetActive(true);
+            plantSystem.selectedDeadTreeObj = this.gameObject;
         }
     }
 

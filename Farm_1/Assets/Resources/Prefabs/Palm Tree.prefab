@@ -299,7 +299,7 @@ MonoBehaviour:
   timerBar: {fileID: 4602314583157914295}
   growingTime: 2
   remainingTime: 0
-  grew: 0
+  hasGrown: 0
 --- !u!114 &401618045773285874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,8 +312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc4693a655602e438031662a7273ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grownTree: {fileID: 1197110549728511517}
   deadTree: {fileID: 4819354124960869536}
   oilIcon: {fileID: 5298575479682808162}
+  replantTreePanel: {fileID: 0}
   collectable: 0
   waitSecond: 3
   fadeDuration: 0.2

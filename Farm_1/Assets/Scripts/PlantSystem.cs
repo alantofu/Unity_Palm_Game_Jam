@@ -15,6 +15,7 @@ public class PlantSystem : MonoBehaviour
 
     public List<GameObject> selectedForestObjList;
     public GameObject selectedChildObj;
+    public GameObject selectedDeadTreeObj;
 
     public Vector3 dragStartPosition;
     public Vector3 dragFinalPosition;
@@ -31,7 +32,8 @@ public class PlantSystem : MonoBehaviour
         }
     }
 
-    void OnEnable() {        
+    void OnEnable()
+    {
         selectedForestObjList = new List<GameObject>();
     }
 
@@ -47,7 +49,8 @@ public class PlantSystem : MonoBehaviour
         {
             if (selectedObj.transform.GetChild(0).gameObject.activeSelf)  // if forest tree obj is not highlighted then highlight it
             {
-                if(selectedForestObjList.Count > 0) { // allow one tree only
+                if (selectedForestObjList.Count > 0)
+                { // allow one tree only
                     StopAllHighlight();
                 }
                 selectedChildObj = selectedObj.transform.GetChild(1).gameObject;
@@ -115,6 +118,22 @@ public class PlantSystem : MonoBehaviour
         }
         StopAllHighlight();
         selectedChildObj = null;
+    }
+
+    public void ReplantPalmObj()
+    {
+        if (selectedDeadTreeObj.CompareTag("Palm Oil Tree"))
+        {
+            Vector2Int selectedPoint = gridSystem.GetGridPointByPosition(selectedDeadTreeObj.transform.position);
+            GameObject newObj = Instantiate(palmPrefab,
+                                        selectedDeadTreeObj.transform.position,
+                                        Quaternion.identity,
+                                        palmParent);
+            newObj.name = "Palm Tree (" + selectedPoint.x.ToString() + ", " + selectedPoint.y.ToString() + ")";
+            gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y] = newObj;
+
+            Destroy(selectedDeadTreeObj);
+        }
     }
 
     private void OnDisable()

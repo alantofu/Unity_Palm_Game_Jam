@@ -31,6 +31,24 @@ public class ObjectSpawner : MonoBehaviour
         emptyPointList = new List<Vector2Int>()
         {
         };
+        InitializeSquarePoint(53, 59, 6, denseTreePointList);
+        InitializeSquarePoint(41, 61, 6, denseTreePointList);
+        InitializeSquarePoint(44, 27, 6, denseTreePointList);
+        InitializeSquarePoint(54, 26, 6, denseTreePointList);
+        for (int x = 25; x <= 35; x++)
+        {
+            for (int y = 34; y <= 64; y++)
+            {
+                denseTreePointList.Add(new Vector2Int(x, y));
+            }
+        }
+        for (int x = 62; x <= 72; x++)
+        {
+            for (int y = 34; y <= 64; y++)
+            {
+                denseTreePointList.Add(new Vector2Int(x, y));
+            }
+        }
         for (int x = 43; x <= 48; x++)
         {
             for (int y = 47; y <= 52; y++)
@@ -51,6 +69,7 @@ public class ObjectSpawner : MonoBehaviour
         {
             palmPrefab = Resources.Load("Prefabs/Palm Tree", typeof(GameObject)) as GameObject;
         }
+        SpawnDenseForest();
         SpawnForest();
         SpawnPalmOil();
     }
@@ -61,29 +80,16 @@ public class ObjectSpawner : MonoBehaviour
         {
             for (int z = 0; z <= gridSystem.objectOnGrid.GetUpperBound(1); z++)
             {
-                if (!CheckPalmSpawnPoint(x, z) && !CheckEmptyPoint(x, z))
+                if (!CheckPalmSpawnPoint(x, z) && !CheckEmptyPoint(x, z) && !CheckDenseForestSpawnPoint(x, z))
                 {
-                    var rdmInt = Random.Range(0, 6);
                     GameObject tempObj;
                     Vector3 randomPosition;
-                    if (rdmInt > 0)
-                    {
-                        tempObj = Instantiate(forestPrefab,
-                                                            gridSystem.GetPositionByGridPoint(x, z),
-                                                            Quaternion.identity,
-                                                            forestParent);
-                        tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
-                        randomPosition = new Vector3(Random.Range(0.0f, 0.4f), 0f, Random.Range(0.0f, 0.4f));
-                    }
-                    else
-                    {
-                        tempObj = Instantiate(denseForestPrefab,
-                                    gridSystem.GetPositionByGridPoint(x, z),
-                                    Quaternion.identity,
-                                    forestParent);
-                        tempObj.name = "Dense Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
-                        randomPosition = new Vector3(Random.Range(0.0f, 0.1f), 0f, Random.Range(0.0f, 0.1f));
-                    }
+                    tempObj = Instantiate(forestPrefab,
+                                            gridSystem.GetPositionByGridPoint(x, z),
+                                            Quaternion.identity,
+                                            forestParent);
+                    tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
+                    randomPosition = new Vector3(Random.Range(0.0f, 0.4f), 0f, Random.Range(0.0f, 0.4f));
                     tempObj.transform.GetChild(0).transform.position = tempObj.transform.position + randomPosition;
                     tempObj.transform.GetChild(1).transform.position = tempObj.transform.position + randomPosition;
                     gridSystem.objectOnGrid[x, z] = tempObj;
@@ -92,7 +98,24 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    private void SpawnPalmOil()
+    void SpawnDenseForest()
+    {
+        foreach (Vector2Int spawnPoint in denseTreePointList)
+        {
+            GameObject tempObj = Instantiate(denseForestPrefab,
+                                                gridSystem.GetPositionByGridPoint(spawnPoint.x, spawnPoint.y),
+                                                Quaternion.identity,
+                                                forestParent);
+            tempObj.name = "Dense Forest Tree (" + spawnPoint.x.ToString() + ", " + spawnPoint.y.ToString() + ")";
+
+            Vector3 randomPosition = new Vector3(Random.Range(0.0f, 0.4f), 0f, Random.Range(0.0f, 0.4f));
+            tempObj.transform.GetChild(0).transform.position = tempObj.transform.position + randomPosition;
+            tempObj.transform.GetChild(1).transform.position = tempObj.transform.position + randomPosition;
+            gridSystem.objectOnGrid[spawnPoint.x, spawnPoint.y] = tempObj;
+        }
+    }
+
+    void SpawnPalmOil()
     {
         foreach (Vector2Int spawnPoint in palmOilTreePointList)
         {
@@ -106,14 +129,16 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    // true if forest tree can generate at that point
-    private bool CheckForestSpawnPermit(int x, int z)
+    private bool CheckDenseForestSpawnPoint(int x, int z)
     {
-        if ((x >= 49 && x <= 50) && (z >= 49 && z <= 50))
+        foreach (Vector2Int checkPoint in denseTreePointList)
         {
-            return false;
+            if (checkPoint.x == x && checkPoint.y == z)
+            {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
     // true if palm tree should spawn at that point
@@ -139,6 +164,18 @@ public class ObjectSpawner : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void InitializeSquarePoint(int startX, int startY, int size, List<Vector2Int> vectList)
+    {
+        for (int x = startX; x < startX + size; x++)
+        {
+            for (int y = startY; y < startY + size; y++)
+            {
+                vectList.Add(new Vector2Int(x, y));
+            }
+        }
+
     }
 
 }

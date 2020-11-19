@@ -54,16 +54,6 @@ public class GridSystem : MonoBehaviour
         objectOnGrid = new GameObject[width - 2, length - 2];
     }
 
-    public Vector3 getPointOnGrid(Vector3 position)
-    {
-        Vector3 snapPos = Vector3.zero;
-        snapPos.x = Mathf.RoundToInt(position.x / gridSize) * gridSize;
-        // y always zero on grid
-        snapPos.z = Mathf.RoundToInt(position.z / gridSize) * gridSize;
-
-        return snapPos;
-    }
-
     private void Update()
     {
         if (followParentScale)
