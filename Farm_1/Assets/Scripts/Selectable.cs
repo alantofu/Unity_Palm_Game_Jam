@@ -7,7 +7,7 @@ public class Selectable : MonoBehaviour
 {
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
-
+    public AudioSource selectionsound;
     private void Start()
     {
         buildSystem = BuildSystem.Instance;
@@ -16,6 +16,7 @@ public class Selectable : MonoBehaviour
 
     private void OnMouseDown()
     {
+        selectionsound.Play();
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;

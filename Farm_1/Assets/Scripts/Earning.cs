@@ -8,7 +8,8 @@ public class Earning : MonoBehaviour
     public bool collectable = false;
     public int waitSecond = 5;
     public float fadeDuration = 0.5f;
-
+    public AudioSource coinappear;
+    public AudioSource coincollected;
     public float coinIconLocalY = 1.5f;
     public float animationDistance = 1.5f;
 
@@ -27,6 +28,7 @@ public class Earning : MonoBehaviour
         yield return new WaitForSeconds(waitSecond);
         coinIcon.SetActive(true);
         collectable = true;
+        coinappear.Play();
         StartCoroutine(FadeInIcon());
     }
 
@@ -70,6 +72,7 @@ public class Earning : MonoBehaviour
             StartCoroutine(FadeOutIcon());
             Player.Instance.addMoney(getCoinAmount);
             collectable = false;
+            coincollected.Play();
             StartCoroutine(EarningMoney());
         }
     }
