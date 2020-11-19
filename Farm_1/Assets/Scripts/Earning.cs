@@ -5,7 +5,7 @@ using UnityEngine;
 public class Earning : MonoBehaviour
 {
     public GameObject coinIcon;
-    public bool collectable = false;
+    public bool isCollectable = false;
     public int waitSecond = 5;
     public float fadeDuration = 0.5f;
 
@@ -16,7 +16,7 @@ public class Earning : MonoBehaviour
 
     void Start()
     {
-        collectable = false;
+        isCollectable = false;
         StopAllCoroutines();
         StartCoroutine(EarningMoney());
         coinIconLocalY = coinIcon.transform.localPosition.y;
@@ -26,7 +26,7 @@ public class Earning : MonoBehaviour
     {
         yield return new WaitForSeconds(waitSecond);
         coinIcon.SetActive(true);
-        collectable = true;
+        isCollectable = true;
         StartCoroutine(FadeInIcon());
     }
 
@@ -42,7 +42,7 @@ public class Earning : MonoBehaviour
             color.a = Mathf.Lerp(0, 1, elapsed / fadeDuration);
             renderer.material.color = color;
             coinIcon.transform.localPosition = new Vector3(coinIcon.transform.localPosition.x, Mathf.Lerp(coinIconLocalY - animationDistance, coinIconLocalY, elapsed / fadeDuration), coinIcon.transform.localPosition.z);
-            yield return new WaitForSeconds(0.0167f);
+            yield return new WaitForEndOfFrame();
         }
     }
 
@@ -58,18 +58,18 @@ public class Earning : MonoBehaviour
             color.a = Mathf.Lerp(1, 0, elapsed / fadeDuration);
             renderer.material.color = color;
             coinIcon.transform.localPosition = new Vector3(coinIcon.transform.localPosition.x, Mathf.Lerp(coinIconLocalY, coinIconLocalY + animationDistance, elapsed / fadeDuration), coinIcon.transform.localPosition.z);
-            yield return new WaitForSeconds(0.0167f);
+            yield return new WaitForEndOfFrame();
         }
         coinIcon.SetActive(false);
     }
 
     public void OnClickResponse()
     {
-        if (collectable)
+        if (isCollectable)
         {
             StartCoroutine(FadeOutIcon());
             Player.Instance.addMoney(getCoinAmount);
-            collectable = false;
+            isCollectable = false;
             StartCoroutine(EarningMoney());
         }
     }

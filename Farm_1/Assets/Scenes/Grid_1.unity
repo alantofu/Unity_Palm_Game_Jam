@@ -897,6 +897,8 @@ MonoBehaviour:
   factoryParent: {fileID: 1479144673}
   freshObject: {fileID: 0}
   selectedForestObject: {fileID: 0}
+  allowPromptColor: {r: 0, g: 1, b: 0.07450981, a: 0.5019608}
+  denyPromptColor: {r: 1, g: 0, b: 0.15300894, a: 0.5019608}
   dragStartPosition: {x: 0, y: 0, z: 0}
   dragFinalPosition: {x: 0, y: 0, z: 0}
   dragDistance: 0
@@ -1017,17 +1019,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 6857499794614301472}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1182711294
 GameObject:
@@ -1224,7 +1215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e577187af07c84785c00b68fa57339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followTransform: {fileID: 0}
   cameraTransform: {fileID: 54531803}
   normalSpeed: 1
   fastSpeed: 3
@@ -1235,6 +1225,9 @@ MonoBehaviour:
   newZoom: {x: 0, y: 50, z: 0}
   dragStartPosition: {x: 0, y: 0, z: 0}
   dragCurrentPosition: {x: 0, y: 0, z: 0}
+  isPanToDefault: 0
+  defaultPosition: {x: -34, y: 0, z: -34}
+  defaultZoom: {x: 0, y: 40, z: 10}
 --- !u!1 &1648353672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,10 +1273,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forestPrefab: {fileID: 3469536573861396417, guid: 871f52e3cdb1d7040a4e5949c2414c8e,
     type: 3}
+  denseForestPrefab: {fileID: 3469536573861396417, guid: 6070638f51b8b114c823bb3d50e12993,
+    type: 3}
   palmPrefab: {fileID: 3777230063939655837, guid: 5328d72ef71281e47aaa2214165bb265,
     type: 3}
   forestParent: {fileID: 1029135219}
   palmParent: {fileID: 987331456}
+  denseTreePointList: []
   palmOilTreePointList: []
   emptyPointList: []
 --- !u!224 &1688054554 stripped
@@ -7101,6 +7097,7 @@ GameObject:
   - component: {fileID: 673831472937690618}
   - component: {fileID: 673831472937690612}
   - component: {fileID: 673831472937690613}
+  - component: {fileID: 673831472937690620}
   m_Layer: 5
   m_Name: Image (WOOD BOARD)
   m_TagString: Untagged
@@ -7108,6 +7105,60 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &673831472937690620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673831472937690619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 673831472937690613}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1322224570174750766}
+        m_MethodName: OnFocusingBackToCenter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &673831472942175592
 GameObject:
   m_ObjectHideFlags: 0
@@ -27997,6 +28048,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f3f7559d01b6046b20bb0de4c24721, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sidePanel: {fileID: 6857499794614301472}
+  confirmationPanel: {fileID: 1452137521}
   buySeedPanel: {fileID: 673831473709423307}
 --- !u!1 &1322224570174750800
 GameObject:

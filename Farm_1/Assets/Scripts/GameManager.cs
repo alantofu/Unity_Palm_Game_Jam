@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private CameraController cameraController;
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
     private SelectSystem selectSystem;
     private Camera mainCam;
 
+    public GameObject sidePanel;
+    public GameObject confirmationPanel;
     public GameObject buySeedPanel;
 
     void Awake()
@@ -18,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        cameraController = CameraController.Instance;
         buildSystem = BuildSystem.Instance;
         plantSystem = PlantSystem.Instance;
         selectSystem = SelectSystem.Instance;
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     public void OnRemovingForestTree()
     {
+        cameraController.PanningToDefault();
         plantSystem.gameObject.SetActive(true);
     }
 
@@ -56,11 +61,21 @@ public class GameManager : MonoBehaviour
     }
 
     public void ConfirmationPanelOnAccept()
+    // confirm button will not close confirmation panel automatically
+    // side panel will not show automatically
     {
         if (buildSystem.gameObject.activeSelf)
         {
-            buildSystem.PlaceFactoryObj();
-            buildSystem.gameObject.SetActive(false);
+            if (buildSystem.canBuild) // if can place the factory obj
+            {
+                buildSystem.PlaceFactoryObj();
+                buildSystem.gameObject.SetActive(false);
+                sidePanel.gameObject.SetActive(true);
+                confirmationPanel.gameObject.SetActive(false);
+            }
+            else {
+                return;
+            }
         }
         else if (plantSystem.gameObject.activeSelf)
         {
@@ -87,6 +102,11 @@ public class GameManager : MonoBehaviour
         }
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         selectSystem.gameObject.SetActive(true);
+    }
+
+    public void OnFocusingBackToCenter() {
+        cameraController.PanningToDefault();
+        cameraController.ZoomingToDefault();
     }
 
     void triggerBuildSystem(bool trigger, int index)

@@ -8,8 +8,9 @@ public class CameraController : MonoBehaviour
 {
     // https://www.youtube.com/watch?v=rnqF6S7PfFA&t=734s
 
-    public static CameraController instance;
-    public Transform followTransform;
+    private static CameraController _instance;
+    public static CameraController Instance { get { return _instance; } } // a singleton
+
     public Transform cameraTransform;
     public float normalSpeed;
     public float fastSpeed;
@@ -23,26 +24,48 @@ public class CameraController : MonoBehaviour
 
     private bool panning = false; // a condition for touch panning
 
+    public bool isPanToDefault = false;
+    public bool isZoomToDefault = false;
+    public Vector3 defaultPosition = new Vector3(-34, 0, -34);
+    public Vector3 defaultZoom = new Vector3(0, 40, 10);
+
+    void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
-        newPosition = transform.position;
-        newZoom = cameraTransform.localPosition;
+        newPosition = defaultPosition;
+        newZoom = defaultZoom;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (followTransform != null)
+        if (isPanToDefault && isZoomToDefault && (defaultPosition != newPosition || newZoom != defaultZoom))
         {
-            transform.position = new Vector3(Mathf.RoundToInt(followTransform.position.x - 35),
-                                                0,
-                                                Mathf.RoundToInt(followTransform.position.z - 35));
+            PanningToDefault();
+            ZoomingToDefault();
+            return;
         }
-#if UNITY_EDITOR
-        HandleMouseInput();
+        else
+        {
+            isZoomToDefault = false;
+            isPanToDefault = false;
+        }
 
+
+#if UNITY_EDITOR
+    
 #elif UNITY_ANDROID
         HandleTouchInput();
 #endif
@@ -50,17 +73,16 @@ public class CameraController : MonoBehaviour
     }
 
     void HandleMouseInput()
+{
     {
-        if (EventSystem.current.IsPointerOverGameObject())
         {
-            newZoom = cameraTransform.localPosition;
+        {
             dragStartPosition = Vector3.zero;
-            dragCurrentPosition = Vector3.zero;
+            dragCurrentPosition = Vector3.zer
             newPosition = transform.position;
             return;
+            return;
         }
-        // unfocus or unfollow
-        followTransform = null;
 
         if (Input.mouseScrollDelta.y != 0)
         {
@@ -89,47 +111,52 @@ public class CameraController : MonoBehaviour
             dragCurrentPosition = GetPlaneIntersectPos(Input.mousePosition);
             dragCurrentPosition.y = 0;
             newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+
+            newPosition.x = Mathf.Clamp(newPosition.x, -70f, -5f);
+            newPosition.z = Mathf.Clamp(newPosition.z, -70f, -5f);
         }
         // need to google how Vector3.Lerp works
         transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
-    void HandleTouchInput()
     {
-        if (Input.touchCount == 1)
+    {
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+        {
             {
-                panning = true;
-                dragStartPosition = GetPlaneIntersectPos(Input.GetTouch(0).position);
+            {
+                dragStartPositi
                 dragStartPosition.y = 0;
+            }
             }
             if (Input.GetTouch(0).phase == TouchPhase.Moved && panning == true)
             {
                 dragCurrentPosition = GetPlaneIntersectPos(Input.GetTouch(0).position);
                 dragCurrentPosition.y = 0;
                 newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+                newPosition.x = Mathf.Clamp(newPosition.x, -70f, -5f);
+                newPosition.z = Mathf.Clamp(newPosition.z, -70f, -5f);
             }
         }
-        else if (Input.touchCount == 2)
         {
-            Touch touch_0 = Input.GetTouch(0);
+        {
             Touch touch_1 = Input.GetTouch(1);
+    
 
-            Vector2 touchPrePos_0 = touch_0.position - touch_0.deltaPosition;
             Vector2 touchPrePos_1 = touch_1.position - touch_1.deltaPosition;
+    
 
-            float prevMagnitude = (touchPrePos_0 - touchPrePos_1).magnitude;
-            float currentMagnitude = (touch_0.position - touch_1.position).magnitude;
+            float currentMagnitude = (touch_0.position - touch_1.position).m
+    
 
-            float diff = currentMagnitude - prevMagnitude;
+    
 
-            newZoom += diff * zoomAmount * 0.01f;
             if (newZoom.y < 15 || newZoom.z > 35)
             {
-                newZoom.y = 15;
+            {
                 newZoom.z = 35;
+            }
             }
             else if (newZoom.y > 50 || newZoom.z < 0)
             {
@@ -142,28 +169,41 @@ public class CameraController : MonoBehaviour
             dragCurrentPosition = transform.position;
             newPosition = transform.position;
         }
-        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTim
+    }
     }
 
-    public static Vector3 GetPlaneIntersectPos(Vector3 inputPosition)
     {
-        Plane plane = new Plane(Vector3.up, Vector3.zero);
+    {
+        newPosition = Vector3.
+        transform.position = newPosition;
+    }
+    }
+
+    {
+    {
+        newZoom = Vector3.Lerp(
+        cameraTransform.localPosition = newZoom;
+    }
+    }
+
+    {
+    {
+    
 
         //Create a ray from the Mouse click position
-        Ray ray = Camera.main.ScreenPointToRay(inputPosition);
+    
 
         //Initialise the enter variable
-        float enter = 0.0f;
+    
 
-        Vector3 hitPoint = Vector3.zero;
+    
 
-        if (plane.Raycast(ray, out enter))
+        {
         {
             //Get the point that is clicked
-            hitPoint = ray.GetPoint(enter);
+        }
         }
         return hitPoint;
-    }
-
+    
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class ObjectSpawner : MonoBehaviour
 {
     public GameObject forestPrefab;
+    public GameObject denseForestPrefab;
     public GameObject palmPrefab;
     public Transform forestParent;
     public Transform palmParent;
 
+    public List<Vector2Int> denseTreePointList;
     public List<Vector2Int> palmOilTreePointList;
     public List<Vector2Int> emptyPointList;
 
@@ -16,6 +18,9 @@ public class ObjectSpawner : MonoBehaviour
 
     void Awake()
     {
+        denseTreePointList = new List<Vector2Int>()
+        {
+        };
         palmOilTreePointList = new List<Vector2Int>()
         {
             new Vector2Int(53, 49),
@@ -58,12 +63,27 @@ public class ObjectSpawner : MonoBehaviour
             {
                 if (!CheckPalmSpawnPoint(x, z) && !CheckEmptyPoint(x, z))
                 {
-                    GameObject tempObj = Instantiate(forestPrefab,
-                                                        gridSystem.GetPositionByGridPoint(x, z),
-                                                        Quaternion.identity,
-                                                        forestParent);
-                    tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
-                    Vector3 randomPosition = new Vector3(Random.Range(0.0f, 0.4f), 0f, Random.Range(0.0f, 0.4f));
+                    var rdmInt = Random.Range(0, 6);
+                    GameObject tempObj;
+                    Vector3 randomPosition;
+                    if (rdmInt > 0)
+                    {
+                        tempObj = Instantiate(forestPrefab,
+                                                            gridSystem.GetPositionByGridPoint(x, z),
+                                                            Quaternion.identity,
+                                                            forestParent);
+                        tempObj.name = "Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
+                        randomPosition = new Vector3(Random.Range(0.0f, 0.4f), 0f, Random.Range(0.0f, 0.4f));
+                    }
+                    else
+                    {
+                        tempObj = Instantiate(denseForestPrefab,
+                                    gridSystem.GetPositionByGridPoint(x, z),
+                                    Quaternion.identity,
+                                    forestParent);
+                        tempObj.name = "Dense Forest Tree (" + x.ToString() + ", " + z.ToString() + ")";
+                        randomPosition = new Vector3(Random.Range(0.0f, 0.1f), 0f, Random.Range(0.0f, 0.1f));
+                    }
                     tempObj.transform.GetChild(0).transform.position = tempObj.transform.position + randomPosition;
                     tempObj.transform.GetChild(1).transform.position = tempObj.transform.position + randomPosition;
                     gridSystem.objectOnGrid[x, z] = tempObj;
@@ -82,7 +102,7 @@ public class ObjectSpawner : MonoBehaviour
                                                 palmParent);
             tempObj.name = "Palm Tree (" + spawnPoint.x.ToString() + ", " + spawnPoint.y.ToString() + ")";
             gridSystem.objectOnGrid[spawnPoint.x, spawnPoint.y] = tempObj;
-            tempObj.GetComponent<Growing>().grew = true;
+            tempObj.GetComponent<Growing>().hasGrown = true;
         }
     }
 

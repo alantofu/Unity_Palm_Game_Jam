@@ -14,6 +14,8 @@ public class BuildSystem : MonoBehaviour
     public GameObject factoryParent;
     public GameObject freshObject;
     public GameObject selectedForestObject;
+    public Color allowPromptColor;
+    public Color denyPromptColor;
 
     public Vector3 dragStartPosition;
     public Vector3 dragFinalPosition;
@@ -53,65 +55,6 @@ public class BuildSystem : MonoBehaviour
         // #elif UNITY_ANDROID || UNITY_IOS
         TouchHandler();
         // #endif
-
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     if (freshObject)
-        //     {
-        //         dragStartPosition = Input.mousePosition;
-
-        //         // if mouse clicked object is not a forest object or empty
-        //         Vector2Int clickedPoint = gridSystem.getGridPointByPosition(CameraController.GetPlaneIntersectPos(Input.mousePosition));
-        //         if (gridSystem.objectOnGrid[clickedPoint.x, clickedPoint.y] == null
-        //             || !gridSystem.objectOnGrid[clickedPoint.x, clickedPoint.y].CompareTag("Forest Tree"))
-        //         {
-        //             selectedForestObject = null;
-        //         }
-        //     }
-        // }
-        // if (Input.GetMouseButtonUp(0))
-        // {
-        //     if (freshObject)
-        //     {
-        //         dragFinalPosition = Input.mousePosition;
-        //         // calculate drag distance on screen point
-        //         float dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
-        //         + (dragFinalPosition.y - dragStartPosition.y) * (dragFinalPosition.y - dragStartPosition.y)));
-
-        //         if (dragDistance < 10)
-        //         {
-        //             Vector3 newWorldMousePos;
-        //             if (selectedForestObject)
-        //             {
-        //                 newWorldMousePos = selectedForestObject.transform.position;
-        //             }
-        //             else
-        //             {
-        //                 newWorldMousePos = gridSystem.getRoundedPosition(CameraController.GetPlaneIntersectPos(Input.mousePosition));
-        //             }
-        //             Vector2Int newFreshPoint = gridSystem.getGridPointByPosition(newWorldMousePos);
-        //             Vector2Int prevFreshPoint = gridSystem.getGridPointByPosition(freshObject.transform.position);
-        //             if (CheckFactoryBuildPoint(newFreshPoint))
-        //             {
-        //                 ActivateForestMeshObj(prevFreshPoint.x, prevFreshPoint.y);
-        //                 ActivateForestMeshObj(prevFreshPoint.x + 1, prevFreshPoint.y);
-        //                 ActivateForestMeshObj(prevFreshPoint.x, prevFreshPoint.y + 1);
-        //                 ActivateForestMeshObj(prevFreshPoint.x + 1, prevFreshPoint.y + 1);
-
-        //                 freshObject.transform.position = gridSystem.getRoundedPosition(newWorldMousePos);
-
-        //                 DeactivateForestMeshObj(newFreshPoint.x, newFreshPoint.y);
-        //                 DeactivateForestMeshObj(newFreshPoint.x + 1, newFreshPoint.y);
-        //                 DeactivateForestMeshObj(newFreshPoint.x, newFreshPoint.y + 1);
-        //                 DeactivateForestMeshObj(newFreshPoint.x + 1, newFreshPoint.y + 1);
-        //             }
-        //         }
-        //         else
-        //         {
-        //             selectedForestObject = null;
-        //         }
-        //     }
-        // }
     }
 
     void TouchHandler()
@@ -231,30 +174,35 @@ public class BuildSystem : MonoBehaviour
 
     public void InstantiateFactoryObj(int index)
     {
+        Vector2Int newPoint = new Vector2Int(45, 49);
         freshObject = Instantiate(factoryPrefabList[index],
-                                    gridSystem.GetPositionByGridPoint(45, 49),
+                                    gridSystem.GetPositionByGridPoint(newPoint.x, newPoint.y),
                                     Quaternion.identity,
                                     factoryParent.transform);
         freshObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-
+        canBuild = CheckFactoryBuildPoint(newPoint, Mathf.RoundToInt(freshObject.GetComponent<BoxCollider>().size.x));
     }
 
     public void PlaceFactoryObj()
     {
-        Vector2Int newFreshPoint = gridSystem.GetGridPointByPosition(freshObject.transform.position);
-        freshObject.layer = LayerMask.NameToLayer("Default");
-        freshObject.name = "Factory (" + newFreshPoint.x.ToString() + ", " + newFreshPoint.y.ToString() + ")";
-        for (int i = 0; i < 2; i++)
+        if (canBuild)
         {
-            for (int j = 0; j < 2; j++)
+            Vector2Int newFreshPoint = gridSystem.GetGridPointByPosition(freshObject.transform.position);
+            freshObject.layer = LayerMask.NameToLayer("Default");
+            freshObject.name = "Factory (" + newFreshPoint.x.ToString() + ", " + newFreshPoint.y.ToString() + ")";
+            for (int i = 0; i < 2; i++)
             {
-                Destroy(gridSystem.objectOnGrid[newFreshPoint.x + i, newFreshPoint.y + j]);
-                gridSystem.objectOnGrid[newFreshPoint.x + i, newFreshPoint.y + j] = freshObject;
+                for (int j = 0; j < 2; j++)
+                {
+                    Destroy(gridSystem.objectOnGrid[newFreshPoint.x + i, newFreshPoint.y + j]);
+                    gridSystem.objectOnGrid[newFreshPoint.x + i, newFreshPoint.y + j] = freshObject;
+                }
             }
+            freshObject.GetComponent<Building>().enabled = true;
+            freshObject.GetComponent<Building>().promptCube.SetActive(false);
+            freshObject = null;
+            selectedForestObject = null;
         }
-        freshObject.GetComponent<Earning>().enabled = true;
-        freshObject = null;
-        selectedForestObject = null;
     }
 
 
@@ -281,18 +229,17 @@ public class BuildSystem : MonoBehaviour
     private void MovePlanningFactory(Vector2Int prevPoint, Vector2Int newPoint, GameObject freshObject)
     {
         int size = Mathf.RoundToInt(freshObject.GetComponent<BoxCollider>().size.x);
-        if (CheckFactoryBuildPoint(newPoint, size))
-        { // check are the new points all forest obj
-            for (int i = 0; i < size; i++)
+        canBuild = CheckFactoryBuildPoint(newPoint, size);
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = 0; j < size; j++)
             {
-                for (int j = 0; j < size; j++)
-                {
-                    ActivateDeactivateForestMesh(prevPoint.x + i, prevPoint.y + j, true);
-                    ActivateDeactivateForestMesh(newPoint.x + i, newPoint.y + j, false);
-                }
+                ActivateDeactivateForestMesh(prevPoint.x + i, prevPoint.y + j, true);
+                ActivateDeactivateForestMesh(newPoint.x + i, newPoint.y + j, false);
             }
-            freshObject.transform.position = gridSystem.GetPositionByGridPoint(newPoint.x, newPoint.y);
         }
+        freshObject.transform.position = gridSystem.GetPositionByGridPoint(newPoint.x, newPoint.y);
+
     }
 
     private void ActivateDeactivateForestMesh(int x, int z, bool toggle)
@@ -313,11 +260,15 @@ public class BuildSystem : MonoBehaviour
                 // if it is not (empty or forest object)
                 if (gridSystem.objectOnGrid[gridPoint.x + i, gridPoint.y + j] != null)
                 {
-                    return false;
+                    freshObject.transform.Find("Prompt Cube").GetComponent<Renderer>().sharedMaterial.SetColor("_Color", denyPromptColor);
+                    canBuild = false;
+                    return canBuild;
                 }
             }
         }
-        return true;
+        freshObject.transform.Find("Prompt Cube").GetComponent<Renderer>().sharedMaterial.SetColor("_Color", allowPromptColor);
+        canBuild = true;
+        return canBuild;
     }
 
 

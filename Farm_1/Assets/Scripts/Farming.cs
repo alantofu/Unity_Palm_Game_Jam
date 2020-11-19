@@ -5,6 +5,7 @@ using UnityEngine.Profiling;
 
 public class Farming : MonoBehaviour
 {
+    public GameObject deadTree;
     public GameObject oilIcon;
     public bool collectable = false;
     public int waitSecond = 3;
@@ -46,7 +47,7 @@ public class Farming : MonoBehaviour
             color.a = Mathf.Lerp(0, 1, elapsed / fadeDuration);
             renderer.material.color = color;
             oilIcon.transform.localPosition = new Vector3(0, Mathf.Lerp(oilIconLocalY - animationDistance, oilIconLocalY, elapsed / fadeDuration), 0);
-            yield return new WaitForSeconds(0.0167f);
+            yield return new WaitForEndOfFrame();
         }
     }
 
@@ -62,7 +63,7 @@ public class Farming : MonoBehaviour
             color.a = Mathf.Lerp(1, 0, elapsed / fadeDuration);
             renderer.material.color = color;
             oilIcon.transform.localPosition = new Vector3(0, Mathf.Lerp(oilIconLocalY, oilIconLocalY + animationDistance, elapsed / fadeDuration), 0);
-            yield return new WaitForSeconds(0.0167f);
+            yield return new WaitForEndOfFrame();
         }
         oilIcon.SetActive(false);
     }
@@ -71,10 +72,23 @@ public class Farming : MonoBehaviour
     {
         if (collectable)
         {
+            farmCount++;
             StartCoroutine(FadeOutIcon());
             Player.Instance.addOil(getOilAmount);
             collectable = false;
-            StartCoroutine(FarmingFruit());
+            if (farmCount < maxFarmCount)
+            {
+                StartCoroutine(FarmingFruit());
+            }
+            else
+            {
+                isDead = true;
+                deadTree.SetActive(true);
+                this.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+        else if(isDead) {
+
         }
     }
 
