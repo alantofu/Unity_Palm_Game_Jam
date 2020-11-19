@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class playaudio : MonoBehaviour
 {
-    public AudioSource audio;
+    public AudioSource building;
     void Start()
     {
        
     }
-    public void playsound()
+    public void playBuilding()
     {
-        audio.Play();
+        building.Play();
     }
 }
