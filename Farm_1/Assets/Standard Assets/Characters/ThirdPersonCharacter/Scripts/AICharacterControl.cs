@@ -12,6 +12,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public UnityEngine.AI.NavMeshAgent agent { get; private set; } // the navmesh agent required for the path finding
         public ThirdPersonCharacter character { get; private set; } // the character we are controlling
         public Transform target;// target to aim for
+        private Vector3 targetdirection;
+        private Vector3 aimeddirection;
+        private Quaternion lookRotation;
 
         private void Start()
         {
@@ -21,10 +24,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             agent.updateRotation = false;
 	        agent.updatePosition = true;
             StartCoroutine(GoingToTarget());
+            StartCoroutine(RotatetoTargetDirection());
         }
 
         IEnumerator GoingToTarget()
         {
+            transform.Rotate(0, 50 * Time.deltaTime, 0);
             while (Vector3.Distance(target.position, character.transform.position) > agent.stoppingDistance)
             {
                 if (target != null)
@@ -38,6 +43,21 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
         }
 
+        IEnumerator RotatetoTargetDirection()
+        {
+            while (true)
+            {
+                if (targetdirection != null)
+                {
+                    aimeddirection = (targetdirection - transform.position).normalized;
+                    lookRotation = Quaternion.LookRotation(aimeddirection);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 360);
+                    //transform.LookAt(target.transform);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
+        }
+
         public Vector3 RandomNavmeshLocation(float radius)
         {
             Vector3 randomDirection = Random.insideUnitSphere * radius;
@@ -48,10 +68,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             {
                 finalPosition = hit.position;
             }
-            var delta = target.position - transform.position;
-            float angle = (float)(System.Math.Atan2(delta.y, delta.x) * Mathf.Rad2Deg);
-            //transform.rotation = Quaternion.Euler(0, angle, 0);
-            transform.Rotate(0, angle, 0);
+            targetdirection = finalPosition;
             return finalPosition;
         }
 
