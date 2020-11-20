@@ -6,19 +6,15 @@ using UnityEngine.UI;
 public class TouchDebug : MonoBehaviour
 {
     public GameObject touchDebugCircle;
-    public GameObject mouseDebugCircle;
+    private GameObject mouseDebugCircle;
     public Dictionary<int, GameObject> touchDict = new Dictionary<int, GameObject>();
 
     void Start()
     {
-        if (touchDebugCircle == null)
-        {
-            touchDebugCircle = Resources.Load("Prefabs/Debug Circle", typeof(GameObject)) as GameObject;
-        }
-        if (mouseDebugCircle == null)
-        {
-            mouseDebugCircle = Resources.Load("Prefabs/Debug Circle", typeof(GameObject)) as GameObject;
-        }
+        // if (touchDebugCircle == null)
+        // {
+        //     touchDebugCircle = Resources.Load("Prefabs/Debug Circle", typeof(GameObject)) as GameObject;
+        // }
     }
 
 
@@ -43,22 +39,29 @@ public class TouchDebug : MonoBehaviour
         //             }
         //         }
         // #elif UNITY_EDITOR
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButtonDown(0))
         {
             if (mouseDebugCircle == null)
             {
-                mouseDebugCircle = Instantiate(touchDebugCircle, this.gameObject.transform) as GameObject;
+                GameObject newObj = Instantiate(touchDebugCircle, this.gameObject.transform) as GameObject;
+                mouseDebugCircle = newObj;
+                mouseDebugCircle.name = "Mouse";
             }
             else
             {
-                Destroy(mouseDebugCircle);
-                mouseDebugCircle = Instantiate(touchDebugCircle, this.gameObject.transform) as GameObject;
+                // GameObject newObj = Instantiate(touchDebugCircle, this.gameObject.transform) as GameObject;
+                // // Destroy(mouseDebugCircle);
+                // mouseDebugCircle = newObj;
             }
         }
-        if (mouseDebugCircle)
+        if (Input.GetMouseButton(0))
         {
-            mouseDebugCircle.name = "Mouse";
-            mouseDebugCircle.GetComponent<Image>().transform.position = Input.mousePosition;
+            if (mouseDebugCircle != null)
+            {
+                mouseDebugCircle.GetComponent<Image>().transform.position = Input.mousePosition;
+            }
+
         }
         if (Input.GetMouseButtonUp(0))
         {
