@@ -26,7 +26,7 @@ public class MobSpawner : MonoBehaviour
                     int RanX = Random.Range(0, gridSystem.objectOnGrid.GetUpperBound(0));
                     int RanZ = Random.Range(0, gridSystem.objectOnGrid.GetUpperBound(1));
                     GameObject tempObj = Instantiate(Prefab[j],
-                                                        gridSystem.getPositionByGridPoint(RanX, RanZ),
+                                                        gridSystem.GetPositionByGridPoint(RanX, RanZ),
                                                         Quaternion.identity,
                                                         Parent);
                     tempObj.name = "Mob (" + RanX.ToString() + ", " + RanZ.ToString() + ")";
