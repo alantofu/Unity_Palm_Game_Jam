@@ -43,9 +43,9 @@ public class SelectSystem : MonoBehaviour
     {
         selectedSystemObject = EventSystem.current.currentSelectedGameObject;
         // #if UNITY_ANDROID || UNITY_IOS
-        //         TouchHandler();
+                TouchHandler();
         // #elif UNITY_EDITOR
-        ClickHandler();
+        // ClickHandler();
         // #endif
     }
 
