@@ -127,7 +127,6 @@ public class SelectSystem : MonoBehaviour
 
     public void SendOnClickResponse(GameObject selectedGameObj)
     {
-        Debug.Log("Send click to " + selectedGameObj);
         switch (selectedGameObj.tag)
         {
             case "Grass":

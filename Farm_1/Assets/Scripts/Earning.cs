@@ -39,7 +39,6 @@ public class Earning : MonoBehaviour
         audioManager = AudioManager.Instance;
         isCollectable = false;
         coinIconLocalY = coinIcon.transform.localPosition.y;
-        Debug.Log("Coin Y Location: " + coinIcon.transform.localPosition.y);
     }
 
     public void StartManufacturingProcess()

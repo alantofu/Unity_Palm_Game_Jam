@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
         if (tempMoney >= 0)
         {
             money = tempMoney;
-            Debug.Log("The money amount deducted.");
         }
         else
         {
@@ -48,7 +47,6 @@ public class Player : MonoBehaviour
     public void AddMoney(int amount)
     {
         money += amount;
-        Debug.Log("The money amount added.");
     }
 
     public void ReduceRep(int amount)
@@ -67,7 +65,6 @@ public class Player : MonoBehaviour
     public void AddRep(int amount)
     {
         reputation += amount;
-        Debug.Log("The rep amount added.");
     }
 
     public void ReduceOil(int amount)
@@ -86,6 +83,5 @@ public class Player : MonoBehaviour
     public void AddOil(int amount)
     {
         oil += amount;
-        Debug.Log("The oil amount added.");
     }
 }

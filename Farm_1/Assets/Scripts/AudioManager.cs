@@ -26,7 +26,6 @@ public class AudioManager : MonoBehaviour
         audioList = new Dictionary<string, AudioSource>();
         foreach (Transform child in transform)
         {
-            Debug.Log(child.name);
             audioList.Add(child.name, child.GetComponent<AudioSource>());
         }
     }

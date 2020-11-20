@@ -51,9 +51,9 @@ public class BuildSystem : MonoBehaviour
     void Update()
     {
         // #if UNITY_ANDROID || UNITY_IOS
-        //         TouchHandler();
+                TouchHandler();
         // #elif UNITY_EDITOR
-        ClickHandler();
+        // ClickHandler();
         // #endif
     }
 

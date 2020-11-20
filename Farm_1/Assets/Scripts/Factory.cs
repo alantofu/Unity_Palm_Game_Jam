@@ -15,12 +15,10 @@ public class Factory : MonoBehaviour
 
     public void DecProductAmount()
     {
-        Debug.Log("method reduceProductAmount called.");
         int tempAmount = productAmount;
         tempAmount -= 1;
         if (tempAmount >= 0)
         {
-            Debug.Log("amount reduced.");
             productAmount = tempAmount;
             totalOil = productAmount * oilPerProduct;
             totalProfit = productAmount * profitReturnPerProduct;
@@ -30,12 +28,10 @@ public class Factory : MonoBehaviour
     
     public void IncProductAmount()
     {
-        Debug.Log("method addProductAmount called.");
         int tempAmount = productAmount;
         tempAmount += 1;
         if (tempAmount >= 0)
         {
-            Debug.Log("amount added.");
             productAmount = tempAmount;
             totalOil = productAmount * oilPerProduct;
             totalProfit = productAmount * profitReturnPerProduct;

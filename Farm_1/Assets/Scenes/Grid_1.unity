@@ -12228,6 +12228,133 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546878806}
   m_CullTransparentMesh: 0
+--- !u!1 &547607287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 547607288}
+  - component: {fileID: 547607289}
+  m_Layer: 0
+  m_Name: Forest God Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &547607288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547607287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1741429311}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &547607289
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547607287}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5779db69284f6634883e89eb93de2574, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &551797286
 GameObject:
   m_ObjectHideFlags: 0
@@ -15437,6 +15564,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Plant Audio
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1741429310}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Forest God Audio
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &670839518
@@ -20133,7 +20271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.14517403, y: 0.15844758}
   m_AnchorMax: {x: 0.46936905, y: 0.39318448}
-  m_AnchoredPosition: {x: -4.5, y: 7.5022964}
+  m_AnchoredPosition: {x: -4.5, y: 7.502449}
   m_SizeDelta: {x: 11.286133, y: -3.917328}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896907840
@@ -27299,7 +27437,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25049442, y: 0}
   m_AnchorMax: {x: 1, y: 0.80445087}
-  m_AnchoredPosition: {x: -27.030396, y: 9.100098}
+  m_AnchoredPosition: {x: -27.030365, y: 9.100098}
   m_SizeDelta: {x: -54.25891, y: -20.819641}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1325879513
@@ -28333,7 +28471,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.11137839, y: 0.07736987}
   m_AnchorMax: {x: 0.4265045, y: 0.61767125}
-  m_AnchoredPosition: {x: 0.63671875, y: -4.203247}
+  m_AnchoredPosition: {x: 0.63671875, y: -4.2032776}
   m_SizeDelta: {x: -3.515686, y: -3.5645142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1415904598
@@ -30056,7 +30194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2493776, y: 0}
   m_AnchorMax: {x: 1, y: 0.77500004}
-  m_AnchoredPosition: {x: -26.03064, y: 10.100098}
+  m_AnchoredPosition: {x: -26.03067, y: 10.100098}
   m_SizeDelta: {x: -56.25891, y: -18.863464}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1515235735
@@ -33293,7 +33431,7 @@ MonoBehaviour:
   - {fileID: 524687888}
   - {fileID: 39868033}
   parentTransform: {fileID: 1856678729}
-  workerAmount: 30
+  workerAmount: 25
 --- !u!4 &1656345679
 Transform:
   m_ObjectHideFlags: 0
@@ -35696,6 +35834,7 @@ Transform:
   - {fileID: 1200388803}
   - {fileID: 1726342977}
   - {fileID: 375456674}
+  - {fileID: 547607288}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -43801,6 +43940,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1741429310}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Forest God Audio
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2114806317
