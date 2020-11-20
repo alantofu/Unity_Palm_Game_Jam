@@ -10,6 +10,7 @@ public class Farming : MonoBehaviour
     public GameObject oilIcon;
     private GameManager gameManager;
     private PlantSystem plantSystem;
+    private AudioManager audioManager;
 
     public bool collectable = false;
     public int waitSecond = 3;
@@ -27,6 +28,7 @@ public class Farming : MonoBehaviour
     {
         gameManager = GameManager.Instance;
         plantSystem = PlantSystem.Instance;
+        audioManager = AudioManager.Instance;
         collectable = false;
         StopAllCoroutines();
         StartCoroutine(FarmingFruit());
@@ -78,6 +80,8 @@ public class Farming : MonoBehaviour
     {
         if (collectable)
         {
+            audioManager.PlaySound("Collect Audio");
+
             farmCount++;
             StartCoroutine(FadeOutIcon());
             Player.Instance.AddOil(getOilAmount);

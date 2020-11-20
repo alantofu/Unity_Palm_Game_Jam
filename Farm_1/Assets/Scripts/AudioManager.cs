@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayAudio : MonoBehaviour
+public class AudioManager : MonoBehaviour
 {
-    private static PlayAudio _instance;
-    public static PlayAudio Instance { get { return _instance; } }
+    private static AudioManager _instance;
+    public static AudioManager Instance { get { return _instance; } }
 
     public Dictionary<string, AudioSource> audioList;
 
@@ -37,6 +37,10 @@ public class PlayAudio : MonoBehaviour
         {
             audioList[audioName].Play();
         }
+    }
+
+    public void PlayPlantAudio() {
+        audioList["Plant Audio"].Play();
     }
 
 }

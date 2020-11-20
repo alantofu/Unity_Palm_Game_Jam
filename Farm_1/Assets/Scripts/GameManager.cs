@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private PlantSystem plantSystem;
     private SelectSystem selectSystem;
     private ManufactureSystem manufactureSystem;
+    private AudioManager audioManager;
     private Camera mainCam;
 
     public GameObject sidePanel;
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
         plantSystem = PlantSystem.Instance;
         selectSystem = SelectSystem.Instance;
         manufactureSystem = ManufactureSystem.Instance;
+        audioManager = AudioManager.Instance;
+
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         buildSystem.gameObject.SetActive(false);
         plantSystem.gameObject.SetActive(false);
@@ -115,6 +118,8 @@ public class GameManager : MonoBehaviour
         {
             if (buildSystem.canBuild) // if can place the factory obj
             {
+                audioManager.PlaySound("Build Audio");
+
                 buildSystem.PlaceFactoryObj();
                 buildSystem.gameObject.SetActive(false);
                 sidePanel.gameObject.SetActive(true);
@@ -145,6 +150,8 @@ public class GameManager : MonoBehaviour
 
     public void ConfirmationPanelOnReject()
     {
+        audioManager.PlaySound("Cancel Audio");
+        
         if (buildSystem.gameObject.activeSelf)
         {
             buildSystem.CancelFactoryPlanning();

@@ -2892,7 +2892,7 @@ GameObject:
   - component: {fileID: 83108394}
   - component: {fileID: 83108393}
   m_Layer: 0
-  m_Name: tick button
+  m_Name: Confirm Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8256,7 +8256,7 @@ GameObject:
   - component: {fileID: 375456674}
   - component: {fileID: 375456675}
   m_Layer: 0
-  m_Name: background
+  m_Name: Background Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8288,7 +8288,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 70bc2168311402e49a9cc5d548de9e04, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.242
+  m_Volume: 0.12
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -8697,7 +8697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.019000001, y: 0.046000004}
   m_AnchorMax: {x: 0.2992587, y: 0.98300004}
-  m_AnchoredPosition: {x: 0.40014648, y: -3.3302307}
+  m_AnchoredPosition: {x: 0.40014648, y: -3.3302002}
   m_SizeDelta: {x: 4.297516, y: 12.09491}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &382129765
@@ -9505,7 +9505,7 @@ GameObject:
   - component: {fileID: 398618650}
   - component: {fileID: 398618649}
   m_Layer: 0
-  m_Name: selectionsound
+  m_Name: Collect Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12008,6 +12008,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1741429310}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Plant Audio
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &541622316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12478,7 +12489,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.15
+  m_fontSize: 50.3
   m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14515,7 +14526,7 @@ GameObject:
   - component: {fileID: 635675394}
   - component: {fileID: 635675395}
   m_Layer: 0
-  m_Name: shovelsound
+  m_Name: Plant Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14545,7 +14556,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 69124eb7d8818a645b3fed9c372de613, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4ee9f60fe9ecb6245b04a53e825f0e4f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -15482,7 +15493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.134, y: 0.11531329}
   m_AnchorMax: {x: 0.46424136, y: 0.326}
-  m_AnchoredPosition: {x: 0, y: 6.500061}
+  m_AnchoredPosition: {x: 0, y: 6.500122}
   m_SizeDelta: {x: 4.286133, y: 14.082672}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &670839517
@@ -15570,6 +15581,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1741429310}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Plant Audio
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &670839518
@@ -18555,7 +18577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.791}
-  m_AnchoredPosition: {x: 173.47021, y: -7.819641}
+  m_AnchoredPosition: {x: 173.47021, y: -7.81958}
   m_SizeDelta: {x: -455.2589, y: -50.57306}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &832728454
@@ -20239,7 +20261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.14517403, y: 0.15844758}
   m_AnchorMax: {x: 0.46936905, y: 0.39318448}
-  m_AnchoredPosition: {x: -4.5, y: 7.501198}
+  m_AnchoredPosition: {x: -4.5, y: 7.502022}
   m_SizeDelta: {x: 11.286133, y: -3.917328}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896907840
@@ -21398,7 +21420,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.44166747, y: 0.0946521}
   m_AnchorMax: {x: 0.80500007, y: 0.5674516}
-  m_AnchoredPosition: {x: 0.6000061, y: 3.5}
+  m_AnchoredPosition: {x: 0.5999756, y: 3.5}
   m_SizeDelta: {x: -3.342682, y: 2.92688}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &969502920
@@ -22668,7 +22690,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5433583, y: 0.083000004}
   m_AnchorMax: {x: 0.97200006, y: 0.494768}
-  m_AnchoredPosition: {x: 0.09008789, y: -0.20007324}
+  m_AnchoredPosition: {x: 0.08984375, y: -0.20007324}
   m_SizeDelta: {x: -2.000885, y: -0.39413452}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068966847
@@ -24818,7 +24840,7 @@ GameObject:
   - component: {fileID: 1200388803}
   - component: {fileID: 1200388802}
   m_Layer: 0
-  m_Name: cancelsound
+  m_Name: Cancel Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24836,7 +24858,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: af2e8915c7ec5be40ac58725b71e1c88, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -26946,7 +26968,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.5}
   m_SizeDelta: {x: -4.4249268, y: 6.1259155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1306836803
@@ -27612,7 +27634,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.5}
   m_SizeDelta: {x: -4.4249268, y: 6.1259155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1340425119
@@ -35683,7 +35705,7 @@ GameObject:
   - component: {fileID: 1726342977}
   - component: {fileID: 1726342976}
   m_Layer: 0
-  m_Name: buldingsound
+  m_Name: Build Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35701,7 +35723,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c15530dc4345812498cd951f77dd0946, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -35969,15 +35991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d1c49110df3c246a4d795042ffe8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioList: []
-  building: {fileID: 1726342976}
-  exit: {fileID: 1200388802}
-  market: {fileID: 398618649}
-  leaderboard: {fileID: 398618649}
-  news: {fileID: 398618649}
-  select: {fileID: 398618649}
-  setting: {fileID: 2097246949}
-  tick: {fileID: 83108393}
 --- !u!4 &1741429311
 Transform:
   m_ObjectHideFlags: 0
@@ -39120,7 +39133,7 @@ GameObject:
   - component: {fileID: 1883184553}
   - component: {fileID: 1883184554}
   m_Layer: 0
-  m_Name: moneysound
+  m_Name: Money Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39152,7 +39165,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5571b1f5635bc2b46817223db0c18ae6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -41319,7 +41332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1997142663
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42913,7 +42926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.5}
   m_SizeDelta: {x: -4.4249268, y: 6.1259155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2063009881
@@ -43632,7 +43645,7 @@ GameObject:
   - component: {fileID: 2097246950}
   - component: {fileID: 2097246949}
   m_Layer: 0
-  m_Name: setting button
+  m_Name: Setting Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

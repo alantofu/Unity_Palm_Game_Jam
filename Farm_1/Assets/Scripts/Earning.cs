@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Earning : MonoBehaviour
 {
+    private AudioManager audioManager;
+
     public GameObject coinIcon;
     public bool isCollectable = false;
     public int waitSecond = 5;
@@ -34,6 +36,7 @@ public class Earning : MonoBehaviour
 
     void Start()
     {
+        audioManager = AudioManager.Instance;
         isCollectable = false;
         coinIconLocalY = coinIcon.transform.localPosition.y;
         Debug.Log("Coin Y Location: " + coinIcon.transform.localPosition.y);
@@ -131,6 +134,8 @@ public class Earning : MonoBehaviour
     {
         if (isCollectable)
         {
+            AudioManager.Instance.PlaySound("Money Audio");
+
             isCollectable = false;
 
             StartCoroutine(FadeOutIcon());
