@@ -907,6 +907,7 @@ GameObject:
   - component: {fileID: 8524115819726323214}
   - component: {fileID: 165257107168743794}
   - component: {fileID: 5363578197920135527}
+  - component: {fileID: 8955797812557347779}
   m_Layer: 0
   m_Name: Chocolate Factory
   m_TagString: Factory
@@ -963,7 +964,7 @@ MonoBehaviour:
   isCollectable: 0
   waitSecond: 5
   fadeDuration: 0.2
-  coinIconLocalY: 1.5
+  coinIconLocalY: 2.3
   animationDistance: 1.5
   getCoinAmount: 500
   isManufacturing: 0
@@ -971,6 +972,9 @@ MonoBehaviour:
   manufacturingTime: 6
   remainingTime: 0
   totalProfit: 0
+  profitRate: 0
+  collectedProfit: 0
+  generatedProfit: 0
 --- !u!114 &5363578197920135527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,3 +994,22 @@ MonoBehaviour:
   constructingTime: 6
   remainingTime: 0
   isConstructed: 0
+--- !u!114 &8955797812557347779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7843490813971796792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a0b96d9c9d2db4f9fe6f831d9037da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oilPerProduct: 40
+  profitReturnPerProduct: 100
+  timeRequiredPerProduct: 1
+  productAmount: 0
+  totalOil: 0
+  totalProfit: 0
+  totalTime: 0

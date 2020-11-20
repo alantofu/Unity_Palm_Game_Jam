@@ -10,7 +10,7 @@ public class Earning : MonoBehaviour
     public bool isCollectable = false;
     public int waitSecond = 5;
     public float fadeDuration = 0.5f;
-    public float coinIconLocalY = 1.5f;
+    public float coinIconLocalY = 2.3f;
     public float animationDistance = 1.5f;
     public int getCoinAmount = 0;
 
@@ -36,14 +36,15 @@ public class Earning : MonoBehaviour
     {
         isCollectable = false;
         coinIconLocalY = coinIcon.transform.localPosition.y;
+        Debug.Log("Coin Y Location: " + coinIcon.transform.localPosition.y);
     }
 
-    public void StartManufacturingProcess(int maxProfit, int maxTime)
+    public void StartManufacturingProcess()
     {
-        if (maxTime > 0)
+        manufacturingTime = this.transform.GetComponent<Factory>().totalTime;
+        if (manufacturingTime > 0)
         {
-            totalProfit = maxProfit;
-            manufacturingTime = maxTime;
+            totalProfit = this.transform.GetComponent<Factory>().totalProfit;
 
             profitRate = totalProfit / manufacturingTime;
             generatedProfit = 0;
@@ -145,7 +146,7 @@ public class Earning : MonoBehaviour
                 collectingAmount = totalProfit - collectedProfit;
                 generatedProfit = 0f;
             }
-            Player.Instance.addMoney(Mathf.FloorToInt(collectingAmount));
+            Player.Instance.AddMoney(Mathf.FloorToInt(collectingAmount));
             collectedProfit += collectingAmount;
         }
     }

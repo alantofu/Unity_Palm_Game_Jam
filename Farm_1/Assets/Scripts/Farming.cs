@@ -80,7 +80,7 @@ public class Farming : MonoBehaviour
         {
             farmCount++;
             StartCoroutine(FadeOutIcon());
-            Player.Instance.addOil(getOilAmount);
+            Player.Instance.AddOil(getOilAmount);
             collectable = false;
             if (farmCount < maxFarmCount)
             {

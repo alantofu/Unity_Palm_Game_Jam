@@ -10,6 +10,7 @@ public class SelectSystem : MonoBehaviour
 
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
+    private ManufactureSystem manufactureSystem;
 
     public LayerMask layerMask;
     public GameObject selectedObject;
@@ -35,6 +36,7 @@ public class SelectSystem : MonoBehaviour
     {
         buildSystem = BuildSystem.Instance;
         plantSystem = PlantSystem.Instance;
+        manufactureSystem = ManufactureSystem.Instance;
     }
 
     void Update()
@@ -152,6 +154,8 @@ public class SelectSystem : MonoBehaviour
             case "Factory":
                 if (!plantSystem.gameObject.activeSelf)
                 {
+                    manufactureSystem.selectedFactoryObject = selectedGameObj; // select first
+                    
                     if (selectedGameObj.GetComponent<Earning>().isCollectable)
                     {
                         selectedGameObj.GetComponent<Earning>().OnClickResponse();
@@ -167,7 +171,6 @@ public class SelectSystem : MonoBehaviour
                         {
                             GameManager.Instance.chocolateFactoryPanel.SetActive(true);
                         }
-                        Factory.Instance.selectedFactory = selectedGameObj;
                     }
                 }
                 break;

@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
     private SelectSystem selectSystem;
-    private Factory factorySystem;
+    private ManufactureSystem manufactureSystem;
     private Camera mainCam;
 
     public GameObject sidePanel;
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         buildSystem = BuildSystem.Instance;
         plantSystem = PlantSystem.Instance;
         selectSystem = SelectSystem.Instance;
-        factorySystem = Factory.Instance;
+        manufactureSystem = ManufactureSystem.Instance;
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         buildSystem.gameObject.SetActive(false);
         plantSystem.gameObject.SetActive(false);
@@ -83,8 +83,25 @@ public class GameManager : MonoBehaviour
         plantSystem.gameObject.SetActive(false);
     }
 
-    public void OnStartingManufacturing() {
-        Factory.Instance.StartManufacturing();
+    public void OnIncreasingProductAmount()
+    {
+        if (manufactureSystem.selectedFactoryObject)
+        {
+            manufactureSystem.selectedFactoryObject.GetComponent<Factory>().IncProductAmount();
+        }
+    }
+
+    public void OnDecreasingProductAmount()
+    {
+        if (manufactureSystem.selectedFactoryObject)
+        {
+            manufactureSystem.selectedFactoryObject.GetComponent<Factory>().DecProductAmount();
+        }
+    }
+
+    public void OnStartingManufacturing()
+    {
+        manufactureSystem.selectedFactoryObject.GetComponent<Earning>().StartManufacturingProcess();
     }
 
     public void ConfirmationPanelOnAccept()

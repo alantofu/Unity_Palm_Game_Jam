@@ -63,9 +63,9 @@ public class CameraController : MonoBehaviour
             isPanToDefault = false;
         }
 // #if UNITY_ANDROID || UNITY_IOS
-        // HandleTouchInput();
+        HandleTouchInput();
 // #elif UNITY_EDITOR
-        HandleMouseInput();
+        // HandleMouseInput();
 // #endif
     }
 

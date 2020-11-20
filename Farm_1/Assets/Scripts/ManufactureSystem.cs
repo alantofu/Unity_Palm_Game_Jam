@@ -20,14 +20,4 @@ public class ManufactureSystem : MonoBehaviour
             _instance = this;
         }
     }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
 }
