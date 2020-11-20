@@ -966,6 +966,10 @@ MonoBehaviour:
   coinIconLocalY: 1.5
   animationDistance: 1.5
   getCoinAmount: 500
+  isManufacturing: 0
+  timerBar: {fileID: 4912345183894939749}
+  manufacturingTime: 6
+  remainingTime: 0
 --- !u!114 &5363578197920135527
 MonoBehaviour:
   m_ObjectHideFlags: 0

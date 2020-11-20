@@ -153,12 +153,18 @@ public class SelectSystem : MonoBehaviour
                 if (!plantSystem.gameObject.activeSelf)
                 {
                     selectedGameObj.GetComponent<Earning>().OnClickResponse();
-                    if(!selectedGameObj.GetComponent<Earning>().isManufacturing) { // if it is not producing money
-                        if(selectedGameObj.name.StartsWith("Lipstick")) {
-
-                        }else if(selectedGameObj.name.StartsWith("Chocolate")) {
-
+                    if (!selectedGameObj.GetComponent<Earning>().isManufacturing
+                    && selectedGameObj.GetComponent<Building>().isConstructed)
+                    { // if it is not producing money and it is constructed
+                        if (selectedGameObj.name.StartsWith("Lipstick"))
+                        {
+                            GameManager.Instance.lipstickFactoryPanel.SetActive(true);
                         }
+                        else if (selectedGameObj.name.StartsWith("Chocolate"))
+                        {
+                            GameManager.Instance.chocolateFactoryPanel.SetActive(true);
+                        }
+                        Factory.Instance.selectedFactory = selectedGameObj;
                     }
                 }
                 break;

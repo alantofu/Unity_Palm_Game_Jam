@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Earning : MonoBehaviour
 {
@@ -8,20 +10,44 @@ public class Earning : MonoBehaviour
     public bool isCollectable = false;
     public int waitSecond = 5;
     public float fadeDuration = 0.5f;
-
     public float coinIconLocalY = 1.5f;
     public float animationDistance = 1.5f;
-
     public int getCoinAmount = 500;
 
     public bool isManufacturing = false; // true if it is producing money
 
+    public Image timerBar;
+    public float manufacturingTime = 6;
+    public float remainingTime;
+    public int totalProfit;
+
+    public event Action<float> OnTimeDecrease = delegate { };
+
+
+    void Awake()
+    {
+        OnTimeDecrease += HandleTimeChange; // += operator calls the add method on the event
+    }
+
     void Start()
     {
         isCollectable = false;
-        StopAllCoroutines();
         StartCoroutine(EarningMoney());
         coinIconLocalY = coinIcon.transform.localPosition.y;
+    }
+
+    public void StartManufacturingProcess(int maxProfit, int maxTime)
+    {
+        Debug.Log("Enter");
+        if (maxTime > 0)
+        {
+            Debug.Log("Start");
+            totalProfit = maxProfit;
+            manufacturingTime = maxTime;
+            timerBar.transform.parent.gameObject.SetActive(true);
+            remainingTime = manufacturingTime;
+            StartCoroutine(ManufacturingProcess());
+        }
     }
 
     IEnumerator EarningMoney()
@@ -63,6 +89,32 @@ public class Earning : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         coinIcon.SetActive(false);
+    }
+
+    IEnumerator ManufacturingProcess()
+    {
+        if (!isManufacturing)
+        {
+            isManufacturing = true;
+            while (remainingTime > 0)
+            {
+                ReduceTime(Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+        }
+        timerBar.transform.parent.gameObject.SetActive(false); // disable timer bar
+        isManufacturing = false;
+    }
+
+    private void ReduceTime(float amount)
+    {
+        remainingTime -= amount;
+        OnTimeDecrease(remainingTime / manufacturingTime); // Action<float>
+    }
+
+    private void HandleTimeChange(float newPercent)
+    {
+        timerBar.fillAmount = 1 - newPercent;
     }
 
     public void OnClickResponse()

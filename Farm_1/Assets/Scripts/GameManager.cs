@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
     private SelectSystem selectSystem;
+    private Factory factorySystem;
     private Camera mainCam;
 
     public GameObject sidePanel;
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
     public GameObject buySeedPanel;
     public GameObject forestHCSPanel;
     public GameObject replantTreePanel;
+    public GameObject lipstickFactoryPanel;
+    public GameObject chocolateFactoryPanel;
 
     void Awake()
     {
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
         buildSystem = BuildSystem.Instance;
         plantSystem = PlantSystem.Instance;
         selectSystem = SelectSystem.Instance;
+        factorySystem = Factory.Instance;
         mainCam.GetComponent<PostCameraProcess>().toggle = false;
         buildSystem.gameObject.SetActive(false);
         plantSystem.gameObject.SetActive(false);
@@ -77,6 +81,10 @@ public class GameManager : MonoBehaviour
         plantSystem.gameObject.SetActive(true);
         plantSystem.ReplantPalmObj();
         plantSystem.gameObject.SetActive(false);
+    }
+
+    public void OnStartingManufacturing() {
+        Factory.Instance.StartManufacturing();
     }
 
     public void ConfirmationPanelOnAccept()
