@@ -455,7 +455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4407131485872192305}
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 0.9, y: 1.8, z: 0.6}
+  m_LocalPosition: {x: 0.5, y: 2.3, z: 0.5}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 1001878452004522652}
@@ -970,6 +970,7 @@ MonoBehaviour:
   timerBar: {fileID: 4912345183894939749}
   manufacturingTime: 6
   remainingTime: 0
+  totalProfit: 0
 --- !u!114 &5363578197920135527
 MonoBehaviour:
   m_ObjectHideFlags: 0

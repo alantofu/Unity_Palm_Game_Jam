@@ -152,8 +152,11 @@ public class SelectSystem : MonoBehaviour
             case "Factory":
                 if (!plantSystem.gameObject.activeSelf)
                 {
-                    selectedGameObj.GetComponent<Earning>().OnClickResponse();
-                    if (!selectedGameObj.GetComponent<Earning>().isManufacturing
+                    if (selectedGameObj.GetComponent<Earning>().isCollectable)
+                    {
+                        selectedGameObj.GetComponent<Earning>().OnClickResponse();
+                    }
+                    else if (!selectedGameObj.GetComponent<Earning>().isManufacturing
                     && selectedGameObj.GetComponent<Building>().isConstructed)
                     { // if it is not producing money and it is constructed
                         if (selectedGameObj.name.StartsWith("Lipstick"))

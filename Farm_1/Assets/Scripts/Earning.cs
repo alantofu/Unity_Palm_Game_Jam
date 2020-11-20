@@ -12,7 +12,7 @@ public class Earning : MonoBehaviour
     public float fadeDuration = 0.5f;
     public float coinIconLocalY = 1.5f;
     public float animationDistance = 1.5f;
-    public int getCoinAmount = 500;
+    public int getCoinAmount = 0;
 
     public bool isManufacturing = false; // true if it is producing money
 
@@ -20,6 +20,9 @@ public class Earning : MonoBehaviour
     public float manufacturingTime = 6;
     public float remainingTime;
     public int totalProfit;
+    public float profitRate;
+    public int collectedProfit;
+    public float generatedProfit;
 
     public event Action<float> OnTimeDecrease = delegate { };
 
@@ -32,27 +35,36 @@ public class Earning : MonoBehaviour
     void Start()
     {
         isCollectable = false;
-        StartCoroutine(EarningMoney());
         coinIconLocalY = coinIcon.transform.localPosition.y;
     }
 
     public void StartManufacturingProcess(int maxProfit, int maxTime)
     {
-        Debug.Log("Enter");
         if (maxTime > 0)
         {
-            Debug.Log("Start");
             totalProfit = maxProfit;
             manufacturingTime = maxTime;
-            timerBar.transform.parent.gameObject.SetActive(true);
+
+            profitRate = totalProfit / manufacturingTime;
+            generatedProfit = 0;
+            collectedProfit = 0;
             remainingTime = manufacturingTime;
+
+            timerBar.transform.parent.gameObject.SetActive(true);
+            isManufacturing = true;
             StartCoroutine(ManufacturingProcess());
+            StartCoroutine(EarningMoney());
         }
     }
 
     IEnumerator EarningMoney()
     {
-        yield return new WaitForSeconds(waitSecond);
+        float elapsed = 0f;
+        while (elapsed <= waitSecond && isManufacturing)
+        {
+            elapsed += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
         coinIcon.SetActive(true);
         isCollectable = true;
         StartCoroutine(FadeInIcon());
@@ -93,14 +105,11 @@ public class Earning : MonoBehaviour
 
     IEnumerator ManufacturingProcess()
     {
-        if (!isManufacturing)
+        while (remainingTime > 0)
         {
-            isManufacturing = true;
-            while (remainingTime > 0)
-            {
-                ReduceTime(Time.deltaTime);
-                yield return new WaitForEndOfFrame();
-            }
+            ReduceTime(Time.deltaTime);
+            generatedProfit += profitRate * Time.deltaTime;
+            yield return new WaitForEndOfFrame();
         }
         timerBar.transform.parent.gameObject.SetActive(false); // disable timer bar
         isManufacturing = false;
@@ -121,10 +130,23 @@ public class Earning : MonoBehaviour
     {
         if (isCollectable)
         {
-            StartCoroutine(FadeOutIcon());
-            Player.Instance.addMoney(getCoinAmount);
             isCollectable = false;
-            StartCoroutine(EarningMoney());
+
+            StartCoroutine(FadeOutIcon());
+            int collectingAmount;
+            if (isManufacturing)
+            {
+                collectingAmount = Mathf.FloorToInt(generatedProfit);
+                generatedProfit = 0f;
+                StartCoroutine(EarningMoney()); // continue earning if it is manufacturing
+            }
+            else
+            {
+                collectingAmount = totalProfit - collectedProfit;
+                generatedProfit = 0f;
+            }
+            Player.Instance.addMoney(Mathf.FloorToInt(collectingAmount));
+            collectedProfit += collectingAmount;
         }
     }
 
