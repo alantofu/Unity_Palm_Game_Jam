@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } } // a singleton
 
+    private Player player;
     private CameraController cameraController;
     private BuildSystem buildSystem;
     private PlantSystem plantSystem;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        player = Player.Instance;
         cameraController = CameraController.Instance;
         buildSystem = BuildSystem.Instance;
         plantSystem = PlantSystem.Instance;
@@ -102,6 +104,7 @@ public class GameManager : MonoBehaviour
     public void OnStartingManufacturing()
     {
         manufactureSystem.selectedFactoryObject.GetComponent<Earning>().StartManufacturingProcess();
+        player.ReduceOil(manufactureSystem.selectedFactoryObject.GetComponent<Factory>().totalOil);
     }
 
     public void ConfirmationPanelOnAccept()

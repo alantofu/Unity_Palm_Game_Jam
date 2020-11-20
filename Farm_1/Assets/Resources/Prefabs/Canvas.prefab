@@ -3951,7 +3951,7 @@ MonoBehaviour:
   oilAmount: {fileID: 673831473271946145}
   profitReturn: {fileID: 673831473018529789}
   timeRequired: {fileID: 673831473694364418}
-  lf: {fileID: 673831473751936556}
+  manufactureSystem: {fileID: 0}
 --- !u!1 &673831473258551137
 GameObject:
   m_ObjectHideFlags: 0
@@ -6009,7 +6009,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &673831473609926233
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6575,10 +6575,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oilPerProduct: 40
-  totalOil: 0
   profitReturnPerProduct: 100
-  totalProfit: 0
   timeRequiredPerProduct: 1
+  productAmount: 0
+  totalOil: 0
+  totalProfit: 0
   totalTime: 0
 --- !u!1 &673831473766410551
 GameObject:
@@ -6915,10 +6916,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 350000
-  rep: 15
+  reputation: 15
   oil: 12000
-  factory: {fileID: 673831473751936558}
-  chocolateFac: {fileID: 0}
 --- !u!114 &673831473813407475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6932,7 +6931,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 673831473094640279}
-  player: {fileID: 673831473813407471}
 --- !u!114 &673831473813407468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6946,7 +6944,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 673831473988739929}
-  player: {fileID: 673831473813407471}
 --- !u!114 &673831473813407469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6960,7 +6957,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 673831474226554756}
-  player: {fileID: 673831473813407471}
 --- !u!1 &673831473816680376
 GameObject:
   m_ObjectHideFlags: 0
@@ -9976,10 +9972,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oilPerProduct: 40
-  totalOil: 0
   profitReturnPerProduct: 100
-  totalProfit: 0
   timeRequiredPerProduct: 1
+  productAmount: 0
+  totalOil: 0
+  totalProfit: 0
   totalTime: 0
 --- !u!1 &673831474549054340
 GameObject:
@@ -29686,10 +29683,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oilPerProduct: 40
-  totalOil: 0
   profitReturnPerProduct: 100
-  totalProfit: 0
   timeRequiredPerProduct: 1
+  productAmount: 0
+  totalOil: 0
+  totalProfit: 0
   totalTime: 0
 --- !u!1 &8655537647752609747
 GameObject:
@@ -31084,7 +31082,7 @@ MonoBehaviour:
   oilAmount: {fileID: 8655537647653466240}
   profitReturn: {fileID: 8655537647395204316}
   timeRequired: {fileID: 8655537648597347854}
-  lf: {fileID: 673831474533621119}
+  manufactureSystem: {fileID: 0}
 --- !u!1 &8655537647896496089
 GameObject:
   m_ObjectHideFlags: 0
@@ -31157,9 +31155,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &8655537647897761366
 CanvasRenderer:
@@ -32901,6 +32899,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -36005,7 +36014,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
