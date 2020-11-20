@@ -44,7 +44,7 @@ public class ObjectSpawner : MonoBehaviour
         InitializeRectPoint(25, 34, 10, 30, denseTreePointList);
         InitializeRectPoint(62, 34, 10, 30, denseTreePointList);
 
-        InitializeRectPoint(43, 46, 5, 8, emptyPointList);
+        InitializeRectPoint(40, 46, 8, 10, emptyPointList);
         // for (int x = 43; x <= 48; x++)
         // {
         //     for (int y = 47; y <= 52; y++)
