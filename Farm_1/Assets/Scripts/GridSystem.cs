@@ -16,9 +16,10 @@ public class GridSystem : MonoBehaviour
 
     public Color baseColor;
 
-    public static Material lineMaterial;
+    public Material lineMaterial;
 
     public float gridSize = 1f; // distance
+    public float lineThickness = 0.05f;
     public int width = 20; // x
     public int length = 20; // z
     public float gridLineHeight = 1; // y
@@ -41,23 +42,16 @@ public class GridSystem : MonoBehaviour
         // https://stackoverflow.com/questions/39709867/trying-to-create-a-material-from-string-this-is-no-longer-supported
         if (!lineMaterial)
         {
-            lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
+            // lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
+            lineMaterial = Resources.Load("Materials/Gridline Shader Mat", typeof(Material)) as Material;
+            // lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+            // lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
         }
-        lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-        lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+        lineMaterial.hideFlags = HideFlags.None;
+        lineMaterial.shader.hideFlags = HideFlags.None;
 
         // initialize objectOnGrid 2D array
         objectOnGrid = new GameObject[width - 2, length - 2];
-    }
-
-    public Vector3 getPointOnGrid(Vector3 position)
-    {
-        Vector3 snapPos = Vector3.zero;
-        snapPos.x = Mathf.RoundToInt(position.x / gridSize) * gridSize;
-        // y always zero on grid
-        snapPos.z = Mathf.RoundToInt(position.z / gridSize) * gridSize;
-
-        return snapPos;
     }
 
     private void Update()
@@ -69,7 +63,7 @@ public class GridSystem : MonoBehaviour
         }
     }
 
-    public Vector3 getPositionByGridPoint(int x, int z)
+    public Vector3 GetPositionByGridPoint(int x, int z)
     {
         x -= (width - 1) / 2 - 1;
         z -= (length - 1) / 2 - 1;
@@ -77,7 +71,7 @@ public class GridSystem : MonoBehaviour
         return tempPosition;
     }
 
-    public Vector2Int getGridPointByPosition(Vector3 worldPosition)
+    public Vector2Int GetGridPointByPosition(Vector3 worldPosition)
     {
         Vector2Int tempPosition = new Vector2Int(Mathf.RoundToInt(worldPosition.x),
                                                     Mathf.RoundToInt(worldPosition.z));
@@ -86,7 +80,7 @@ public class GridSystem : MonoBehaviour
         return tempPosition;
     }
 
-    public Vector3 getRoundedPosition(Vector3 worldPosition)
+    public Vector3 GetRoundedPosition(Vector3 worldPosition)
     {
         return new Vector3(Mathf.RoundToInt(worldPosition.x),
                             0,
@@ -102,29 +96,58 @@ public class GridSystem : MonoBehaviour
     {
         if (!lineMaterial)
         {
-            lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
-            lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-            lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+            // lineMaterial = new Material(Shader.Find("Lines/Colored Blended"));
+            // lineMaterial.hideFlags = HideFlags.HideAndDontSave;
+            // lineMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
+            lineMaterial.hideFlags = HideFlags.None;
+            lineMaterial.shader.hideFlags = HideFlags.None;
+            return;
         }
+
+        // offset values (negative value)
+        float startX = -Mathf.FloorToInt(width / 2) - 0.5f;
+        float startZ = -Mathf.FloorToInt(length / 2) - 0.5f;
+
         GL.PushMatrix();
         lineMaterial.SetPass(0);
-        GL.Begin(GL.LINES);
+        // GL.Begin(GL.LINES);
+        GL.Begin(GL.QUADS);
 
-        float gridWidth = -Mathf.FloorToInt(width / 2) - 0.5f;
-        float gridLength = -Mathf.FloorToInt(length / 2) - 0.5f;
-        // draw grid
+        // horizontal line
         for (float z = 0; z < length; z += gridSize)
         {
             GL.Color(baseColor);
-            GL.Vertex3(gridWidth, gridLineHeight, z + gridLength);
-            GL.Vertex3(width + gridWidth, gridLineHeight, z + gridLength);
+            GL.Vertex3(startX, gridLineHeight, z + startZ);
+            GL.Vertex3(startX, gridLineHeight, z + startZ + lineThickness);
+            GL.Vertex3(width + startX, gridLineHeight, z + startZ + lineThickness);
+            GL.Vertex3(width + startX, gridLineHeight, z + startZ);
         }
+        // vertical line
         for (float x = 0; x < width; x += gridSize)
         {
             GL.Color(baseColor);
-            GL.Vertex3(x + gridWidth, gridLineHeight, gridLength);
-            GL.Vertex3(x + gridWidth, gridLineHeight, length + gridLength);
+            GL.Vertex3(x + startX, gridLineHeight, startZ);
+            GL.Vertex3(x + startX + lineThickness, gridLineHeight, startZ);
+            GL.Vertex3(x + startX + lineThickness, gridLineHeight, length + startZ);
+            GL.Vertex3(x + startX, gridLineHeight, length + startZ);
         }
+
+
+        // draw grid
+        // horizontal line
+        // for (float z = 0; z < length; z += gridSize)
+        // {
+        //     GL.Color(baseColor);
+        //     GL.Vertex3(startZ, gridLineHeight, z + startX);
+        //     GL.Vertex3(width + startZ, gridLineHeight, z + startX);
+        // }
+        // // vertical line
+        // for (float x = 0; x < width; x += gridSize)
+        // {
+        //     GL.Color(baseColor);
+        //     GL.Vertex3(x + startZ, gridLineHeight, startX);
+        //     GL.Vertex3(x + startZ, gridLineHeight, length + startX);
+        // }
 
         GL.End();
         GL.PopMatrix();

@@ -13,10 +13,10 @@ public class PlantSystem : MonoBehaviour
     public GameObject palmPrefab;
     public Transform palmParent;
 
-    public GameObject selectedForestObject;
+    public List<GameObject> selectedRemovableObjList;
     public GameObject selectedChildObj;
-
-    public GameObject buySeedPanel;
+    public GameObject selectedRemovableObj;
+    public GameObject selectedDeadTreeObj;
 
     public Vector3 dragStartPosition;
     public Vector3 dragFinalPosition;
@@ -33,108 +33,117 @@ public class PlantSystem : MonoBehaviour
         }
     }
 
-    private void Start()
+    void OnEnable()
+    {
+        selectedRemovableObjList = new List<GameObject>();
+    }
+
+    void Start()
     {
         gridSystem = GridSystem.Instance;
+        selectedRemovableObjList = new List<GameObject>();
     }
 
-    void Update()
+    public void SelectDeselectRemovableObj(GameObject selectedObj)
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (selectedObj)
         {
-            dragStartPosition = Input.mousePosition;
-            dragFinalPosition = Input.mousePosition;
-            return;
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (selectedForestObject)
+            if (selectedObj.transform.GetChild(0).gameObject.activeSelf)  // if forest tree obj is not highlighted then highlight it
             {
-                dragStartPosition = Input.mousePosition;
+                if (selectedRemovableObjList.Count > 0)
+                { // allow one tree only
+                    StopAllHighlight();
+                }
+                selectedRemovableObj = selectedObj; // select the object
+                selectedChildObj = selectedObj.transform.GetChild(1).gameObject;
+                selectedChildObj.SetActive(true);
+                selectedObj.transform.GetChild(0).gameObject.SetActive(false);
+                selectedRemovableObjList.Add(selectedObj);
             }
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (selectedForestObject)
+            else // unhighlight it
             {
-                dragFinalPosition = Input.mousePosition;
-                // calculate drag distance on screen point
-                float dragDistance = Mathf.Sqrt(((dragFinalPosition.x - dragStartPosition.x) * (dragFinalPosition.x - dragStartPosition.x)
-                + (dragFinalPosition.y - dragStartPosition.y) * (dragFinalPosition.y - dragStartPosition.y)));
+                selectedChildObj = selectedObj.transform.GetChild(0).gameObject;
+                selectedChildObj.SetActive(true);
+                selectedObj.transform.GetChild(1).gameObject.SetActive(false);
+                selectedRemovableObjList.Remove(selectedObj);
+            }
 
-                if (dragDistance < 10)
-                {
-                    // HighlightForestObject();
-                    if (!buySeedPanel.activeSelf)
-                    {
-                        buySeedPanel.SetActive(true);
-                    }
-                }
-                else
-                {
-                    // UnhighlightForestObject();
-                    selectedForestObject = null;
-                }
-            }
         }
+
     }
 
-    public void HighlightForestObject()
+    public void UnhighlightForestObj(GameObject selectedObj)
     {
-        if (selectedForestObject && !BuildSystem.Instance.gameObject.activeSelf)
+        if (selectedObj)
         {
-            selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
+            selectedChildObj = selectedObj.transform.GetChild(0).gameObject;
             selectedChildObj.SetActive(true);
-            selectedForestObject.transform.GetChild(0).gameObject.SetActive(false);
+            selectedObj.transform.GetChild(1).gameObject.SetActive(false);
         }
-    }
-
-    public void UnhighlightForestObject()
-    {
-        if (selectedForestObject && !BuildSystem.Instance.gameObject.activeSelf)
-        {
-            selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
-            selectedChildObj.SetActive(false);
-            selectedForestObject.transform.GetChild(0).gameObject.SetActive(true);
-        }
+        selectedRemovableObjList.Remove(selectedObj);
     }
 
     public void StopAllHighlight()
     { // fix bug where need to unhighlight but without other condition
-        if (selectedForestObject)
+        foreach (GameObject selectedObj in selectedRemovableObjList)
         {
-            selectedChildObj = selectedForestObject.transform.GetChild(1).gameObject;
-            selectedChildObj.SetActive(false);
-            selectedForestObject.transform.GetChild(0).gameObject.SetActive(true);
+            if (selectedObj)
+            {
+                selectedChildObj = selectedObj.transform.GetChild(0).gameObject;
+                selectedChildObj.SetActive(true);
+                selectedObj.transform.GetChild(1).gameObject.SetActive(false);
+            }
         }
+        selectedRemovableObjList.Clear();
     }
 
     public void PlacePalmObj()
     {
-        UnhighlightForestObject();
-
-        Vector2Int selectedPoint = gridSystem.getGridPointByPosition(selectedForestObject.transform.position);
-
-        if (gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y].CompareTag("Forest Tree"))
+        foreach (GameObject selectedObj in selectedRemovableObjList)
         {
+            if (selectedObj)
+            {
+                Vector2Int selectedPoint = gridSystem.GetGridPointByPosition(selectedObj.transform.position);
+
+                if (gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y].CompareTag("Forest Tree") 
+                || gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y].CompareTag("Grass"))
+                {
+                    GameObject newObj = Instantiate(palmPrefab,
+                                                gridSystem.GetPositionByGridPoint(selectedPoint.x, selectedPoint.y),
+                                                Quaternion.identity,
+                                                palmParent);
+                    newObj.name = "Palm Tree (" + selectedPoint.x.ToString() + ", " + selectedPoint.y.ToString() + ")";
+                    gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y] = newObj;
+
+                    Destroy(selectedObj);
+                }
+            }
+        }
+        StopAllHighlight();
+        selectedChildObj = null;
+    }
+
+    public void ReplantPalmObj()
+    {
+        if (selectedDeadTreeObj.CompareTag("Palm Oil Tree"))
+        {
+            Vector2Int selectedPoint = gridSystem.GetGridPointByPosition(selectedDeadTreeObj.transform.position);
             GameObject newObj = Instantiate(palmPrefab,
-                                        gridSystem.getPositionByGridPoint(selectedPoint.x, selectedPoint.y),
+                                        selectedDeadTreeObj.transform.position,
                                         Quaternion.identity,
                                         palmParent);
             newObj.name = "Palm Tree (" + selectedPoint.x.ToString() + ", " + selectedPoint.y.ToString() + ")";
             gridSystem.objectOnGrid[selectedPoint.x, selectedPoint.y] = newObj;
 
-            Destroy(selectedForestObject);
+            Destroy(selectedDeadTreeObj);
         }
-
-        selectedForestObject = null;
-        selectedChildObj = null;
     }
 
     private void OnDisable()
     {
-        UnhighlightForestObject();
-        selectedForestObject = null;
+        StopAllHighlight();
+        selectedRemovableObjList = null;
         selectedChildObj = null;
     }
+
 }

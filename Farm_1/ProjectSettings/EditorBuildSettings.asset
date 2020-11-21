@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 55d43db890d2f9e44b02ab01e2437955
+  - enabled: 1
+    path: Assets/Scenes/Storyline.unity
+    guid: 2a314b634e557da4e9a2e52909b3e5c2
+  - enabled: 1
+    path: Assets/Scenes/Grid_1.unity
+    guid: 4fdd11c3b1b1b4548a806242b70b0b2d
+  - enabled: 0
+    path: Assets/Scenes/Alantofu.unity
+    guid: 0e41aca3b6e2d9948a8a7e4bbdea7160
   m_configObjects: {}

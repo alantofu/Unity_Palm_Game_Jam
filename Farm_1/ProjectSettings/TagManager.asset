@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Forest Tree
   - Palm Oil Tree
+  - Factory
+  - Grass
   layers:
   - Default
   - TransparentFX

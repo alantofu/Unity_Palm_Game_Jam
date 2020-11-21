@@ -5,7 +5,13 @@ using UnityEngine.Profiling;
 
 public class Farming : MonoBehaviour
 {
+    public GameObject grownTree;
+    public GameObject deadTree;
     public GameObject oilIcon;
+    private GameManager gameManager;
+    private PlantSystem plantSystem;
+    private AudioManager audioManager;
+
     public bool collectable = false;
     public int waitSecond = 3;
     public float fadeDuration = 0.5f;
@@ -14,9 +20,15 @@ public class Farming : MonoBehaviour
     public float animationDistance = 1.5f;
 
     public int getOilAmount = 1000;
+    public int maxFarmCount = 10;
+    public int farmCount = 0;
+    public bool isDead = false; // true if the palm oil tree is dead
 
     void Start()
     {
+        gameManager = GameManager.Instance;
+        plantSystem = PlantSystem.Instance;
+        audioManager = AudioManager.Instance;
         collectable = false;
         StopAllCoroutines();
         StartCoroutine(FarmingFruit());
@@ -43,7 +55,7 @@ public class Farming : MonoBehaviour
             color.a = Mathf.Lerp(0, 1, elapsed / fadeDuration);
             renderer.material.color = color;
             oilIcon.transform.localPosition = new Vector3(0, Mathf.Lerp(oilIconLocalY - animationDistance, oilIconLocalY, elapsed / fadeDuration), 0);
-            yield return new WaitForSeconds(0.0167f);
+            yield return new WaitForEndOfFrame();
         }
     }
 
@@ -59,19 +71,36 @@ public class Farming : MonoBehaviour
             color.a = Mathf.Lerp(1, 0, elapsed / fadeDuration);
             renderer.material.color = color;
             oilIcon.transform.localPosition = new Vector3(0, Mathf.Lerp(oilIconLocalY, oilIconLocalY + animationDistance, elapsed / fadeDuration), 0);
-            yield return new WaitForSeconds(0.0167f);
+            yield return new WaitForEndOfFrame();
         }
         oilIcon.SetActive(false);
     }
 
-    private void OnMouseDown()
+    public void OnClickResponse()
     {
         if (collectable)
         {
+            audioManager.PlaySound("Collect Audio");
+
+            farmCount++;
             StartCoroutine(FadeOutIcon());
-            Player.Instance.addOil(getOilAmount);
+            Player.Instance.AddOil(getOilAmount);
             collectable = false;
-            StartCoroutine(FarmingFruit());
+            if (farmCount < maxFarmCount)
+            {
+                StartCoroutine(FarmingFruit());
+            }
+            else
+            {
+                isDead = true;
+                deadTree.SetActive(true);
+                grownTree.SetActive(false);
+            }
+        }
+        else if (isDead)
+        {
+            gameManager.replantTreePanel.SetActive(true);
+            plantSystem.selectedDeadTreeObj = this.gameObject;
         }
     }
 

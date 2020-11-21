@@ -6,7 +6,7 @@ public class MousePointDebug : MonoBehaviour
 {
     private GridSystem gridSystem;
 
-    private void Awake()
+    private void Start()
     {
         gridSystem = GridSystem.Instance;
 
@@ -44,13 +44,13 @@ public class MousePointDebug : MonoBehaviour
         if (plane.Raycast(ray, out enter))
         {
             // Debug.Log("Plane Raycast hit at distance: " + enter);
-            //Get the point that is clicked
+            // Get the point that is clicked
             Vector3 hitPoint = ray.GetPoint(enter);
             // Debug.Log("Intersect point: " + hitPoint);
             Debug.DrawRay(ray.origin, ray.direction * enter, Color.blue);
-            Vector2Int tempVector2 = gridSystem.getGridPointByPosition(hitPoint);
+            Vector2Int tempVector2 = gridSystem.GetGridPointByPosition(hitPoint);
             // Debug.Log("GridPoint: " + tempVector2);
-            // Debug.Log("Converted Position: " + gridSystem.getPositionByGridPoint(tempVector2.x, tempVector2.y));
+            // Debug.Log("Converted Position: " + gridSystem.GetPositionByGridPoint(tempVector2.x, tempVector2.y));
         }
         else
         {

@@ -19,15 +19,15 @@ public class Growing : MonoBehaviour
     public event Action<float> OnTimeDecrease = delegate { };
 
     bool mediumAlready = false;
-    public bool grew = false; // true if successfully grew
+    public bool hasGrown = false; // true if successfully grew
 
-    private void Awake()
+    void Awake()
     {
         GetComponent<Farming>().enabled = false;
         OnTimeDecrease += HandleTimeChange; // += operator calls the add method on the event
     }
 
-    private void Start()
+    void Start()
     {
         smallTree.gameObject.SetActive(true);
         mediumTree.gameObject.SetActive(false);
@@ -38,7 +38,7 @@ public class Growing : MonoBehaviour
 
     IEnumerator GrowingProcess()
     {
-        if (!grew)
+        if (!hasGrown)
         {
             while (remainingTime > 0)
             {
@@ -50,9 +50,9 @@ public class Growing : MonoBehaviour
                     grownTree.gameObject.SetActive(false);
                     mediumAlready = true;
                 }
-                yield return new WaitForSeconds(0.0167f);
+                yield return new WaitForEndOfFrame();
             }
-            grew = true;
+            hasGrown = true;
         }
         smallTree.gameObject.SetActive(false);
         mediumTree.gameObject.SetActive(false);
