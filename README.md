@@ -1,5 +1,11 @@
 # Unity_Palm_Game_Jam
 
+A game app prototype to help raise awareness of the public towards oil palm sustainability. Built with Unity.  
+<img src="app_screenshot.jpg" alt="first screenshot" width="600"/>
+
+### [Video Presentation Link](https://www.youtube.com/watch?v=lh_wQNoq50E)
+
+## Learning Resources
 ### UI
 1. [New Unity UI Package](https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html)
 2. [How to make UI in UNITY - EASY TUTORIAL](https://www.youtube.com/watch?v=_RIsfVOqTaE)
